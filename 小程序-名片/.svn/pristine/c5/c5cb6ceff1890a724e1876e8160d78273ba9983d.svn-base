@@ -1,0 +1,59 @@
+<import src="../template/template.wxml"/>
+<view class='edit'>
+  <template is="card" data='{{myCardList,...userInfo}}'/>
+</view>
+
+<view class='description'>
+  <view bindtap='aboutMe' data-type='buzz'>
+    <image mode='widthFix' src='../../static/images/hot.png'></image>
+    <text>人气 {{myCardList[0].popIdx}}</text>
+  </view>
+  <view bindtap='aboutMe' data-type='save'>
+    <image mode='widthFix' src='../../static/images/save.png'></image>
+    <text>保存 {{myCardList[0].saveIdx}}</text>
+  </view>
+  <view bindtap='aboutMe' data-type='reliable'>
+    <image mode='widthFix' src='../../static/images/zan.png'></image>
+    <text>靠谱 {{myCardList[0].availableIdx}}</text>
+  </view>
+</view>
+
+<view class='companyDetail'>
+  <view class='companyLogo'>
+    <image src='../../static/images/addImage.png' mode='widthFix'></image>
+  </view>
+  <view class='companyIntroduction'>
+    <view class='companyName'>广东云算盘网络科股份技有限公司</view>
+    <view class='companyType clearfix'>
+      <text>101-200人</text>
+      <text>成立4年</text>
+      <text>信息及软件服务</text>
+      <text>财务</text>
+      <text>金融</text>
+      <text>财税</text>
+      <text>商务服务</text>
+    </view>
+    <view class='clickDetail' wx:if='{{hiddenDetail}}' bindtap='hiddenDetailFun'>
+      展开详情
+    </view>
+  </view>
+</view>
+ <view class='companyWZIntroduction' wx:if='{{!hiddenDetail}}'>
+      广东刘士安网络科技股份有限公司，是提供以工商财税为核心，一体化服务解决方案的公司，公司主营云算盘产品，实现了会计信息化时代的移动互联网财税云概念，面向中小微企业、工商财税中介服务商、财税从业人员等，围绕企业管理数据存储、企业内部管理一体化、财税管理智能化等服务，满足用户经营活动的各种需求。目前，产品已覆盖主流PC、平板及手机操作系统。
+广东刘士安网络科技股份有限公司主营云算盘产品，通过云计算技术与智能化会计技术结合，实现跨终端随时随地工作和查阅，提高工作效率，业务能力和管理水平。目标客户：广大中小微企业、工商财税中介服务商、财税从业人员市场口号：管理无忧，致富无忧。平台使命：让中小微企业发展无忧! 让创业者致富无忧!标识理念：蓝色：互联网代表色；白色，云服务。古代的智慧——圆形算盘：星罗棋布，包罗万象，寓意数字无穷无尽，周而复始，财源滚滚。持续的智慧——五行相生：金木水火土，仁义礼智信，相生相克衍生变化，循环不已，代表着物质，也代表着精神。现代的智慧——云计算：互联互通信息科技，天下互联，信息时代，数据变革，抽象化的却是革命性的。产品拥有智能管理系统、会计电算化系统、数据管理研判系统三个成熟的技术模块，将上述技术无缝融合，创造出快捷好用的纵向技术体系，实现标准化、精细化、自动化服务。
+</view>
+
+<view
+  data-cardId='{{myCardList[0].cardId}}'
+  data-userId='{{myCardList[0].userId}}'
+  class='addMoreInfo' 
+  bindtap='toCardDetail' >
+  <text class='addMoreInfo01'>更多</text>
+  <text class='addMoreInfo02'>添加个人介绍，让好友更了解你111000000222</text>
+</view>
+
+<view class='myCardDetailFooter'>
+  <text class='toIndex' bindtap='backIndex'>回到首页</text>
+  <button class='toSend' open-type='share'>发名片</button>
+</view>
+

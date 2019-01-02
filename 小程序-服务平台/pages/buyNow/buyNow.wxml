@@ -1,0 +1,168 @@
+<wxs src="../template/common.wxs" module="text" />
+
+<scroll-view class="container" scroll-y="true">
+  <view wx:if='{{!chooseMember && !certainChoose}}'>
+    <view 
+      class='message' 
+      bindtap='chooseMember'
+      wx:if='{{bowBuyerList.contactPhone}}'
+    >
+      <view class='left'>{{bowBuyerList.contactStaffName}}</view>
+      <view class='right'>
+        <text class='phone'>{{bowBuyerList.contactPhone}}</text>
+        <text class='email'>{{bowBuyerList.contactEmail}}</text>
+        <text class='area'>{{bowBuyerList.enterpriseName}}</text>
+      </view>
+    </view>
+    <view wx:else  class='message noMessage' bindtap='chooseMember'>
+      点击添加企业买家信息
+    </view>
+
+    <block 
+      wx:for='{{prodGroups}}' 
+      wx:for-index="index" 
+      wx:for-item="item"
+      wx:key='index'
+      >
+      <view class='serviceInfo'>
+        <view class='serviceTitle'>
+          <text class='service'>服务商</text>
+          <text class='name'>{{item.providerFullName}}</text>
+          <text class='level'>Lv7</text>
+        </view>
+      </view>
+      <block
+        wx:for='{{item.items}}' 
+        wx:for-index="subIndex" 
+        wx:for-item="subItem"
+        wx:key='subIndex'
+      >
+        <view class='serviceCenter'>
+        <view class='left'>
+            <text class='title'>{{subItem.prodName}}</text>
+            <view>
+              <text class='area'>
+              服务地区：{{subItem.countyName}}
+              </text>
+              <text class='date'>服务期限：{{subItem.durationName}}</text>
+            </view>
+          </view>
+          <text class='right'>
+            ￥ {{text.formatPrice(subItem.orderPrice)}}
+          </text>
+        </view>
+        <view class='buyNumber'>
+          <text>购买数量</text>
+          <view class='input'>
+            <text class='decrease' bindtap='cutNumber' data-item='{{subItem}}'>-</text>
+            <input type='number' value='{{subItem.quantity}}' data-item='{{subItem}}' bindinput='bindinput'></input>
+            <text class='incerase' bindtap='addNumber' data-item='{{subItem}}'>+</text>
+          </view>
+        </view>
+      </block>
+    </block>
+
+
+    <view class='agree'>
+      提交订单即视为同意<text bindtap='agree'>《爱无忧大三房服务平台声明》</text>
+      <!-- <web-view src="https://www.zhihu.com/question/50963670">去支付</web-view> -->
+    </view>
+    <view class="bottom-btn">
+      <view class="r" bindtap="addToCart">
+        应付金额： <text>￥{{text.formatPrice(totalPrice)}}</text>
+      </view>
+      <view class="c" bindtap='goToPay' data-orderId='{{orderId}}'>
+        提交订单
+      </view>
+    </view>
+  </view>
+
+  <view wx:if='{{chooseMember && !certainChoose}}'>
+    <radio-group>
+      <view 
+        class='message choose' 
+        wx:for='{{buyerList}}' 
+        wx:key="{{index}}" 
+        bindtap='chooseBuyer' 
+        data-id='{{index}}'
+      >
+        <label class='left'>
+          <radio value="{{index}}" checked="{{index == Check ? true : false}}"/>
+          {{item.contactStaffName}}
+        </label>
+        <view class='right'>
+          <text class='phone'>{{item.contactPhone}}</text>
+          <text class='email'>{{item.contactEmail}}</text>
+          <text class='area'>{{item.enterpriseName}}</text>
+        </view>
+        <view 
+          class='edit' 
+          data-value='{{item}}'
+          catchtap='edit'
+        >编辑</view>
+      </view>
+    </radio-group>
+    <button class='addBuyer' bindtap='addBuyer'>添加买家信息</button>
+    <button class='addBuyer back' bindtap='back'>返回</button>
+  </view>
+
+  <view wx:if='{{certainChoose}}'>
+    <form bindsubmit="formSubmit" wx:if="{{type == 'add'}}">
+      <view class="section">
+        <text class='need'>姓名</text><input name="contactStaffName" placeholder="请填写真实姓名" confirm-type="done" />
+      </view>
+      <view class="section">
+        <text class='need'>电话</text><input name="contactPhone" placeholder="请填写常用手机号码" confirm-type="done" />
+      </view>
+       <view class="section">
+        <text class='need'>公司</text><input name="enterpriseName" placeholder="请填写您所在公司名称" confirm-type="done" />
+      </view>
+      <view class="section">
+        <text>邮箱</text><input name="contactEmail" placeholder="请填写您的常用邮箱" confirm-type="done" />
+      </view>
+      <view>
+        <button formType="submit" class='addBuy'>确认添加</button>
+        <button bindtap='certainBack' class='addBuy back'>返回</button>
+      </view>
+    </form>
+
+     <form bindsubmit="editFormSubmit" wx:if="{{type == 'edit'}}">
+      <view class="section">
+        <text class='need'>姓名</text>
+        <input 
+          name="contactStaffName" 
+          placeholder="请填写真实姓名" 
+          value='{{editBuyer.contactStaffName}}'
+          confirm-type="done" />
+      </view>
+      <view class="section">
+        <text class='need'>电话</text>
+        <input 
+          name="contactPhone" 
+          placeholder="请填写常用手机号码" 
+          value='{{editBuyer.contactPhone}}'
+          confirm-type="done" />
+      </view>
+       <view class="section">
+        <text class='need'>公司</text>
+        <input 
+          name="enterpriseName" 
+          placeholder="请填写您所在公司名称" 
+          value='{{editBuyer.enterpriseName}}'
+          confirm-type="done" />
+      </view>
+      <view class="section">
+        <text>邮箱</text>
+        <input 
+          name="contactEmail" 
+          placeholder="请填写您的常用邮箱" 
+          value='{{editBuyer.contactEmail}}'
+          confirm-type="done" />
+      </view>
+      <view>
+        <button formType="submit" class='addBuy'>确认修改</button>
+        <button bindtap='editBack' class='addBuy back'>返回</button>
+      </view>
+    </form>
+  </view>
+</scroll-view>

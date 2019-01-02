@@ -1,0 +1,123 @@
+<template>
+  <div class="Home">
+    <Head-Top head-title='首页'></Head-Top>
+    <ul class="banner-box clearfix">
+      <router-link to="/adviser/search" class='li' v-for='item in typeList'>
+        <img :src="item.imgUrl">
+        <span>{{item.name}}</span>
+      </router-link>
+    </ul>
+    <Search-List :list='list'></Search-List>
+    <Home-Footer></Home-Footer>
+  </div>
+  </div>  
+</div>
+    
+</template>
+
+<script>
+  import { mapState,mapMutations,mapGetters  } from 'vuex'
+  import { consultantSearch } from '@/service/getData'
+  import HeadTop from '@/components/header/head'
+  import SearchList from '@/components/searchList'
+  import HomeFooter from '@/pages/footer'
+
+  export default {
+    name:"Index",
+    data(){
+      return{
+       list: [],
+       typeList: [
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+        {
+          imgUrl: 'https://tianpeng.zbjimg.com/tianpeng/task/%E7%BD%91%E7%AB%99.png/origine/3a34a406-fcaf-44ba-8508-b0abbe057c15',
+          name: 'APP'
+        },
+       ]
+      }
+    },
+    components:{
+      HomeFooter,
+      HeadTop,
+      SearchList
+    },
+    mounted:function(){
+      this.loadMoreFunction()
+    },
+    methods:{
+      ...mapMutations(['SET_LOADING']),
+      async loadMoreFunction () {
+        const that = this
+        that.SET_LOADING(true)
+        await consultantSearch().then(res => {
+          that.list = res.data
+          that.SET_LOADING(false)
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .banner-box {
+    background-color: #fff;
+    padding: 0 0 .3rem;
+    .li {
+      margin: .2rem 0 0;
+      float: left;
+      width: 20%;
+      text-align: center;
+      img {
+        width: 1.22rem;
+        height: 1.22rem;
+      }
+      span {
+        display: block;
+        color: #333;
+        font-size: .3rem;
+        margin-top: .1rem;
+      }
+    }
+  }
+  .module-adviser-list.ceiling {
+    margin-top: .1rem !important;
+    height: auto;
+    margin-bottom: 1.4rem;
+  }
+</style>
+

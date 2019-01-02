@@ -1,0 +1,160 @@
+<wxs src="./common.wxs" module="text" />
+
+<template name="templateItem">
+  <navigator url='/pages/goods/goods?id={{uuid}}&skuId={{id}}'>
+    <view class="info">{{categoryName}} ({{name}})</view>
+    <view class="details">
+       <text class="left">￥ {{text.formatPrice(minPrice)}}</text> 
+      <view class="right">
+        <text>销量 {{salesCount?salesCount:0}}</text>
+        <text>好评率 {{text.formatPcRate(countOfPositiveComments,totalCountOfComments)}}</text>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name="brandDetailtemplateItem">
+  <navigator url='/pages/goods/goods?id={{skuBriefAndSummary.uuid}}&skuId={{skuBriefAndSummary.id}}'>
+    <view class="info">{{name}} ({{skuBriefAndSummary.name}})</view>
+    <view class="details">
+      <text class="left absolute">
+        <text class='actPrice'>￥{{text.formatPrice(skuBriefAndSummary.minPrice)}} 起</text>
+        <!-- <text class='sumPrice'>￥2388 起</text>
+        <text class='pack'>红包特惠</text> -->
+      </text>
+      <text class="left">销量 {{skuBriefAndSummary.salesCount?skuBriefAndSummary.salesCount:0}}</text>
+      <view class="right">
+        <text class='serciceBusiness'>服务商</text><text>{{providerBriefAndSummary.shortName}}</text><text class='level'>Lv2</text>
+        <i class='ico-baoRed'></i>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name="indexItem">
+   <view class="a-section">
+    <view class="h">
+      <view class="txt verticalMiddle">
+        <image src="../../static/images/sect1.gif"></image>我要内容服务
+      </view>
+      <view class='word'>策划、运营、推广、变现一站式服务</view>
+    </view>
+    <view class="b">
+      <navigator class='item' url='/pages/brandDetail/brandDetail?id=1001002'>
+        <text class='itemSubOne'>图文策划制作</text>
+        <text class='itemSubTwo'>专业写手dfgdfg执笔效果好</text>
+        <view class='itemSubImage'>
+          <image src='../../static/images/123.gif' mode='aspectFit'></image>
+        </view>
+      </navigator>
+      <navigator class='item' url='/pages/brandDetail/brandDetail?id=888'>
+        <text class='itemSubOne'>图文策划制作</text>
+        <text class='itemSubTwo'>专业写手执笔效果好</text>
+        <view class='itemSubImage'>
+          <image src='../../static/images/456.gif' mode='aspectFit'></image>
+        </view>
+      </navigator>
+      <navigator class='item' url='/pages/brandDetail/brandDetail?id=1001002'>
+        <text class='itemSubOne'>图文策划制作</text>
+        <text class='itemSubTwo'>专业写手执笔效果好</text>
+        <view class='itemSubImage'>
+          <image src='../../static/images/789.gif' mode='aspectFit'></image>
+        </view>
+      </navigator>
+    </view>
+    <view class="t">
+      <view class='title'>推荐服务</view>
+      <navigator class='item' url='/pages/goods/goods?id=1001002'>
+        <image src='../../static/images/video.gif'></image>
+        <view class='mid'>
+          <view class='top'>
+            商品展示短视频（食品/鞋服/美妆/母婴等）
+          </view>
+          <view class='bottom'>
+            <view>
+              <text class='a'>￥1100</text>
+              <text class='b'>￥1200</text>
+              <text class='c'>红包特惠</text>
+              <text class='d'>销量 5</text>
+            </view>
+          </view>
+        </view>
+        <text class='right'>了解更多</text>
+      </navigator>
+
+       <navigator class='item' url='/pages/goods/goods?id=888'>
+        <image src='../../static/images/video.gif'></image>
+        <view class='mid'>
+          <view class='top'>
+            商品展示短视频（食品/鞋服/美妆/母婴等）
+          </view>
+          <view class='bottom'>
+            <view>
+              <text class='a'>￥1100</text>
+              <text class='d'>销量 5</text>
+            </view>
+          </view>
+        </view>
+        <text class='right'>了解更多</text>
+      </navigator>
+    </view>
+  </view>
+</template>
+
+<!-- 热门服务商 -->
+<template name='hotServiceItem'>
+  <navigator class='item' url='/pages/company/company?id={{id}}'>
+    <view class='left'><image src='{{logoUrl}}' mode='aspectFit'></image></view>
+    <view class='mid'>
+      <view class='top'>
+        <text class='cq'>知识产权</text> 
+        <text class='name'>{{shortName}}</text>
+        <text class='level'>Lv10</text>
+      </view>
+      <view class='cen'>
+        <view class='star'>
+          <i class='ico-starFill'></i>
+          <i class='ico-starFill'></i>
+          <i class='ico-starFill'></i>
+          <i class='ico-star'></i>
+        </view>
+        <text>5.0</text>
+      </view>
+      <view class='bottom'>
+        <text class='e'>销量 {{salesCount}}</text>
+        <text class='e'>好评率 {{text.toFix(pcCount/commentCount*100)}}%</text>
+      </view>
+      <view class='slogan'>
+        <i class='ico-zan'></i> “中国商标注册专业服务机构”
+      </view>
+      <text class='right'>进入店铺</text>
+    </view>
+  </navigator>
+</template>
+
+<template name='copyRight'>
+  <view class='copyRight'>
+    <view>Copyright © 1998 - 2018 Vsss. All Rights Reserved.</view>
+    <view>我的公司 版权所有</view>
+  </view>
+</template>
+
+<template name='cityPicker'>
+  <view wx:if="{{condition}}" class="citypicker">
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="cityPickerChange" class="citybody">
+      <view class="cityheader">
+        <view bindtap="open" class="city-cancel">取消</view>
+        <view bindtap="open" class="city-true">确定</view>
+      </view>
+      <picker-view-column>
+        <view wx:for="{{provinces}}" wx:key="index" style="line-height: 50rpx;padding-left:10rpx;">{{item.name}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{citys}}" wx:key="item" style="line-height: 50rpx;padding-left:10rpx;">{{item}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{countys}}" wx:key="item" style="line-height: 50rpx;padding-left:10rpx;">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+</template>

@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "",
+    "disableScroll": true,
+    "usingComponents": {
+      "v-pickerCity": "/components/pickerCity/index",
+      "v-model": "/components/modal/index"
+    }
+}

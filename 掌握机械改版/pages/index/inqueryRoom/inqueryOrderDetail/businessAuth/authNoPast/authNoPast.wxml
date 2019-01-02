@@ -1,0 +1,42 @@
+<scroll-view scroll-y>
+  <form bindsubmit="formValidate">
+    <view class='formBox mb20'>
+      <view class='inputItem'>
+        <text class='inp_title'>公司名称</text>
+        <text>{{apply.company}}</text>
+      </view>
+      <view class='inputItem pr'>
+        <text class='inp_title'>所在地区</text>
+         <v-city 
+          code='{{apply.area}}'></v-city>
+      </view>
+      <view class='inputItem'>
+        <text class='inp_title'>详细地址</text>
+        <text>{{apply.address}}</text>
+      </view>
+      <view class='inputItem'>
+        <text class='inp_title'>联系人</text>
+        <text>{{apply.linkMan}}</text>
+      </view>
+      <view class='inputItem' style='border-bottom:none'>
+        <text class='inp_title'>联系电话</text>
+        <text>{{apply.mobile}}</text>
+      </view>
+    </view>
+    <view class='uploadGroup'>
+      <view class='frc'>
+        <text class='inp_title'>公司照片</text>
+        <image class='uploadImg' mode="aspectFill" src='{{apply.logoImage}}'></image>
+      </view>
+    </view>
+
+    <view class='backBox'>
+      <text class='back-info'>反馈信息</text>
+      <view class='back-remark'>{{apply.remark}}</view>
+    </view>
+
+    <view class='savaBox'>
+      <button class='sava' bindtap="submit">重新认证</button>
+    </view>
+  </form>
+</scroll-view>

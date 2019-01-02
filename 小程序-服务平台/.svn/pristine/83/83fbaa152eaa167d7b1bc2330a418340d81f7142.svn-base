@@ -1,0 +1,51 @@
+<wxs src="../template/common.wxs" module="text" />
+
+<scroll-view class="container" scroll-y="true">
+  <view class="service-company" style="background-image:url({{backgroundImgUrl}})">
+    <view class="info">
+      <view class="verticalMiddle">
+        <image src="{{providerDetails.logoUrl}}" mode="aspectFit"></image> 
+        <text class="name">{{providerDetails.shortName}}</text> 
+        <text class="level">Lv9</text>
+      </view>
+    </view>
+
+    <view class="census">
+      <view class="left">
+        <view>{{providerDetails.salesCount?providerDetails.salesCount:0}}</view>
+        <view>累计销量</view>
+      </view>
+
+      <view class="left">
+        <view>{{text.formatPcRate(providerDetails.pcCount,providerDetails.commentCount)}}</view>
+          <view>好评率</view>
+      </view>
+
+        <view class="right">
+        <view>完成质量 <text>4.4</text></view>
+        <view>服务态度 <text>4.4</text></view>
+        <view>工作速度 <text>4.4</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="hot">
+    <view class="hot-service">公司简介</view>
+    <view class="content">{{providerDetails.introduction}}</view>
+  </view>
+
+  <view class="hot">
+    <view class="hot-service">业务介绍</view>
+    <view class="content">{{providerDetails.briefIntroduction}}</view>
+  </view>
+
+  <view class="hot">
+    <view class="hot-service">服务案例</view>
+    <view class="content">{{providerDetails.businessDescription}}</view>
+  </view>
+
+  <view class='copyRight'>
+    <view>Copyright © 1998 - 2018 Vsss. All Rights Reserved.</view>
+    <view>我的公司 版权所有</view>
+  </view>
+</scroll-view>

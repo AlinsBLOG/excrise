@@ -1,0 +1,610 @@
+<wxs src = "../../../../utils/wxs.wxs" module = "wxs" />
+
+<loading hidden="{{!showLoading}}">正在加载</loading>
+
+<v-modal 
+  show='{{tijiaoSuccess}}'
+  titleText='报价成功'
+  contentText='你的报价和电话已推送给买家'
+  cancelBtn=true
+  cancelBtnText='查看报价单'
+  certainBtn=true
+  certainBtnText='返回首页'
+  bind:cancel='successBaoJiaCancel'
+  bind:certain='backIndex'
+></v-modal>
+
+<v-modal 
+  show='{{successBaoJia}}'
+  titleText='提交成功'
+  contentText='可选择与报价合适的商家联系沟通'
+  cancelBtn='{{false}}'
+  certainBtn=true
+  certainBtnText='确定'
+  bind:certain='tijiaoSuccessFun'
+></v-modal>
+
+<v-modal 
+  show='{{errShow}}'
+  imgSrc=''
+  titleText='错误提示'
+  contentText='{{errTips}}'
+  cancelBtn='{{false}}'
+  certainBtnText='确认'
+  bind:certain='errCertain'
+></v-modal>
+
+<v-modal 
+  show='{{baojiaFull}}'
+  imgSrc='/images/ziya@2x.png'
+  titleText='本单已报满'
+  contentText='你只差0.1秒 继续加油哟！'
+  cancelBtn='{{false}}'
+  certainBtnText='返回首页'
+  bind:certain='backIndex'
+></v-modal>
+
+<v-modal 
+  show='{{alreadyBaoJia}}'
+  imgSrc='/images/kaixin@3x.png'
+  titleText='你同事已报价'
+  cancelBtn='{{false}}'
+  certainBtnText='返回首页'
+  bind:certain='backIndex'
+></v-modal>
+
+<v-modal 
+  show='{{alreadyBaoJiaInit}}'
+  imgSrc='/images/kaixin@3x.png'
+  titleText='{{alreadyBaoJiaInitText}}'
+  cancelBtn='{{false}}'
+  certainBtnText='确定'
+  bind:certain='alreadyBaoJiaInitFun'
+></v-modal>
+
+  <view 
+    class='inquery_cont'
+    data-id='{{inquiryDetails.providerId}}'
+  >
+    <view class='imgLogo'>
+      <image src='{{inquiryDetails.providerLogo}}'></image>
+    </view>
+    <view class='detailsE'>
+      <view class='inquery_item pl28'>
+        <text class='inquery_name'>{{inquiryDetails.providerName}}</text>
+      </view>
+      <view class='inquery_item pl28'>
+        <text class='inquery_title'>地区</text>
+        <v-city 
+          code='{{inquiryDetails.area}}' 
+          className='inquiry_sn'></v-city>
+        <!-- <text class='inquiry_sn'>{{inquiryDetails.area}}</text> -->
+      </view>
+      <view class='inquery_item pl28'>
+        <text class='inquery_title'>类型</text>
+        <text class='inquiry_sn'>{{inquiryDetails.providerType=='MTS' ? '修理厂':'配件商'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 适用机型 -->
+  <view class='applicableModel'>
+    <text class='typeTitle'>适用机型：</text>
+    <text class='typeName'>{{inquiryDetails.prodModelName}}</text>
+  </view>
+  <!-- 上传的配件图片展示 bindtap="preImg" -->
+  <view class='photoView' wx:if='{{wxs.splitToArr(inquiryDetails.prodImages)}}'>
+    <image
+      wx:for='{{wxs.splitToArr(inquiryDetails.prodImages)}}'
+      src="{{item}}" 
+      bindtap="preImg"
+      mode="aspectFill"
+      wx:key='{{index}}'
+      data-index="{{index}}"
+      data-text="{{item}}"
+    ></image>
+    <!-- <image 
+      src="{{inquiryDetails.prodImages}}" 
+      mode="aspectFill" 
+      data-text="{{inquiryDetails.prodImages}}" -->
+    <!-- ></image> -->
+  </view>
+
+  <view wx:if='{{type == 2}}' class='viewBox'>
+    <!-- 商品规格 -->
+    <view 
+      wx:for="{{inquiryDetailsItem}}" 
+      wx:key="{{index}}"
+      class='viewBoxChild'
+    >
+      <!-- 头部信息 -->
+      <view class='tabelHead'>
+        <view class='searialNum' style='flex:none'>{{index + 1}}</view>
+        <view style='flex:1'>
+          <text class='name'>{{item.prodName}}</text>
+        </view>
+        <view class='f14'>x {{item.prodNum}}</view>
+      </view>
+      <view class='remark' wx:if='{{item.remark}}'>备注：{{item.remark}}</view>
+      <!-- 表格 -->
+      <view class="table mb10 xunjia1">
+        <view class="tr">
+          <view class="th flex1">性质</view>
+          <view class="th flex2">价格(单价)</view>
+          <view class="th flex3">配件描述</view>
+        </view>
+        <view 
+          class="tr {{inquiryDetailsItem[0].offers[itemIndex].offerState==1?'selected':''}}" 
+          wx:for="{{wxs.splitToArr(inquiryDetails.groupLimit)}}" 
+          wx:key="{{itemIndex}}" 
+          wx:for-index="itemIndex" 
+          wx:for-item="itemItems" 
+        >
+          <view class="td flex1">
+            {{itemItems}}
+          </view>
+          <view class="td flex2">
+            <view class='frc'>
+              <text 
+                class='noprice' 
+                wx:if='{{(inquiryDetails.state == 1 && inquiryDetailsItem.length>0 && inquiryDetailsItem[0].offers.length>0) || inquiryDetails.state == 2 || inquiryDetails.state == 3}}'
+              >{{inquiryDetailsItem[index].offers[itemIndex].price ? inquiryDetailsItem[index].offers[itemIndex].price + ' 元':'--'}}</text>
+              <input
+                wx:else
+                class='inp_price'
+                type='digit'
+                data-pIndex='{{index}}'
+                data-name='price'
+                data-iIndex='{{itemIndex}}'
+                bindblur='setOffer'
+              ></input>
+            </view>
+          </view>
+          <view class="td flex3">
+            <text 
+              class='noprice' 
+              wx:if='{{(inquiryDetails.state == 1 && inquiryDetailsItem.length>0 && inquiryDetailsItem[0].offers.length>0) || inquiryDetails.state == 2 || inquiryDetails.state == 3}}'
+            >{{inquiryDetailsItem[index].offers[itemIndex].remark || '--'}}</text>
+            <input
+              wx:else
+              placeholder='如：配件说明、质保等'
+              data-name='remark'
+              data-pIndex='{{index}}'
+              data-iIndex='{{itemIndex}}'
+              bindblur='setOffer' 
+            ></input>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 表格信息结束 -->
+    <view 
+      class='savaBox'
+      wx:if='{{inquiryDetails.state == 1 && inquiryDetailsItem.length>0 &&  !inquiryDetailsItem[0].offers}}'
+    >
+      <button 
+        class='sava'
+        bindtap='submit'
+      >
+        提交报价
+      </button>
+    </view>
+    
+ 
+    <!-- <button 
+      class='close'
+      wx:if='{{inquiryDetails.state == 1 && inquiryDetailsItem.length>0 && inquiryDetailsItem[0].offers.length>0}}'
+    >
+      您已提交报价
+    </button> -->
+    <!-- <button 
+      class='close' 
+      wx:if='{{inquiryDetails.state == 3 && (!dealWithMe)}}'>已完成</button> -->
+    <view 
+      class='pf_footer'
+      wx:if='{{inquiryDetails.state == 3 && dealWithMe}}'
+    >
+      <view class='frc'>
+        <view>
+          合计：￥ <text style='color:#F05B29'>{{inquiryDetails.price}}</text>
+        </view>
+      </view>
+      <!-- <view 
+        class='submit havaOffer'
+        data-phone='{{inquiryDetails.mobile}}'
+        bindtap='mackePhone'>联系商家</view> -->
+    </view>
+  </view>
+  <view wx:else>
+    <block wx:if='{{(inquiryDetails.state == 1 || inquiryDetails.state == 2) && (!inquiryDetails.expire)}}'>
+      <view wx:if='{{inquiryDetailsItemOffer.length > 0}}'>
+        <block
+          wx:key="{{index}}" 
+          wx:for="{{inquiryDetailsItemOffer}}"
+        >
+          <!-- 报价公司 -->
+          <view class='quotationCompany'>
+              <view 
+                class='df'
+                data-id='{{item.providerId}}'
+                bindtap="goBusinessDetail">
+                  <image 
+                    src='{{item.providerLogo}}' 
+                    class='comp_logo'></image>
+                  <view class='compCont'>
+                    <view class='comp_name'>{{item.providerName}}</view>
+                    <view>
+                      <v-city 
+                        code='{{item.providerArea}}' 
+                        className='inquiry_sn'>
+                      </v-city>
+                      <text class='label'>已报价{{item.offerCount || 0}}单</text>  
+                    </view>                  
+                  </view>
+              </view>
+              <view 
+                class='phoneInfo' 
+                data-phone="{{item.phone}}" 
+                bindtap='mackePhone' 
+                data-id="{{item.authen_id}}">
+                  <image 
+                    src='/images/inquiry/phone@2x.png'  
+                    style='width:54rpx;height:54rpx'></image>
+                  <text 
+                    style='color:#F05B29;font-size:26rpx;margin-top:4rpx'>拨打电话</text>
+                </view>
+          </view>
+          <view class=' wraper '>
+            <view class='innerWraper' >
+              <view 
+                wx:for="{{item.offerItemVoList}}" 
+                wx:for-item="offer" 
+                wx:for-index="offerIndex" 
+                wx:key="{{index}}">
+                  <view class='tabelHead'>
+                      <view>
+                          <text class='searialNum'>{{offerIndex + 1}}</text>
+                          <text class='name'>{{offer.prodName}}</text>
+                      </view>
+                      <view class='f14'>x {{offer.prodNum}}</view>
+                  </view>
+                  <view 
+                    class='tableRemarks' 
+                    wx:if="{{offer.itemRemark}}">备注：{{offer.itemRemark}}</view>
+                  <view class="table mb20" style='border-left:0'>
+                      <view class="tr">
+                          <view class="th flex1">性质</view>
+                          <view class="th flex1">价格(单价)</view>
+                          <view class="th flex1">配件描述</view>
+                          <view class="th flex1">选择</view>
+                      </view>
+                      <view 
+                        class="tr" 
+                        wx:for="{{offer.groupList}}" 
+                        wx:for-item="qualityItem" 
+                        wx:for-index="qualityIndex" 
+                        wx:key="qualityIndex">
+                          <view 
+                            class="td flex1">{{qualityItem.groupName}}</view>
+                          <view class="td flex1">
+                          {{qualityItem.price?qualityItem.price+'元':'- -'}}
+                          </view>
+                          <view class="td flex1">
+                          {{qualityItem.remark?qualityItem.remark:'- -'}}
+                          </view>
+                          <view 
+                            class="td flex1"
+                            data-item='{{qualityItem}}'
+                            data-index="{{index}}"
+                            data-itemId='{{offer.itemId}}'
+                            data-reqItemId='{{qualityItem.reqItemId}}'
+                            data-offerIndex="{{offerIndex}}" 
+                            data-qualityIndex="{{qualityIndex}}" 
+                            bindtap='choice_quality' 
+                          >
+                              <checkbox
+                                wx:if='{{qualityItem.price}}'
+                                checked="{{!qualityItem.selected?false:true}}"
+                                class='checkBtn' 
+                              />
+                              <view wx:if='{{qualityItem.state == 1}}'>
+                                <image
+                                  src='/images/inquiry/sucess.jpg' 
+                                  style='width:15px;height:15px'>
+                                </image>
+                              </view>
+                          </view>
+                      </view>
+                  </view>
+              </view>
+            </view>
+          <view>
+
+          <view class='pf_footer' wx:if='{{!selectedNum}}'>
+            <view class='frc'>可选择报价合适的商家联系沟通</view>
+            <view class='submit'>选择报价</view>
+          </view>
+          <view class='pf_footer'wx:if='{{selectedNum}}'>
+            <view class='frc'>
+              <view class='frc'>可选择报价合适的商家联系沟通</view>
+              <!-- <view>
+                共 <text style='color:#F05B29'>{{selectedNum}}</text> 件 合计：￥
+                  <text style='color:#F05B29'>{{totalPrice}}</text>
+              </view> -->
+              </view>
+                <view class='submit havaOffer' bindtap='choiceOffer'>选择报价</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <block wx:if="{{inquiryDetailsItemOffer.length <= 0}}">
+        <view 
+          class='examine'>
+          <image 
+            src='/images/inquiry/20151215110437383.gif' 
+            class='loading'></image>
+          <view class='text'>
+              <view>火速报价中</view>
+          </view>
+        </view>
+      </block>
+    </block>
+
+    <block wx:if='{{inquiryDetails.state == 0 && !inquiryDetails.expire}}'>
+      <view 
+        class='examine'>
+        <image 
+          src='/images/inquiry/20151215110437383.gif' 
+          class='loading'></image>
+        <view class='text'>
+            <view>火速报价中</view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if='{{inquiryDetails.state == 3 && inquiryDetailsItemOffer.length > 0 && chooseWithYou}}'>
+      <block
+        wx:key="{{index}}" 
+        wx:for="{{inquiryDetailsItemOffer}}"
+      >
+        <!-- 报价公司 -->
+        <view class='quotationCompany'>
+            <view 
+              class='df'
+              data-id='{{item.providerId}}'
+              bindtap="goBusinessDetail">
+                <image 
+                  src='{{item.providerLogo}}' 
+                  class='comp_logo'></image>
+                <view class='compCont'>
+                  <view class='comp_name'>{{item.providerName}}</view>
+                  <view>
+                    <v-city 
+                      code='{{item.providerArea}}' 
+                      className='inquiry_sn'>
+                    </v-city>
+                    <text class='label'>已报价{{item.offerCount || 0}}单</text>  
+                  </view>                  
+                </view>
+            </view>
+            <view 
+              class='phoneInfo' 
+              data-phone="{{item.phone}}" 
+              bindtap='mackePhone' 
+              data-id="{{item.authen_id}}">
+                <image 
+                  src='/images/inquiry/phone@2x.png'  
+                  style='width:54rpx;height:54rpx'></image>
+                <text 
+                  style='color:#F05B29;font-size:26rpx;margin-top:4rpx'>拨打电话</text>
+              </view>
+        </view>
+        <view class=' wraper '>
+          <view class='innerWraper' >
+            <view 
+              wx:for="{{item.offerItemVoList}}" 
+              wx:for-item="offer" 
+              wx:for-index="offerIndex" 
+              wx:key="{{index}}">
+                <view class='tabelHead'>
+                    <view>
+                        <text class='searialNum'>{{offerIndex + 1}}</text>
+                        <text class='name'>{{offer.prodName}}</text>
+                    </view>
+                    <view class='f14'>x {{offer.prodNum}}</view>
+                </view>
+                <view 
+                  class='tableRemarks' 
+                  wx:if="{{offer.itemRemark}}">备注：{{offer.itemRemark}}</view>
+                <view class="table mb20" style='border-left:0'>
+                    <view class="tr">
+                        <view class="th flex1">性质</view>
+                        <view class="th flex1">价格(单价)</view>
+                        <view class="th flex1">配件描述</view>
+                        <view class="th flex1">选择</view>
+                    </view>
+                    <view 
+                      class="tr" 
+                      wx:for="{{offer.groupList}}" 
+                      wx:for-item="qualityItem" 
+                      wx:for-index="qualityIndex" 
+                      wx:key="qualityIndex">
+                        <view 
+                          class="td flex1">{{qualityItem.groupName}}</view>
+                        <view class="td flex1">
+                        {{qualityItem.price?qualityItem.price+'元':'- -'}}
+                        </view>
+                        <view class="td flex1">
+                        {{qualityItem.remark?qualityItem.remark:'- -'}}
+                        </view>
+                        <view 
+                          class="td flex1"
+                          data-item='{{qualityItem}}'
+                          data-index="{{index}}"
+                          data-itemId='{{offer.itemId}}'
+                          data-reqItemId='{{qualityItem.reqItemId}}'
+                          data-offerIndex="{{offerIndex}}" 
+                          data-qualityIndex="{{qualityIndex}}" 
+                        >
+                            <view wx:if='{{qualityItem.state == 1}}'>
+                              <image
+                                src='/images/inquiry/sucess.jpg' 
+                                style='width:15px;height:15px'>
+                              </image>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+          </view>
+        <view>
+
+        <view class='pf_footer'>
+          <view class='frc'>
+            <!-- <view>合计：￥<text style='color:#F05B29'>{{inquiryDetails.price}}</text>
+            </view> -->
+            <view class='frc'>可选择报价合适的商家联系沟通</view>
+          </view>
+        </view>
+          </view>
+        </view>
+      </block>
+    </block>
+
+    <block>
+      <view wx:if='{{inquiryDetails.state != -2 && inquiryDetailsItemOffer.length == 0 && inquiryDetails.expire}}'>
+        <view 
+          class='examine experience'>
+          <image src='/images/kaixin@3x.png' class='loading'></image>
+          <view class='text'>
+              抱歉！你需要的配件暂时缺货
+          </view>
+          <text class='reapply'>你可稍后重新发布</text>
+        </view>
+        <view class='savaBox'>
+          <button class='sava' bindtap='applyAgain'>重新发布</button>        
+        </view>
+      </view>
+
+      <block wx:if='{{inquiryDetails.state == -2}}'>
+        <view 
+          class='examine experience'>
+          <image src='/images/kaixin@3x.png' class='loading'></image>
+          <view class='text'>
+              {{inquiryDetails.remark?inquiryDetails.remark:'你可重新填写发布'}}
+          </view>
+          <text class='reapply'>你可稍后重新发布</text>
+        </view>
+        <view class='savaBox'>
+          <button class='sava' bindtap='applyAgain'>重新发布</button>        
+        </view>
+      </block>
+
+      <view wx:if='{{inquiryDetails.state == 3 && inquiryDetailsItemOffer.length > 0 && !chooseWithYou || (inquiryDetailsItemOffer.length > 0 && inquiryDetails.expire)}}'>
+        <block
+          wx:key="{{index}}" 
+          wx:for="{{inquiryDetailsItemOffer}}"
+        >
+          <!-- 报价公司 -->
+          <view class='quotationCompany'>
+              <view 
+                class='df'
+                data-id='{{item.providerId}}'
+                bindtap="goBusinessDetail">
+                  <image 
+                    src='{{item.providerLogo}}' 
+                    class='comp_logo'></image>
+                  <view class='compCont'>
+                    <view class='comp_name'>{{item.providerName}}</view>
+                    <view>
+                      <v-city 
+                        code='{{item.providerArea}}' 
+                        className='inquiry_sn'>
+                      </v-city>
+                      <text class='label'>已报价{{item.offerCount || 0}}单</text>  
+                    </view>                  
+                  </view>
+              </view>
+              <view 
+                class='phoneInfo' 
+                data-phone="{{item.phone}}" 
+                bindtap='mackePhone' 
+                data-id="{{item.authen_id}}">
+                  <image 
+                    src='/images/inquiry/phone@2x.png'  
+                    style='width:54rpx;height:54rpx'></image>
+                  <text 
+                    style='color:#F05B29;font-size:26rpx;margin-top:4rpx'>拨打电话</text>
+                </view>
+          </view>
+          <view class=' wraper '>
+            <view class='innerWraper' >
+              <view 
+                wx:for="{{item.offerItemVoList}}" 
+                wx:for-item="offer" 
+                wx:for-index="offerIndex" 
+                wx:key="{{index}}">
+                  <view class='tabelHead'>
+                      <view>
+                          <text class='searialNum'>{{offerIndex + 1}}</text>
+                          <text class='name'>{{offer.prodName}}</text>
+                      </view>
+                      <view class='f14'>x {{offer.prodNum}}</view>
+                  </view>
+                  <view 
+                    class='tableRemarks' 
+                    wx:if="{{offer.itemRemark}}">备注：{{offer.itemRemark}}</view>
+                  <view class="table mb20" style='border-left:0'>
+                      <view class="tr">
+                          <view class="th flex1">性质</view>
+                          <view class="th flex1">价格(单价)</view>
+                          <view class="th flex1">配件描述</view>
+                          <view class="th flex1">选择</view>
+                      </view>
+                      <view 
+                        class="tr" 
+                        wx:for="{{offer.groupList}}" 
+                        wx:for-item="qualityItem" 
+                        wx:for-index="qualityIndex" 
+                        wx:key="qualityIndex">
+                          <view 
+                            class="td flex1">{{qualityItem.groupName}}</view>
+                          <view class="td flex1">
+                          {{qualityItem.price?qualityItem.price+'元':'- -'}}
+                          </view>
+                          <view class="td flex1">
+                          {{qualityItem.remark?qualityItem.remark:'- -'}}
+                          </view>
+                          <view 
+                            class="td flex1"
+                            data-item='{{qualityItem}}'
+                            data-index="{{index}}"
+                            data-itemId='{{offer.itemId}}'
+                            data-reqItemId='{{qualityItem.reqItemId}}'
+                            data-offerIndex="{{offerIndex}}" 
+                            data-qualityIndex="{{qualityIndex}}" 
+                          >
+                              <view wx:if='{{qualityItem.state == 1}}'>
+                                <image
+                                  src='/images/inquiry/sucess.jpg' 
+                                  style='width:15px;height:15px'>
+                                </image>
+                              </view>
+                          </view>
+                      </view>
+                  </view>
+              </view>
+            </view>
+          <view>
+            </view>
+          </view>
+          <!-- <view class='savaBox'>
+            <button class='sava' bindtap='applyAgain'>重新发布</button>  
+          </view> -->
+        </block>
+      </view>
+    </block>
+  
+  </view>

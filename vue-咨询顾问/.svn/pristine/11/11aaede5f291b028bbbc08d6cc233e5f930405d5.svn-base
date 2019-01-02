@@ -1,0 +1,39 @@
+<template>
+  <div class="Home">
+    <Head-Top head-title='首页'></Head-Top>
+    <Home-Footer></Home-Footer>
+  </div>
+  </div>  
+</div>
+    
+</template>
+
+<script>
+  import { mapState,mapMutations,mapGetters  } from 'vuex'
+  import HeadTop from '@/components/header/head'
+  import HomeFooter from '@/pages/footer'
+
+  export default {
+    name:"Index",
+    data(){
+      return{
+       
+      }
+    },
+    components:{
+      HomeFooter,
+      HeadTop
+    },
+    mounted:function(){
+
+    },
+    methods:{
+      
+    }
+  }
+</script>
+
+<style>
+  
+</style>
+

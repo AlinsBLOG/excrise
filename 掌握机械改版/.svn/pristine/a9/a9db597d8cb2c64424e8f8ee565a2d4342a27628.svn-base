@@ -1,0 +1,5 @@
+/* pages/webView/webView.wxss */
+page {
+    background-color: #eee;
+    width: 100%;
+}

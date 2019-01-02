@@ -1,0 +1,111 @@
+/* pages/index/company/cSearch/cSearch.wxss */
+page{
+    background-color: #f4f4f4;
+    height: 100%;
+    /* overflow-y:hidden; */
+}
+/*search*/
+.search{
+	width: 700rpx;
+	height: 54rpx;
+    padding: 20rpx;
+    z-index: 2;
+}
+.search image{
+	width: 32rpx;
+	height: 32rpx;
+	left:36rpx;
+    top:36rpx;
+}
+.search .empty{
+	width: 30rpx;
+	height: 30rpx;
+	left: 580rpx;
+    top:35rpx;
+    z-index: 99;
+}
+.search input{
+    width: 560rpx;
+    height: 60rpx;
+	background-color: #f6f6f6;
+    border-radius:100px;
+    padding-left:60rpx; 
+}
+.button{
+    width: 90rpx;
+    height: 62rpx;
+    padding: 0;
+    line-height: 62rpx;
+    border: 1rpx solid #dddddd;
+    background-color: #f0f0f0;
+    right:0;
+    top:50%;
+    transform: translateY(-50%);
+    border-radius:3px;
+}
+.ss{
+    background:#f05b29;
+    color: #ffffff;
+    border: 1px solid #f05b29;
+}
+.nothing{
+    width: 100%;
+    height: 94rpx;
+    /* padding-top: 94rpx; */
+}
+/* 排序 */
+.options{
+	width: 100%;
+    height: 90rpx;
+    border-bottom: 1px solid #eee;
+}
+.select{
+	flex:1;
+	height: 80rpx;
+	line-height: 90rpx;
+	text-align: center;
+	color: #666;
+	font-size: 14px;
+}
+.selectAct{
+	color: #fd5f2a;
+}
+.sort{
+	position: absolute;
+	width: 16rpx;
+	height: 16rpx;
+	background-color: #fff;
+	box-sizing: border-box;
+	left: 50%;
+	margin-left: 16px;
+	border: 8rpx solid transparent;
+}
+.asc{
+	bottom: 50%;
+	border-bottom: 8rpx solid #666;
+}
+.desc{
+	top: 60%;
+	border-top: 8rpx solid #666;
+}
+.asc_active{
+	border-bottom: 8rpx solid #fd5f2a;
+}
+.desc_active{
+	border-top: 8rpx solid #fd5f2a;
+}
+/* 格子布局 */
+/* 循环父盒子宽度 */
+.waterfall_box{
+    width: 744rpx;
+    padding-bottom:10rpx; 
+}
+/* 循环子盒子宽高 */
+.waterfall_goods {
+	width: 366rpx;
+	height: 584rpx;
+	margin-right: 7rpx;
+	padding-bottom: 10rpx;
+	float: left;
+  }
+.orange{color: #fd5f2a;}

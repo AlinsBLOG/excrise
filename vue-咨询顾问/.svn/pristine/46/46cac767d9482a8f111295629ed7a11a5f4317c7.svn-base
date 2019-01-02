@@ -1,0 +1,37 @@
+import fetch from '../../config/fetch'
+import { getStore } from '../../config/mUtils'
+
+/**
+ * 用户名登录
+ */
+export const accountLogin = (username, password) => fetch('/mall-portal/authorize/loginByUNP', {username, password}, 'POST')
+
+/**
+ * 手机+验证码登录
+ */
+export const mobileLogin = (mobile, checknum) => fetch('/mall-portal/authorize/loginByMNC', {mobile, checknum}, 'POST')
+
+/**
+ * 登录获取验证码
+ */
+export const getcheckNum = (mobile) => fetch('/mall-portal/sys/checknum/applyWithCheck/'+mobile, {}, 'POST')
+
+/**
+ * 注册获取验证码
+ */
+export const registerGetcheckNum = (mobile) => fetch('/mall-portal/sys/checknum/applyWithoutCheck/'+mobile, {}, 'POST')
+
+/**
+ * 查看手机是否注册
+ */
+export const isAccountExists = (mobile) => fetch('/mall-portal/account/isAccountExists', {mobile})
+
+/**
+ * 成功注册
+ */
+export const registerWithMNC = (data) => fetch('/mall-portal/account/registerWithMNC', data, 'POST')
+
+/**
+ * 申请顾问／保存简历
+ */
+export const umeResumeSave = (data) => fetch('/umeResume/save', data, 'GET')

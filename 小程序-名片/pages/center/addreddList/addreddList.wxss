@@ -1,0 +1,88 @@
+.myCard{
+  background: #fff;
+  font-size: 34rpx;
+  line-height: 3;
+  padding-left: 40rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.myCardImage{
+  /* height: 980rpx; */
+  background: #fff;
+  position: relative;
+  padding: 0 40rpx;
+}
+
+.myCardImage image{
+  width: 100%;
+}
+
+.myCardImage .myCardImageView{
+  padding: 40rpx 0 60rpx;
+}
+
+.myCardImage .createQZ{
+  text-align: center;
+  border-radius: 50rpx; 
+  background: #1D9CE8;
+  color: #fff;
+  line-height: 2.4;
+}
+
+.group .gropuTitle{
+  text-align: center;
+  color: #929CA8;
+  font-size: 32rpx;
+  margin-bottom:30rpx; 
+}
+
+.groupList{
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #F3F3F3;
+}
+
+.groupList .imageGroup{
+  display: flex;
+  width: 140rpx;
+  height: 140rpx;
+  background-color: #E9EDF1;
+  border-radius: 4px;
+  padding: 6rpx;
+  margin-right: 40rpx;
+  flex-wrap: wrap-reverse;
+  overflow: hidden;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.groupList .imageGroup image{
+  width: 48%;
+}
+
+.groupList9 .imageGroup image{
+  width: 31%;
+}
+
+.groupList .groupName{
+  font-size: 36rpx;
+}
+
+.show-btn {
+  margin-top: 100rpx;
+  color: #22cc22;
+}
+
+.modalFix .modalBox{
+  position:absolute;
+  left:5%;
+  top:5%;
+}
+
+.headImageBox{
+  position: absolute;
+  right:3%;
+  top:24%;
+}

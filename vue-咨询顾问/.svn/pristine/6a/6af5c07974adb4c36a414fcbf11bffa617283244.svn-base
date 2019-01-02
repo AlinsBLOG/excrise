@@ -1,0 +1,47 @@
+<template>
+    <section>
+        <router-view/>
+        <svg-icon></svg-icon>
+        <mt-spinner type="triple-bounce" color="#26a2ff" class="loading-class" v-show='loading'></mt-spinner>
+    </section>
+</template>
+
+<script>
+    import rem from '../config/rem.js'
+    import svgIcon from '../config/svg'
+    import { mapMutations, mapState } from 'vuex'
+    import { getStore } from '../config/mUtils'
+    export default {
+        name: 'app',
+        components: { svgIcon },
+        computed: {
+            ...mapState(['userInfo', 'loading'])
+        },
+        mounted:function(){
+            this.initData()
+        },
+        methods: {
+            ...mapMutations(['SET_USERINFO']),
+            initData(){
+                if (!this.userInfo) {
+                    let info = JSON.parse(getStore('userInfo'))
+                    if (info && info.id) {
+                      this.SET_USERINFO(info)
+                    }
+                }
+            },
+        },
+    }
+</script>
+
+<style lang="scss">
+    @import 'styles/style.scss';
+    @import './fon/iconfont.css';
+
+    .loading-class{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>

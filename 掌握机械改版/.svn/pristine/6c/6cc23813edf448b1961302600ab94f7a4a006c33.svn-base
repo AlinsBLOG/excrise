@@ -1,0 +1,93 @@
+<scroll-view style='100%' scroll-y="true">
+  <view class="portrait pr" catchtap="login">
+    <view class="portrait_img">
+      <image src="{{avatarImg}}"></image>
+    </view>
+    <view class='portrait_img_right'>
+      <view class=".white username f14" wx:if='{{registerInfo.providerName}}'>{{registerInfo.providerName}}</view>
+      <view class=".white usertext f14">{{nickName}}</view>
+    </view>
+  </view>
+  
+  <!-- 我的订单 -->
+  <view class="myorder mb20">
+    <view class="title" data-current="0" bindtap='toMyOrder'>
+      <text class="fl order_me fow">我的订单</text>
+      <view class="fr">
+        <text class="allOrder f11 fow">查看全部订单</text>
+        <image class="more" src="/images/icons/me/myOrder/more.png"></image>
+      </view>
+    </view>
+    <!-- 订单状态栏 -->
+    <view class="orderStatus frc f10">
+      <view class='fcc pr' data-current="1" bindtap='toMyOrder'>
+        <text class='iconfont icon-pay payIcon'></text>
+        <text class='fow f12'>待付款</text>
+        <view class="badge pa tc f12" wx:if="{{order1 > 0}}">{{order1>99?"99":order1}}</view>
+      </view>
+      <view class="fcc pr" data-current="2" bindtap='toMyOrder'>
+        <text class='iconfont icon-send payIcon'></text>
+        <text class='fow f12'>待发货</text>
+        <view class="badge pa tc f12" wx:if="{{order2 > 0}}">{{order2>99?"99":order2}}</view>
+      </view>
+      <view class="fcc pr" data-current="3" bindtap='toMyOrder'>
+        <text class='iconfont icon-deliver payIcon'></text>
+        <text class='fow f12'>待收货</text>
+        <view class="badge pa tc f12" wx:if="{{order3 > 0}}">{{order3>99?"99":order3}}</view>
+      </view>
+      <view class="fcc pr" data-current="4" bindtap='toMyOrder'>
+        <text class='iconfont icon-comment payIcon'></text>
+        <text class='fow f12'>待评价</text>
+        <view class="badge pa tc f12" wx:if="{{order4 > 0}}">{{order4>99?"99":order4}}</view>
+      </view>
+      <view bindtap="showAfterSaleModal" class="fcc">
+        <text class='iconfont icon-refund payIcon'></text>
+        <text class='fow f12'>退货/售后</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 报价商家 ---- 求购系统状态栏 -->
+  <view class="myorder mb20">
+    <view class="orderStatus frc f10" style='height:162rpx'>
+      <view class='fcc pr' bindtap='goMyInquiry' data-type="2">
+        <image class="mb20 inquiryIcon" src="/images/inquiry/my/form@2x.png"></image>
+        <text class='fow f14 fw'>我的报价单</text>
+      </view>
+      <view class="fcc pr" bindtap='goMyInquiry' data-type="1">
+        <image class="mb20 inquiryIcon" src="/images/inquiry/my/calendar@2x.png"></image>
+        <text class='fow f14 fw'>我的询价单</text>
+      </view>
+    </view>
+  </view>
+  <!-- 报价商家 ---- 求购系统状态栏 -->
+
+  <!-- 求购系统-员工管理 authen_id为0就没有员工管理，否则有) -->
+  <view class="list favorBox frc mb20" bindtap="toEmplManage">
+    <view class='frc'>
+      <image class="listIcon" src="/images/inquiry/my/friend@2x.png"></image>
+      <text class="f14 fow">员工管理</text>
+    </view>
+    <view class='frc'>
+      <text class='f12' style='color:#999;margin-right:20rpx;'>添加或删除员工子账号</text>
+      <image class='more' src="/images/icons/me/right.png"></image>
+    </view>
+  </view>
+
+  <!-- 电话客服 -->
+  <view class="list favorBox frc">
+    <view class='frc'>
+      <text class='iconfont icon-phone favorIcon f20'></text>
+      <text class="f14 fow">电话客服：{{servicePhone || '020-82037895'}}</text>
+    </view>
+    <image class='more' src="/images/icons/me/right.png"></image>
+  </view>
+  <!-- 分享 -->
+  <!-- <button class="share pf" open-type='share'>
+    <image class="db pa" src="/images/icons/me/share.png"></image>
+    <text class="f10 db pa">分享</text>
+  </button> -->
+  <view class='closeBtn' wx:if='{{userInfo}}'>
+    <view bindtap='close'>退出登陆</view>
+  </view>
+</scroll-view>

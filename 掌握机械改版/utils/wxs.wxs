@@ -1,0 +1,42 @@
+var filName = function(state) {
+  if (state == 0) return "quotation_bg";
+  switch (state) {
+    case 1:
+      return "quotation_bg";
+      break;
+    case 2:
+      return "success_bg";
+      break;
+    case 3:
+      return "success_bg";
+      break;
+    case -2:
+      return "backed";
+      break;
+   
+  }
+}
+
+
+var splitToArr = function (groupLimit) {
+  if (groupLimit) return groupLimit.split(',')
+}
+
+var lastString = function (list) {
+  if (list) {
+    var arr = list.split(',')
+    return arr[arr.length - 1]
+  }
+}
+
+// var formatTime = function(date){
+//   return moment(date).format("YYYY-MM-DD HH:mm:ss")
+// }
+
+module.exports = {
+  filName: filName,
+  splitToArr: splitToArr,
+  lastString: lastString
+}
+
+//<wxs src = "../../../../utils/wxs.wxs" module = "wxs" />

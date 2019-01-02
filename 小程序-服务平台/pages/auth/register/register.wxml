@@ -1,0 +1,85 @@
+<view class="container">
+   <view class="form-item">
+    	<input 
+        class="mobile" 
+        value="{{mobile}}" 
+        bindinput="bindMobileInput" 
+        placeholder="请输入您的手机号码" 
+        auto-focus
+      />
+    		<image 
+          wx:if="{{ mobile.length > 0 }}" 
+          id="clear-mobile" 
+          class="clear" 
+          src="/static/images/clear_input.png" 
+          catchtap="clearInput"
+        >
+        </image>
+    </view>
+
+		<view class="form-item-code" >
+			<view class="code-item form-item">
+				<input 
+          class="code" 
+          value="{{code}}" 
+          bindinput="bindCodeInput" 
+          placeholder="请输入验证码"
+        />
+				<image 
+          class="clear" 
+          id="clear-code" 
+          wx:if="{{ code.length > 0 }}" 
+          src="/static/images/clear_input.png" catchtap="clearInput"
+        >
+        </image>
+			</view>
+      <view wx:if='{{!selected}}' class='getCode' bindtap='getphone'>
+        获取验证码
+      </view> 
+      <view wx:else class='getCode laterCode'>
+        {{second}}s 后重新获取
+      </view>
+		</view>
+
+     <view class="form-item-code">
+      <view class="form-item">
+      	<input 
+          class="mobile" 
+          type='password'
+          value="{{password}}" 
+          bindinput="bindPasswordInput" 
+          placeholder="请输入新密码" 
+          auto-focus
+        />
+    		<image 
+          wx:if="{{ password.length > 0 }}" 
+          id="clear-password" 
+          class="clear" 
+          src="/static/images/clear_input.png" 
+          catchtap="clearInput"
+        >
+        </image>
+      </view>
+    </view>
+
+		<view class="form-item-code" >
+			<view class="form-item">
+				<input 
+          class="code passwordItem" 
+          type='password'
+          value="{{passwordAgain}}" 
+          bindinput="bindPasswordAgainInput" 
+          placeholder="请重新输入密码"
+        />
+				<image 
+          class="clear" 
+          id="clear-passwordAgain" 
+          wx:if="{{ passwordAgain.length > 0 }}" 
+          src="/static/images/clear_input.png" catchtap="clearInput"
+        >
+        </image>
+			</view>
+		</view>
+
+    <button type="primary" class="login-btn" bindtap="register">注册</button>
+</view>

@@ -1,0 +1,51 @@
+.description{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140rpx 0 0;
+  background: #fff;
+}
+
+.description>view{
+  flex: 1;
+  line-height: 2.5;
+}
+
+.description image{
+  width: 30rpx;
+  vertical-align: middle;
+}
+
+.description text{
+  color: #62C4FF;
+  font-size: 28rpx;
+  margin-left: 8rpx;
+  vertical-align: middle;
+}
+
+.description .cancelZan{
+  color: #999999;
+}
+
+.createCard,.saveCard{
+  width: 38%;
+}
+
+.changeCard{
+  width: 95%;
+}
+
+.modalFix .modalBox{
+  position:absolute;
+  left:5%;
+  top:5%;
+}
+
+.changeCardHeadBox{
+  box-shadow: 0 2px 2px #CEE3F7;
+}
+
+.actionButton {
+  margin-top: 0;
+}

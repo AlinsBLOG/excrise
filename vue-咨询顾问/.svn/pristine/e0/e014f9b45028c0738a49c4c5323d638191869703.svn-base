@@ -1,0 +1,124 @@
+<template>
+  <div class="Home">
+    <Head-Top head-title='登录' go-back='true'></Head-Top>
+    <div class="login">
+      <mt-field label="手机号码" placeholder="手机号码" type="text" v-model="mobile"></mt-field>
+      <!-- <mt-field label="密码" placeholder="密码" type="password" v-model="password"></mt-field> -->
+      <mt-field label="验证码" placeholder="请输入验证码" v-model="checknum" disableClear>
+        <mt-button size="small" type="primary" :disabled="ButtonDisabled" @click.native="handleClick">{{captchaText}}</mt-button>
+      </mt-field>
+      <mt-button type="primary" size="large" class="login-btn" @click.native="submit">登录</mt-button>
+      <router-link to="/register" class="register">注册帐号 ?</router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations, mapGetters  } from 'vuex'
+import { validatePhone, validateEmail, setStore } from '../../../config/mUtils'
+import  { Toast } from "mint-ui"
+import HeadTop from '@/components/header/head'
+import HomeFooter from '@/pages/footer'
+import { accountLogin, getcheckNum, mobileLogin } from '@/service/getData'
+ 
+export default {
+  name: "Adviser",
+  data () {
+    return{
+      mobile: '',
+      password: '',
+      checknum: '',
+      captchaText: '获取验证码',
+      ButtonDisabled: false,
+      number: 5
+    }
+  },
+  components: {
+    HomeFooter,
+    HeadTop
+  },
+  mounted: function () {
+
+  },
+  computed: {
+    ...mapState([
+        'userInfo','loading'
+    ]),
+  },
+  methods:{
+    ...mapMutations(['SET_USERINFO','SET_LOADING']),
+
+    async handleClick (e) {
+      const that = this
+      if (!validatePhone(this.mobile)) {
+        Toast('请输入正确的手机号码')
+        return
+      }
+      that.SET_LOADING(true)
+      let res = await getcheckNum(this.mobile)
+      that.SET_LOADING(false)
+      var sintv = setInterval(function(){
+        let number = that.number
+        if (number < 1) {
+          that.ButtonDisabled = false
+          that.number = 5
+          that.captchaText = "获取验证码"
+          clearInterval(sintv)
+          return
+        }
+        that.ButtonDisabled = true
+        that.number = number-1
+        that.captchaText = number + ' s'
+      },1000)
+    },
+
+    async submit (e) {
+      // Toast({
+      //   message: '操作成功',
+      //   position: 'middle',
+      // });
+      const that = this
+      if (!validatePhone(this.mobile)) {
+        Toast('请输入正确的手机号码')
+        return
+      }
+      if (!this.checknum) {
+        Toast('请输入收到的验证码')
+        return
+      }
+
+      that.SET_LOADING(true)
+      let res = await mobileLogin(this.mobile, this.checknum)
+      if (res.success) {
+        this.SET_USERINFO(res.data)
+        setStore('userInfo', res.data)
+        this.$router.go(-1)
+      } else {
+        Toast(res.message)
+      }
+      that.SET_LOADING(false)
+    },
+
+    register () {
+      
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .login {
+    margin-top: .1rem;
+    .login-btn {
+      width: 95%;
+      margin: .5rem auto .4rem;
+    }
+    .register {
+      float: right;
+      font-size: .3rem;
+      color: #3b95e9;
+      margin-right: .3rem;
+    }
+  }
+</style>
+

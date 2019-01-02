@@ -1,0 +1,121 @@
+page{
+  width: 100%;
+  background: #eee;  
+  position: relative;
+}
+
+.container{
+  margin: 0 auto;
+  width: 580rpx;
+  position: relative;
+  background: #eee;  
+  padding-top: 60rpx;
+}
+
+.container .image{
+  width:450rpx;
+  margin:0 auto 40rpx;
+}
+
+.container .image image{
+  width: 100%;
+}
+
+.container .loginInput{
+  width: 580rpx;
+  margin: 0 auto;
+  font-size: 0;
+}
+
+.container .loginInput input{
+  display: inline-block;
+  width: 550rpx;
+  height: 88rpx;
+  color: #000;
+  border: none;
+  background: #fff;
+  border-radius: 4px;
+  padding-left: 30rpx;
+  font-size: 32rpx;
+  -webkit-appearance: none;
+}
+
+.container .loginInput input:first-child{
+  border-bottom: 1px solid #eaeaea;
+}
+
+.loginButton{
+  background: #146fdf;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 32rpx;
+  margin-top: 30rpx;
+}
+
+.loginOne{
+  border-radius: 4px;
+  color: #146fdf;
+  background: #e7e7e7;
+  font-size: 32rpx;
+  margin-top: 30rpx;
+  outline: none;
+  border: 1px solid #9abbe3;
+}
+
+.forget{
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.forget view,.forget navigator{
+  color: #246183;
+  padding: 30rpx 10rpx;
+}
+
+.errorTips{
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  opacity: .95;
+}
+
+.errorTips .content{
+  position: relative;
+  display: block;
+  padding: 40rpx 30rpx;
+  border-radius: 10rpx;
+  background-color: #525C5F;
+}
+
+.errorTips .content .text{
+  display: inline-block;
+  font-size: 28rpx;
+  color: #fff;
+  padding: 0 0 0 15rpx;
+  vertical-align: middle;
+}
+
+.errorTips .exclamationMark{
+  display: inline-block;
+  width: 35rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.other-button-hover-login {
+  background-color: blue;
+  opacity: .7;
+}
+
+.other-button-hover-loginWX {
+  opacity: .7;
+}

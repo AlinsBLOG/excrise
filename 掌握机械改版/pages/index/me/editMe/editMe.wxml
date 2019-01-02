@@ -1,0 +1,39 @@
+<form bindsubmit="comfirmAdd">
+  <view class='imgBox'>
+    <view>头像</view>
+    <image 
+      src='{{avatarImg}}'
+      mode='aspectFit'
+      bindtap='changeImg'
+    ></image>
+  </view>
+  <view class='box'>
+    <view class='register'>
+      <text class='dec'>真实姓名</text>
+      <input 
+        class='inp' 
+        name="realName"
+        value="{{realName}}"></input>
+    </view>
+  </view>
+  <view class='box'>
+    <view class='register'>
+      <text class='dec'>手机号</text>
+      <input 
+        class='inp' 
+        name="mobile" 
+        value='{{mobile}}'
+        type='number'></input>
+    </view>
+  </view>
+  <view class='box'>
+    <view class='register'>
+      <text class='dec'>昵称</text>
+      <input 
+        class='inp' 
+        name="nickName"
+        value='{{nickName}}'></input>
+    </view>
+  </view>
+  <button class='comfirmBtn' form-type="submit">确定修改</button>
+</form>

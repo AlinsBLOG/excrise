@@ -1,0 +1,40 @@
+<view class='createHead clearfix' bindtap='toLogin'>
+  <view class='left'>
+    <image mode='widthFix' src='{{defaultImage?defaultImage:globalImage}}'></image>
+  </view>
+  <view class='right'>
+    <view wx:if='{{userInfo.id}}'>
+      <!-- <view class='name'>{{userInfo.nickName}}</view> -->
+      <view class='phone'>{{userInfo.mobile}}</view>
+    </view>
+    <view wx:else class='creatBu'>
+      登录创建电子名片
+    </view>
+  </view>
+</view>
+
+<view class='mySelfMore'>
+   <view class='item' data-type='hot' bindtap='toPage'>
+      <image src='../../../static/images/hot.png' mode='widthFix'></image>
+      人气榜
+    </view>
+    <view class='item'>
+      <image src='../../../static/images/hot02.png' mode='widthFix'></image>
+      我的需求
+    </view>
+    <view class='item' data-type='message' bindtap='toPage'>
+      <image src='../../../static/images/hot02.png' mode='widthFix'></image>
+      消息提示
+    </view>
+</view>
+
+<view class='mySelfMore'>
+   <view class='item'>
+      <image src='../../../static/images/hot04.png' mode='widthFix'></image>
+      隐私设置
+    </view>
+</view>
+
+<view class='changeAccount' bindtap='changeAccount'>
+  更换账户
+</view>

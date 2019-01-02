@@ -1,0 +1,94 @@
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<scroll-view class="body" scroll-y="{{isScroll}}" scroll-top="{{scrollTop}}" scroll-with-animation="{{true}}" bindscrolltolower="getMoreList" bindscrolltoupper="returnTop" bindscroll="containerScroll" wx:if="{{!showLoading}}">
+<view class="view_height" id="mjltest">
+    <!-- 商家信息 -->
+<view class="img_bg">
+    <image  mode="widthFix" src="{{brandData.img_bg}}" style="width:100%;"></image>
+</view>
+<view class="supply_company bb pr bgf">
+	<image class="company_logo db fl pa" src="{{brandData.img}}"></image>
+	<view class="company_nav pa">
+        <view class="supply_title f13 black">{{brandData.name}}</view>
+	    <view class="f11 textoh black">在售商品<text class="orange">{{brandData.goods_count}}</text>件/已浏览<text class="orange">{{brandData.browse}}</text>次</view>
+    </view>
+</view>
+<view class="content f12 bgf pr {{isHidden?'text_hidden':''}}" catchtap="showText">
+    {{brandData.info}}
+</view>
+<view class="fold bgf pr mb20" catchtap="showText"><image class="pa" src="/images/icons/company/{{isHidden?'unfold':'upfold'}}.png"></image></view>
+</view>
+<!-- 排序 -->
+<view class="options bgf flex-row pr {{fix?'pf a':''}}" style="z-index:5;">
+    <view class="select {{selectValue == 1 ? 'orange' : ''}}" catchtap="select1">人气</view>
+    <view class="select {{selectValue == 2 ? 'orange' : ''}}" catchtap="select2">销量</view>
+    <view class="select {{selectValue == 3 ? 'orange' : ''}}" catchtap="select3">新品</view>
+    <view class="select pr {{selectValue > 3 ? 'orange' : ''}}" catchtap="select45">
+        价格
+        <view class="sort desc {{selectValue == 4 ? 'desc_active' : ''}}"></view>
+        <view class="sort asc {{selectValue == 5 ? 'asc_active' : ''}}"></view>
+    </view>
+</view>
+<!-- 筛选 -->
+<view class="options bgf pr {{fix?'pf b':''}}" style="z-index:5;">
+    <view class="filtrate fl f12 {{filValue == 2 ? 'orange' : ''}}" catchtap="filtrate2">{{filValue == 2 ? '产品类型▲' : name2+'▼'}}</view>
+</view>
+<!-- 产品类型 -->
+<view class="mask3" wx:if="{{fix}}" ></view>
+<view class="mask2 pf a" wx:if="{{filValue == 2}}" catchtap="closeMask"></view>
+<view class="mask pf c" wx:if="{{filValue == 2}}" catchtap="closeMask">
+    <scroll-view class="goodsType bgf" scroll-y>
+        <view wx:for="{{ list.select.type }}"  wx:key="{{index}}" class="ulLis bgf f12 tl fow {{nextType==item.id?'orange':''}}" catchtap="changeType" id="{{item.id}}" data-text="{{item.name}}">
+            {{item.name}}
+        </view>
+    </scroll-view>
+</view>
+<!-- 格子布局 -->
+<view class="waterfal oh pb6" >
+    <view class="waterfall_box">
+        <view class="waterfall_goods pr" wx:for="{{ cGoodsData }}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+            <view class="waterfall_img">
+                <image src="{{item.img_show}}"></image>
+            </view>
+            <view class="ml10 mt10 f30 fow textoh2 p15" style="height:76rpx;line-height:38rpx"><text class="rec_company_label white f10" wx:for="{{item.brand_label}}" wx:key="{{index}}">{{item}}</text> {{item.title}}</view>
+            <view class="rec_goodstip p15">
+                <!-- 优惠XX元 -->
+                <text class="rec_goods_label f10 fow" wx:if="{{item.disparity != 0}}" wx:key="{{index}}">优惠{{item.disparity}}元</text>
+                <!-- 商品标签 -->
+                <text class="rec_goods_label f10 fow" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+            </view>
+            <view class="ml10 mt10 orange f16 p14 fow" style="width:100%;">
+                ￥{{item.nowprice}}
+                <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</text>
+            </view>
+            <view class="rec_company f10 gray pl10 pr"><view class="textoh" style="width:70%;">{{item.company_title}}</view><view class="pa" style="right:20rpx;bottom:0;">{{item.s_city}}</view></view>
+        </view>
+    </view>
+</view>
+<view>
+    <view class="page-loading" wx:if="{{showMore==0}}">点击或上拉加载更多</view>
+    <view class="page-loading" wx:if="{{showMore==1}}">
+        <image src="/images/loading.gif"></image>
+        玩命加载中...
+    </view>
+    <view class="page-loading" wx:if="{{showMore==2}}">已经到底啦</view>
+</view>
+<!-- 分享 -->
+<button class="share pf" catchtap="" open-type='share'>
+    <image class="db pa" src="/images/icons/me/share.png" ></image>
+    <text class="f10 db pa tc">分享</text>
+</button>
+<!-- 找客服 -->
+<button class="service pf" open-type='contact'  session-from="weapp" send-message-title="{{brandData.name}}" send-message-path="{{'/pages/index/brand/brand?id='+brandData.id+'&title='+brandData.name}}" send-message-img="{{brandData.img}}" show-message-card="true">
+    <image class="db pa" src="/images/icons/details/service.png" ></image>
+    <text class="f10 db pa tc">找客服</text>
+</button>
+<view class="service_green pf" animation="{{animation}}">
+    <image class="db pa" src="/images/icons/details/green.png"></image>
+    <text class="f13 db pa tc">欢迎光临，有问题记得来问我哦</text>
+</view>
+<!-- 回到顶部 -->
+<view class="returnTop bgf pf" wx:if="{{showReturn}}" catchtap="returnTop">
+    <image class="return_img db" src="/images/icons/index/top.png"></image>
+    <view class="tc f8">顶部</view>
+</view>
+</scroll-view>

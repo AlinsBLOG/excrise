@@ -1,0 +1,158 @@
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<!--pages/index/class/class.wxml-->
+<!-- 商品店铺切换 -->
+<view class="top bb tc pf bgf" style="z-index:50;" wx:if="{{!showLoading}}">
+	<view class="top_text f14 bb pr fow">
+		<view class="class_text fl  {{ pageIndex == 1 ? '' : 'orange' }}" data-index="0" catchtap="changePage">商品</view>
+		<view class="class_text fr {{ pageIndex == 1 ? 'orange' : '' }}" data-index="1" catchtap="changePage">店铺</view>
+		<view class="top_bottomline {{ pageIndex == 1 ? 'line_right' : '' }}"></view>
+	</view>
+</view>
+<!-- 商品 -->
+    <view class="banner pf" style="top: 0%;left:{{ pageIndex == 1 ? '-100%' : '0%' }};"  wx:if="{{!showLoading}}">
+        <scroll-view scroll-y class="banner" bindscrolltolower="{{searchNull?'getLikeList1':'getMoreList'}}">
+            <view class="bgf" style="width:100%;height:90rpx;"></view>
+            <view class="container bb pr">
+                <view class="mb20 bgf">
+                    <view class="rec_goodsbox bb oh pr" wx:for="{{list}}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+                        <view class="recGoods pa bb oh bgf" style="{{item.txtStyle || ''}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}">
+                            <image class="rec_image db fl" src="{{item.img_show}}"></image>
+                            <view class="rec_goodsinfo fl">
+                                <view class="rec_goodsname textoh2 f30 mt10 fow "><text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.title}}</view>
+                                <view class="rec_goodstip">
+                                    <!-- 优惠XX元 -->
+                                    <text class="rec_goods_label f10" wx:if="{{item.disparity != 0}}" wx:key="{{index}}">省{{item.disparity}}元</text>
+                                    <!-- 商品标签 -->
+                                    <text class="rec_goods_label f10" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+                                </view>
+                                <view class="rec_goodsprice price orange">￥{{item.nowprice}}
+                                    <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</text>
+                                </view>
+                                <view class="rec_company f10 gray mt10 pr">{{item.company_title}}<text class="pa" style="right:0;">{{item.s_city}}</text></view>
+                            </view>
+                        </view>
+                        <view class="rec_del fl pa f14" catchtap="delItem" data-text="{{item}}"  data-index="{{index}}">删除</view>
+                    </view>
+                </view>
+                <view wx:if="{{!searchNull}}">
+                    <view class="page-loading" catchtap="getMoreList" wx:if="{{showMore1==0}}">点击或上拉加载更多</view>
+                    <view class="page-loading" wx:if="{{showMore1==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMore1==2}}">已经到底啦</view>
+                </view>
+                <view class="searchNull pr" wx:if="{{searchNull}}">
+                    <view style="width:100%;height:640rpx;">
+                        <image class="null_image pa" src="/images/icons/me/null.png"></image>
+                        <view class="null_title f15 pa">暂无收藏的商品</view>
+                        <view class="null_text f12 pa">可以去看看有哪些想采购的</view>
+                    </view>
+                    <view class="rec_title tc f16 pr bgf">- 猜你喜欢 -</view>
+                    <view class="waterfal oh pb6">
+                        <view class="waterfall_box">
+                            <view class="waterfall_goods pr" wx:for="{{ likeList }}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+                                <view class="waterfall_img">
+                                    <image src="{{item.img_show}}"></image>
+                                </view>
+                                <view class="ml10 mt10 f30 textoh2 p15 fow" style="height:76rpx;"><text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.title}}</view>
+                                <view class="rec_goodstip p15">
+                                    <!-- 优惠XX元 -->
+                                    <text class="rec_goods_label f10 fow" wx:if="{{item.disparity != 0}}" wx:key="{{index}}">省{{item.disparity}}元</text>
+                                    <!-- 商品标签 -->
+                                    <text class="rec_goods_label f10 fow" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+                                </view>
+                                <view class="ml10 mt10 orange f16 p14 fow">
+                                    ￥{{item.nowprice}}
+                                    <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</text>
+                                </view>
+                                <view class="rec_company f10 gray pl10 pr"><view class="textoh" style="width:70%;">{{item.company_title}}</view><view class="pa" style="right:20rpx;bottom:0;">{{item.s_city}}</view></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:if="{{searchNull}}">
+                    <view class="page-loading" catchtap="getLikeList1" wx:if="{{showMore3==0}}">点击或上拉加载更多</view>
+                    <view class="page-loading" wx:if="{{showMore3==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMore3==2}}">已经到底啦</view>
+                </view>
+            </view>
+        </scroll-view>
+	</view>
+<!-- 店铺 -->
+    <view class="banner pf" style="top: 0%;left:{{ pageIndex == 1 ? '0%' : '100%' }};"  wx:if="{{!showLoading}}">
+        <view class="container bb pr">
+            <scroll-view scroll-y class="banner" bindscrolltolower="{{companyNull?'getLikeList2':'getMoreCompany'}}">
+                <view class="" style="width:100%;height:90rpx;"></view>
+                <view wx:for="{{companyData}}" wx:key="{{index}}" catchtap="goCompany" id="{{item.id}}" data-text="{{item.title}}">
+                    <view class="supply_company bb pr bgf">
+                        <image class="company_logo db fl pa" src="{{item.img_logo}}"></image>
+                        <view class="supply_title f13 black">{{item.title}}</view>
+                        <view class="f11 textoh black">{{item.c_info}}</view>
+                        <view class="collect f10 pa" catchtap="delCompany" data-text="{{item}}"  data-index="{{index}}">取消收藏</view>
+                    </view>
+                    <!-- 热销 -->
+                    <scroll-view class="supply_goods mb20 bgf"  scroll-x>
+                        <view class="pl25">
+                            <view class="supply_goodsbox" wx:for="{{item.goods}}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+                                <view class="supply_goodsimage">
+                                    <image src="{{item.img_show}}"></image>
+                                </view>
+                                <view class="supply_goodsname textoh2 f12 mt10 fow">{{item.title}}</view>
+                                <view class="tc f12 orange mt10 fow">￥{{item.nowprice}}</view>
+                                <view class="tc f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </view>
+                <view wx:if="{{!companyNull}}">
+                    <view class="page-loading" catchtap="getMoreCompany" wx:if="{{showMore2==0}}">点击或上拉加载更多</view>
+                    <view class="page-loading" wx:if="{{showMore2==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMore2==2}}">已经到底啦</view>
+                </view>
+                <view class="searchNull pr" wx:if="{{companyNull}}">
+                    <view style="width:100%;height:640rpx;">
+                        <image class="null_image pa" src="/images/icons/me/null.png"></image>
+                        <view class="null_title f15 pa">暂无收藏的商家</view>
+                        <view class="null_text f12 pa">可以去看看有哪些想采购的</view>
+                    </view>
+                    <view class="rec_title tc f16 pr bgf">- 猜你喜欢 -</view>
+                    <view class="waterfal oh pb6">
+                        <view class="waterfall_box">
+                            <view class="waterfall_goods pr" wx:for="{{ likeList }}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+                                <view class="waterfall_img">
+                                    <image src="{{item.img_show}}"></image>
+                                </view>
+                                <view class="ml10 mt10 f30 textoh2 p15 fow" style="height:76rpx;"><text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.title}}</view>
+                                <view class="rec_goodstip p15">
+                                    <!-- 优惠XX元 -->
+                                    <text class="rec_goods_label f10 fow" wx:if="{{item.disparity != 0}}" wx:key="{{index}}">省{{item.disparity}}元</text>
+                                    <!-- 商品标签 -->
+                                    <text class="rec_goods_label f10 fow" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+                                </view>
+                                <view class="ml10 mt10 orange f16 p14 fow">
+                                    ￥{{item.nowprice}}
+                                    <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</text>
+                                </view>
+                                <view class="rec_company f10 gray pl10 pr"><view class="textoh" style="width:70%;">{{item.company_title}}</view><view class="pa" style="right:20rpx;bottom:0;">{{item.s_city}}</view></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:if="{{companyNull}}">
+                    <view class="page-loading" catchtap="getLikeList2" wx:if="{{showMore4==0}}">点击或上拉加载更多</view>
+                    <view class="page-loading" wx:if="{{showMore4==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMore4==2}}">已经到底啦</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>

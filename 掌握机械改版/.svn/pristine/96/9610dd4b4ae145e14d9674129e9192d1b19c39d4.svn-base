@@ -1,0 +1,137 @@
+const util = require('../../../utils/util.js');
+const api = require('../../../utils/api.js');
+const App = getApp();
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    navTab: [
+      {
+        name: '全部',
+        state: null
+      },
+      {
+        name: '报价中',
+        state: 1
+      },
+      {
+        name: '已完成',
+        state: 3
+      }
+    ],
+    inqueryList: [],
+    currentTab: 0, //预设当前项的值
+    pageNo:1,
+    state: null,
+    loadMore: true,
+    stateList: App.globalData.stateList
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.getInqueryList()
+  },
+  getInqueryList() {
+    let { loadMore, inqueryList, pageNo, state } = this.data
+    let data = {
+      tenantId: App.globalData.tenantId,
+      pageNo
+    }
+    if (state) {
+      data.state = state
+    }
+    if (loadMore) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      util.request(api.getInqueryList, data).then(res => {
+        if (pageNo == res.pageCount) {
+          this.setData({
+            loadMore: false
+          })
+        }
+        if (res.data) {
+          let centerVal = res.data
+          centerVal = centerVal.map(item => {
+            item.createTime = util.formatTime(item.createTime)
+            return item
+          })
+          inqueryList = inqueryList.concat(centerVal)
+        }
+        this.setData({
+          inqueryList,
+          pageNo: pageNo + 1
+        })
+        wx.hideLoading()
+      })
+    }
+  },
+
+  swichNav: function (e) {
+    const cur = e.target.dataset.current
+    const { navTab } = this.data
+    if (this.data.currentTaB == cur) return
+    this.setData({
+      currentTab: cur,
+      state: navTab[cur].state,
+      inqueryList: [],
+      pageNo: 1,
+      loadMore: true
+    })
+    this.getInqueryList()
+  },
+
+  goInqueryDetail: function(e) {
+    let id = e.currentTarget.dataset.id
+    let userInfo = util.getStorageSync('userInfo')
+    let registerInfo = util.getStorageSync('registerInfo')
+    if (userInfo){
+      util.request(api.userProvider, {
+        userId: userInfo.userId,
+        tenantId: App.globalData.tenantId
+      },'GET').then(res => {
+        if (res.success) {
+          // console.log(res)
+          if ((typeof res.data) === 'object'){
+            registerInfo = {
+              ...registerInfo,
+              ...res.data
+            }
+          } else {
+            registerInfo = {
+              ...registerInfo
+            }
+          }
+          wx.setStorageSync('registerInfo', JSON.stringify(registerInfo))
+
+          if ((typeof res.data) === 'object') {
+            if (res.data && res.data.apply) {
+              wx.navigateTo({
+                url: `/pages/index/inqueryRoom/inqueryOrderDetail/businessAuth/authForm/examine/examine`,
+              })
+            } else {
+              wx.navigateTo({
+                url: `/pages/index/inqueryRoom/inqueryOrderDetail/inqueryOrderDetail?id=${id}`,
+              })
+            }
+          } else {
+            wx.navigateTo({
+              url: '/pages/index/inqueryRoom/inqueryOrderDetail/businessAuth/businessAuth'
+            })
+          }
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
+  },
+  onPullDownRefresh() {
+    console.log(1)
+    // wx.showNavigationBarLoading() //在标题栏中显示加载
+  },
+})

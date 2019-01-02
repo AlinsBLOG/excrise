@@ -1,0 +1,47 @@
+<wxs src = "../../../../utils/wxs.wxs" module = "wxs" />
+<form>
+  <view class="search pf .bgf">
+    <input 
+      type="text" 
+      name="key" 
+      class="f14 tl fow" 
+      bindinput="checkSearch" 
+      placeholder="{{placeholder}}" 
+      confirm-type="search" 
+      value="{{wxs.lastString(serchinput)}}" 
+      bindconfirm="goSearch" 
+      focus 
+    />
+    <image class="db pa" src="/images/icons/index/search.png"></image>
+    <image 
+      catchtap="emptyStr" 
+      class="empty db pa" 
+      src="/images/icons/search/empty.png" 
+      wx:if="{{!isback}}"
+    ></image>
+    <view class="button f14 pa tc ss" bindtap="comfirm">确认</view>
+  </view>
+</form>
+<scroll-view 
+  scroll-y
+  class='suggestionOfQuery f12'
+  bindscrolltolower="loadMore"
+  wx-if='{{!isback && suggestions.length != 0}}'
+>
+  <!-- 适用机型 -->
+  <view 
+    class='suggestionItem' 
+    wx:if="{{title == '适用机型'}}" 
+    bindtap='setAG' 
+    data-item="{{item}}" 
+    wx:for="{{suggestions}}" 
+    wx:key="{{index}}">{{item.pathName}}</view>
+  <!-- 配件名称 -->
+  <view 
+    class='suggestionItem' 
+    wx:if="{{title == '配件名称'}}" 
+    bindtap='setAG' 
+    data-item="{{item}}" 
+    wx:for="{{suggestions}}" 
+    wx:key="{{index}}">{{item.name}}</view>
+</scroll-view>

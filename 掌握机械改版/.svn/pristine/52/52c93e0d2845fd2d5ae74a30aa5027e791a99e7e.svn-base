@@ -1,0 +1,9 @@
+<view wx:if='{{show}}'>
+  <view class='modal'></view>
+  <view class='content'>
+    <text class='message'>通知卖家</text>
+    <text class='late'>稍后卖家将会主动向您报价</text>
+    <text class='number'>120</text>
+    <view class='know' bindtap='click'>我知道了</view>
+  </view>
+</view>

@@ -1,0 +1,86 @@
+<!--index.wxml-->
+<import src='../template/template.wxml' />
+<wxs module="text">
+  var arrIndex = [0,1,2,3,4,5,6,7,8,9];
+  module.exports = {
+    arrIndex:arrIndex
+  };
+
+</wxs>
+<view class="container">
+<!-- banner轮播 -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <swiper-item wx:for="{{rollingBanners}}" wx:key="{{item.id}}">
+      <navigator url="{{item.linkUrl}}">
+      <image src="{{item.image}}" mode="scaleToFill"></image>
+      </navigator>
+    </swiper-item>
+  </swiper>
+
+  <!-- 分类模块  -->
+  <view class="index-menu">
+    <view 
+      bindtap='switchTab'
+      wx:for="{{categories}}" 
+      wx:key="{{item.id}}"  
+      class="item" 
+      url="/pages/catalog/catalog?id={{item.id}}&parentId={{item.parentId}}" 
+      data-id='{{item.id}}' 
+      data-parentId='{{item.parentId}}'
+    >
+      <image src="../../static/images/cat-{{text.arrIndex[index]}}.png" background-size="cover"></image>
+      <text>{{item.name}}</text>
+    </view>
+  </view> 
+
+  <!-- 热销服务(常用服务)  -->
+  <view class='hotContainer'>
+    <view class='hotTitle'>HOT 热销服务</view>
+    <swiper class="hotSwiper" indicator-dots="true" indicator-active-color="rgb(222, 55, 62)" indicator-color="rgb(204, 204, 204)" autoplay="true" interval="5000" duration="1000">
+      
+      <swiper-item 
+        class="hotSwperItem"
+        wx:for='{{marketingProdBoards}}'
+        wx:key='index'
+        >
+        <block
+          wx:for='{{item.children}}'
+          wx:for-item='subItem'
+          wx:for-index='subIndex'
+          wx:key='subIndex'
+          wx:if='{{subIndex<3}}'
+        >
+          <view
+            bindtap='switchTab'
+            data-id='{{subItem.id}}' 
+            data-parentId='{{subItem.parentId}}'
+          >
+            <image 
+              src="https://invast-dev-oss.obs.cn-south-1.myhwclouds.com/image/20180614/v3818xvpqxhd50iz8618htl3.png" 
+              mode="widthFix"></image>
+            <!-- <view class="price"></view> -->
+            <view class="number">{{subItem.name}}</view>
+          </view>
+        </block>
+      </swiper-item>
+    </swiper>
+  </view> 
+
+   <!-- 我要XXX模块 
+  <template is="indexItem" data="{{text: 'forbar'}}"/> -->
+
+  <!-- 热门服务商模块 -->
+  <view class='indexHot'>
+    <view class="a-section">
+      <view class='h'>HOT 热门服务商</view>
+      <view class="t">
+        <block wx:for="{{marketingProviders}}" wx:key="{{index}}">
+          <template is="hotServiceItem" data="{{...item}}"/>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <template is='copyRight'></template>
+
+</view>

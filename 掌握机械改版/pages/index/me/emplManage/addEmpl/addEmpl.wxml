@@ -1,0 +1,12 @@
+<form bindsubmit="comfirmAdd">
+  <view class='register'>
+    <text class='dec'>员工注册手机</text>
+    <input 
+      class='inp' 
+      name="phone" 
+      data-input="{{inputVal}}" 
+      maxlength='11' 
+      type='number'></input>
+  </view>
+  <button class='comfirmBtn' form-type="submit">确定添加</button>
+</form>

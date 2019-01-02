@@ -1,0 +1,108 @@
+.modal {
+  background: #000;
+  opacity: .6;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 10rpx;
+  width: 74%;
+  transform: translate(-50%,-50%);
+  padding: 50rpx 0 0;
+  z-index: 999999
+}
+
+.content text {
+  display: block;
+}
+
+.message {
+  color: #F05B29;
+  font-size: 50rpx;
+}
+
+.late {
+  color: #B4B4B4;
+  font-size: 28rpx;
+}
+
+.number {
+  color: #F05B29;
+  margin: 90rpx 0;
+  font-size: 80rpx;
+  font-weight: 600;
+}
+
+.know {
+  color: #fff;
+  background: #F05B29;
+  width: 87%;
+  text-align: center;
+  border-radius: 4rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+}
+
+.before{
+  text-align: center;
+  width: 100%;
+}
+
+.before image{
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.submitText {
+  color: #333;
+  font-size: 44rpx;
+  display: block;
+  font-weight: 600;
+  margin: 30rpx 0;
+}
+
+.tipsText {
+  color: #666;
+  font-size: 30rpx;
+  display: block;
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 30rpx;
+  line-height: 100rpx;
+  border-top: 1px solid #e3e3e3;
+}
+
+.btnGroup text{
+  flex: 1;
+  font-size: 36rpx;
+}
+
+.btnGroup text:not(:first-child) {
+  border-left: 1px solid #e3e3e3;
+}
+
+.seePrice {
+  color: #999;
+}
+
+.backIndex {
+  color: #F05B29;
+}

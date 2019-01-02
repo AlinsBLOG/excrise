@@ -1,0 +1,235 @@
+<template>
+  <div class="box">
+    <Head-Top head-title='顾问详细' go-back='true'></Head-Top>
+    <div class="clearfix top">
+      <div class="fl">
+        <span class="title">{{info.name}}</span>
+        <span class="name">{{info.summary}}</span>
+        <span class="experision">{{info.workYears ? info.workYears : 0}}年工作经验</span>
+      </div>
+      <div class="fr">
+        <img :src="info.avatarImg ? info.avatarImg : defaultAvatarImg">
+      </div>
+    </div>
+
+    <div class="middle">
+      <div class="item">
+        <span>5</span>
+        <span class="item-name">热荐热度</span>
+      </div>
+      <div class="split-line"></div>
+      <div class="item">
+        <span>0</span>
+        <span class="item-name">累计帮助买家</span>
+      </div>
+      <div class="split-line"></div>
+      <div class="item">
+        <span>99.99%</span>
+        <span class="item-name">咨询满意度</span>
+      </div>
+      <div class="area">
+        <i class="iconfont address"></i>
+        <span>江苏</span>
+        <span>苏州</span>
+      </div>
+    </div>
+
+    <div class="sc-serve">
+      <span class="sc-title">擅长服务</span>
+      <div class="sc-type">
+        <span>工装设计</span>
+      </div>
+    </div>
+
+    <div class="sc-serve">
+      <span class="sc-title">顾问介绍</span>
+      <div class="sc-info">
+        2010-至今，一直从事室内装修设计，主要从事工装方案设计，餐厅，办公，休闲娱乐，等设计,和很多大型房地产公司有项目合作，样板设计，售楼处设计，得到一致好评。
+      </div>
+    </div>
+
+    <div class="sc-serve">
+      <span class="sc-title">用户评价</span>
+      <div class="sc-type sc-type-pj">
+        <span>工装设计</span>
+        <span>工装设计</span>
+        <span>工装设计</span>
+        <span>工装设计</span>
+      </div>
+    </div>
+
+    <span class="now-question" @click='call'>立即咨询</span>
+  </div>  
+</div>
+    
+</template>
+
+<script>
+  import { mapState,mapMutations,mapGetters  } from 'vuex'
+  import HeadTop from '@/components/header/head'
+  import { consultantInfo, consultantTel } from '@/service/getData'
+  export default {
+    name:"AdviserInfo",
+    data(){
+      return{
+        id: '',
+        info: {}
+      }
+    },
+    components:{
+      HeadTop
+    },
+    computed: {
+      ...mapState(['defaultAvatarImg'])
+    },
+    mounted:function(){
+      let id =this.$route.query.id
+      this.id = id
+      this.getInfo(id)
+    },
+    methods:{
+      async getInfo (id) {
+        const that = this
+        await consultantInfo(id).then(res => {
+          that.info = res.data
+          console.log(res)
+        })
+      },
+      async call () {
+        window.location.href="tel://13527142146"
+        return
+        // 拨打电话
+        await consultantTel().then(res => {
+          console.log(res)
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .box {
+    width: 100%;
+    height: 100%;
+    padding: .4rem 0 0 0;
+    background-color: #fff;
+  }
+  .top {
+    padding: 0 .4rem;
+    .fl {
+      span {
+        display: block;
+      }
+      .title {
+        color: #333;
+        font-size: .55rem;
+      }
+      .name {
+        margin: .25rem auto;
+        color: #666;
+        font-size: .39rem;
+      }
+      .experision {
+        color: #b0b0b0;
+        font-size: .35rem;
+      }
+    }
+    .fr {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 2rem;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+    }
+  }
+  .middle {
+    padding: 0 0 0 .4rem;
+    margin-top: .8rem;
+    position: relative;
+    .split-line {
+      display: inline-block;
+      border-left: 1px solid #eee;
+      height: .4rem;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .area {
+      display: inline-block;
+      background: #b0b0b0;
+      width: 2.4rem;
+      height: .6rem;
+      line-height: .6rem;
+      color: #fff;
+      font-size: .3rem;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-block;
+      border-top-left-radius: .9rem;
+      border-bottom-left-radius: .9rem;
+      text-align: center;
+    }
+    .item {
+      text-align: center;
+      display: inline-block;
+      font-size: .35rem;
+      color: #333;
+      span {
+        display: block;
+      }
+      .item-name {
+        color: #666;
+        margin-top: .1rem;
+        margin-bottom: .3rem;
+      }
+    }
+  }
+  .sc-serve {
+    border-top: 1px solid #eee;
+    padding: .2rem .4rem .4rem;
+    font-size: .4rem;
+    .sc-title {
+      color: #0076ff;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: .25rem;
+    }
+    .sc-type {
+      span {
+        border-radius: .42rem;
+        border: 1px solid #000;
+        padding:.05rem .2rem;
+        color: #666;
+        font-size: .2rem;
+      }
+    }
+    .sc-type-pj {
+      span {
+        border-radius: .12rem;
+      }
+    }
+    .sc-info {
+      color: #666;
+      font-size: .35rem;
+    }
+  }
+  .now-question {
+    height: 1.4rem;
+    line-height: 1.4rem;
+    text-align: center;
+    background: -webkit-linear-gradient(left,#5b49ff,#00a2ff);
+    background: linear-gradient(90deg,#5b49ff,#00a2ff);
+    color: #fff;
+    font-size: .5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+  }
+</style>
+

@@ -1,0 +1,128 @@
+<view>
+  <form bindsubmit="formSubmit">
+    <view class='createHead clearfix'>
+      <view class='left' bindtap='chooseImg'>
+        <image mode='widthFix' src='{{cardPhoto}}'></image>
+      </view>
+      <view class='right'>
+        <view class='name'>
+          <input name='userName' data-name='userName'  bindinput="bindKeyInput" placeholder='请输入名字' placeholder-class="phcolor"></input>
+        </view>
+        <view class='phone'>
+          <input type='number' name='mobile' placeholder='常用手机号码' placeholder-class="phcolor"></input>
+          <!-- <button form-type='submit' wx:if='{{!selected}}'>验证</button>
+          <button form-type='submit' wx:else>{{second}}s</button> -->
+        </view>
+      </view>
+    </view>
+  
+    <view>
+      <view class='createRows'>
+        <view class='row'>
+          <!-- class='need' -->
+          <text>微信号</text>
+          <input placeholder='请输入个人微信号' name='wechat' placeholder-class="phcolor"></input>
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>邮件</text>
+          <input placeholder='请输入邮件' name='email' placeholder-class="phcolor"></input>
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>公司</text>
+          <input placeholder='请输入公司名称' name='cmpName' placeholder-class="phcolor"></input>
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>公司职务</text>
+          <input placeholder='请输入公司职务' name='cmpPosition' placeholder-class="phcolor"></input>
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>公司地址</text>
+          <picker 
+            mode="region" 
+            name='cmpAddress' 
+            bindchange="bindRegionChange" 
+            value="{{region}}" 
+          >
+            <view class="picker" style='height:30rpx;min-width:30rpx;'>
+               {{region[0]}} {{region[1]}} {{region[2]}} 
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>设置默认名片</text>
+          <switch bindchange="switchChange" name='isDefault' />
+        </view>
+      </view>
+      <view class='createRows'>
+        <view class='row'>
+          <text>公开类型</text>
+          <radio-group class="radio-group" name='pubType'>
+            <label class="radio" wx:for="{{radioG}}" wx:key='index'>
+              <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <!-- <view class='createRows'>
+        <view class='row'>
+          <text>行业</text>
+          <input 
+            bindfocus='bindfocus' 
+            placeholder='请选择行业' 
+            placeholder-class="phcolor" 
+            value='{{inputValue}}'
+            class='jiantou'></input>
+        </view>
+      </view> -->
+    </view>
+
+    <view class='createCertain'>
+      <button formType="submit">确定</button>
+    </view>
+  </form>
+
+  <!-- <view class='createLoginTips'>
+    已有<text bindtap='toLogin'>名片全能王账户</text> , 直接登录
+  </view> -->
+
+  <view class='modalFix' wx:if='{{!modalHidden}}'>
+    <view>
+      <view class='modalBox'>
+        <view class='modalHead'>
+          请选择所属行业
+          <text bindtap='closeModal'>X</text>
+        </view>
+        <view class='modalScroll'>
+          <scroll-view scroll-y='{{true}}' style="height: 900rpx;" class='scrollLeft'>
+            <view 
+              wx:for='{{list}}' 
+              bindtap='switchCate'
+              wx:key='{{item.id}}'
+              data-item='{{item}}'
+              class="{{item.id == currentId ? 'active' : ''}}"
+            >{{item.name}}</view>
+          </scroll-view>
+          <scroll-view scroll-y='{{true}}' style="height: 750rpx;" class='scrollRight'>
+            <view 
+              wx:for='{{childrenList.children}}' 
+              wx:key='{{item.id}}'
+              data-childrenList='{{childrenList}}'
+              data-item='{{item}}'
+              bindtap='choose'
+            >{{item.name}}</view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

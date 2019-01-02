@@ -1,0 +1,46 @@
+<import src="../template/template.wxml"/>
+<view class='edit'>
+  <template is="card" data='{{myCardList,...userInfo,selfCard,currentIndex}}'/>
+</view>
+
+<view class='description'>
+  <view bindtap='aboutMe' data-type='buzz'>
+    <image mode='widthFix' src='../../static/images/hot.png'></image>
+    <text>人气 {{current.popIdx?current.popIdx:''}}</text>
+  </view>
+  <view bindtap='aboutMe' data-type='save'>
+    <image mode='widthFix' src='../../static/images/save.png'></image>
+    <text>保存 {{current.saveIdx?current.saveIdx:''}}</text>
+  </view>
+  <view bindtap='aboutMe' data-type='reliable'>
+    <image mode='widthFix' src='../../static/images/zan.png'></image>
+    <text>靠谱 {{current.availableIdx?current.availableIdx:''}}</text>
+  </view>
+</view>
+
+<view class='myCardSendCard'>
+  <text class='send' bindtap='hotPage'>人气榜</text>
+  <text class='cut'>拍名片</text>
+  <text class='send' bindtap='createCardByNoLogin'>创建名片</text>
+  <text class='cut'>交换名片</text>
+</view>
+
+<view class='fourNeed'>
+  <view>
+    <image src='../../static/images/cut01.png'></image>
+    <text>需求广场</text>
+  </view>
+  <view bindtap='toCardImage'>
+    <image src='../../static/images/cut02.png'></image>
+    <text>名片图片</text>
+  </view>
+  <view bindtap='toCardNumber'>
+    <image src='../../static/images/cut03.png'></image>
+    <text>名片码</text>
+  </view>
+  <view>
+    <image src='../../static/images/cut04.png'></image>
+    <text>名片壁纸</text>
+  </view>
+</view>
+

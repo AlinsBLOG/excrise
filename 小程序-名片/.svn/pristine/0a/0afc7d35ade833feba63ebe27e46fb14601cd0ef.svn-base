@@ -1,0 +1,16 @@
+<swiper
+  indicator-dots="{{true}}"
+>
+   <swiper-item>
+      <image 
+      mode='widthFix'
+      src="http://pic.58pic.com/58pic/15/92/25/48c58PICpTQ_1024.jpg"/>
+    </swiper-item>
+    <swiper-item>
+      <image 
+      mode='widthFix'
+      src="http://pic.58pic.com/58pic/15/92/25/48c58PICpTQ_1024.jpg"/>
+    </swiper-item>
+</swiper>
+
+<text class='saveCardImage' bindtap='saveImg'>保存图片</text>

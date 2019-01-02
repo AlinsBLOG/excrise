@@ -1,0 +1,166 @@
+<template>
+  <div class="module-adviser-list ceiling">
+    <ul 
+      class="adviser-area"
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="10"
+      >
+      <li class="adviser-item clearfix" v-for='item in list'>
+        <router-link :to="{path:'/adviser/info', query:{id:item.resumeId}}" class="register">
+          <div class="head">
+            <img :src="item.avatarImg">
+          </div>
+          <div class="info">
+            <div class="name-area clearfix">
+              <span class="name fl">{{item.name}}</span>
+              <span class="area fl"><span class="icon-address"></span>{{item.area}}</span>
+            </div>
+            <div class="job">{{item.summary}}</div>
+            <div class="label-area">
+              <span class="label">商业计划</span>
+              <span class="label">品牌整合营销全案</span>
+            </div>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+    <span class="loadMore-class" v-if='!pageLoading'>加载完毕</span>
+  </div>
+</template>
+
+<script>
+  import { mapState,mapMutations,mapGetters  } from 'vuex'
+  import { consultantSearch } from '@/service/getData'
+
+  export default {
+    name:"SearchList",
+    data () {
+      return {
+        loading: false,
+        list: [],
+        pageNo: 1,
+        pageSize: 10,
+        pageLoading: true,
+      }
+    },
+    props: ['value'],
+    components: {
+      
+    },
+    mounted (){
+
+    },
+    methods:{
+      ...mapMutations(['SET_LOADING']),
+
+      async loadMore() {
+        if (this.pageLoading) {
+          const that = this
+          that.loading = true
+          that.SET_LOADING(true)
+          await consultantSearch({
+            // name: this.value,
+            pageNo: this.pageNo,
+            pageSize: this.pageSize,
+          }).then(res => {
+            if (that.pageNo >= res.pageCount) {
+              that.pageLoading = false
+            }
+            if (res.data && res.data.length) {
+              that.list = this.list.concat(res.data)
+            } else {
+              that.pageLoading = false
+            }
+            this.pageNo = this.pageNo + 1
+            this.loading = false
+            that.SET_LOADING(false)
+          })
+        }
+      },
+
+      change () {
+        this.pageNo = 1
+        this.pageLoading = true
+        this.list = []
+        this.loadMore()
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .module-adviser-list.ceiling {
+    margin-top: 1.6rem;
+    width: 100%;
+    height: calc(100% - 2rem);
+    z-index:-1;
+    .adviser-item {
+      height: 2.8rem;
+      background: #fff;
+      padding: .4rem 0;
+      margin: .2rem;
+      border-radius: .2rem;
+      .head {
+        float: left;
+        width: 2rem;
+        height: 2rem;
+        margin: 0 .4rem;
+        border-radius: 100%;
+        overflow: hidden;
+        border: 1px solid #f1f1f1;
+        img {
+          width: 100%;
+          height: 100%;
+          
+        }
+      }
+      .info {
+        float: left;
+        font-size: .43rem;
+        .name-area {
+          .name {
+            font-weight: 600;
+            color: #333;
+          }
+          .area {
+            font-size: .38rem;
+            color: #b0b0b0;
+            margin-left: .3rem;
+            width: 5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+        .job {
+          color: #666;
+          font-size: .4rem;
+          margin: .05rem 0;
+        }
+        .label-area {
+          overflow: hidden;
+          .label {
+            color: #0076ff;
+            background: #f2f8ff;
+            border: 1px solid #0076ff;
+            padding: .03rem .15rem;
+            border-radius: .1rem;
+            font-size: .15rem;
+            display: inline-block;
+            margin-bottom: .05rem;
+            margin-right: .2rem;
+          }
+        }
+      }
+    }
+  }
+  .loadMore-class{
+    display: block;
+    font-size: .4rem;
+    color: gray;
+    line-height: 1rem;
+    text-align: center;
+  }
+</style>
+

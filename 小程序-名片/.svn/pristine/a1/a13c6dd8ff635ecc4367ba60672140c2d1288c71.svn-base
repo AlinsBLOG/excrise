@@ -1,0 +1,15 @@
+<view class='cardNumber'>
+  <view class='cardHead'>
+    <text class='name'>每天多吃两碗米饭</text>
+    <text class='tip'>专属名片小程序码</text>
+  </view>
+  <view class='cardImage'>
+    <image src='../../static/images/cat-7.png' mode='widthFix'></image>
+  </view>
+</view>
+<view class='cardNumberBottom'>
+  <text class='tip'>此名片可印刷在</text>
+  <text class='name'>纸质名片、宣传单、海报、y易拉宝等宣传单上</text>
+  <text class='scan'>微信扫一扫名片即可存入通讯录</text>
+</view>
+<text class='saveCardImage' bindtap='saveImg'>保存小程序码到手机</text>

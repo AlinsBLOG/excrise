@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "发布询价",
+    "usingComponents": {
+      "v-model":"/components/modal/index"
+    }
+}

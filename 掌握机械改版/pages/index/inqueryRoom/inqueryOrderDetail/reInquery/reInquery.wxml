@@ -1,0 +1,79 @@
+<!--pages/index/makeInquriy/makeInquriy.wxml-->
+<view class='makeInquriy'>
+    <form  bindsubmit="comfirmAdd">
+        <!-- 适用机型 -->
+        <view class='type mb20' >
+            <text class='dec fw'>适用机型:</text>
+            <input class='inp f13' name="phone" placeholder='填写产品所属机型，如：PC200-8' maxlength='11' type='number' focus="{{focus}}" bindtap="searchType" disabled='true' value='{{adapter}}'></input>
+        </view>
+        <!-- 配件列表 -->
+        <view class='accessoriesList mb20' wx:for="{{parts}}" wx:key="{{index}}">
+                <!-- 头部 -->
+                <view class='top'>
+                        <view class='df' style='min-width:75%'  bindtap='editPartName' data-partname="{{item.parts_name}}" data-index="{{index}}">
+                                <view class='number'>{{index+1}}</view>
+                                <view class='name'>{{item.parts_name}}</view>
+                        </view>
+                         <view class='df'>
+                                 <input value='{{item.num}}' class='accessoriesInp'  bindblur='editNum' type='number' data-index="{{index}}"></input>
+                                 <text class='iconfont icon-delete accessoriesInp' bindtap="delItem" data-index="{{index}}"></text>                                
+                        </view>
+                </view>
+                <!-- 备注 -->
+             <view>
+                       <textarea  class='remarks' placeholder="可以备注其他要求，如：零件号、发动机型号、配件尺寸等" value='{{item.remarks}}' bindblur="setRemarts" data-index = "{{index}}"></textarea>
+             </view>
+        </view>
+        <!-- 配件列表结束 -->        
+        <!-- 添加配件 -->
+        <view class='addPj' bindtap="goName" >
+              <view class='addIcon'>+</view>
+              <view>添加需要查询的配件</view>              
+        </view>
+        <!-- 品质范围 -->
+        <view class='qualityRange'>
+                <text >品质范围？</text>
+                <text class='color'>（必选，可多选）</text>
+        </view>
+        <!-- 选项 -->
+        <scroll-view scroll-x="{{scrollX}}" class='checkboxView mb20' >
+                    <checkbox-group class="group" bindchange="checkboxChange">
+                    <label class="checkbox" wx:for="{{qualityList}}" wx:key="{{index}}">
+                        <checkbox value="{{item.id}}" checked="{{item.selected==1?true:false}}"/>{{item.name}}
+                    </label>
+                    </checkbox-group>
+        </scroll-view>
+         <!-- 添加照片 -->
+        <view class="photo_box mb20 clearfloat">
+        <view class="camera pr" wx:for="{{photoList}}" wx:key="{{index}}" style="border: 1px solid #ddd;">
+            <view class="camera oh">
+            <image mode="aspectFill" class="photo_img" src="{{item}}"></image>
+            </view>
+            <view class="del pa" catchtap="del" data-index="{{index}}">
+            <image class="del_img pa" src="/images/icons/me/evaluate/del.png"></image>
+            </view>
+        </view>
+        <view class="camera pr" catchtap="add" hidden="{{photoList.length==9}}">
+            <image class="camera_img pa" src="/images/icons/me/evaluate/camera.png"></image>
+            <text class="f14 pa tc">添加照片</text>
+        </view>
+        </view>
+        <!-- ++++++++++++++++++++++++++++ -->
+          <!-- 图片上传 -->
+        <!-- <view class='uploadGroup'>
+            <view class='frc mb40'>
+                <view class='uploadImg'>
+                    <image class='camera' src='/images/icons/me/evaluate/camera.png'></image>
+                    <view>旧件图片</view>
+                </view>
+            </view>
+
+        </view> -->
+         <!-- 发布询价 -->
+        <view class='savaBox'>
+                <button class='sava'  bindtap="submitInfo">发布询价</button>
+                <!-- <button class='sava' hidden="{{status_name != '已退回'}}" bindtap="submitInfo">保存询价</button> -->
+        </view>
+    </form>
+
+</view>

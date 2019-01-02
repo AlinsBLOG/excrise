@@ -1,0 +1,131 @@
+<import src="../../../template/nullOrder/nullOrder.wxml" />
+
+<view class="orderTab frc pf fow">
+  <view 
+    bindtap="swithNav" 
+    wx:for="{{navTab}}" 
+    wx:key="{{index}}" 
+    data-current="{{index}}" 
+    class="tab {{currentTab == index ? 'active' : ''}}">{{item}}</view>
+</view>
+
+<view class='tab-content' bindchange='swithTab'>
+  <!-- 全部订单 -->
+  <scroll-view scroll-y="true" bindscrolltolower='getList'>
+    <block wx:for="{{[1,1]}}" wx:key='{{index}}'>
+      <view class="orderMsg f12">
+        <!-- 单订单 -->
+        <navigator url='/pages/index/company/company'>
+          <!-- 商铺 -->
+          <view class='storeMsg frc f12'>
+            <view class='frc'>
+              <image 
+                class='storeAvatar' 
+                src="https://static.oschina.net/uploads/user/1757/3514189_200.jpg?t=1496236790000"></image>
+              <view class='storeName'>广州爱卡的米游戏有限公司</view>
+              <image 
+                class='goStore' 
+                src="/images/icons/me/myOrder/more.png"></image>
+            </view>
+            <view class="playSataus fow">交易关闭</view>
+          </view>
+        </navigator>
+        <!-- 商品信息 -->
+        <block 
+          wx:for="{{[123]}}" 
+          wx:for-item="goodsItem" 
+          wx:key="{{index}}">
+          <view 
+            class='shopMsg frc mb4 pr' 
+            bindtap='goOrderDetail' 
+          >
+            <view class='shopMsg_left frc'>
+              <!-- 商品图片 -->
+              <image 
+                class='goodImg' 
+                src="https://static.oschina.net/uploads/user/1757/3514189_200.jpg?t=1496236790000"></image>
+              <!-- 商品描述 -->
+              <view class='goodDsc mb10'>
+                <view class='prod_title f14 fow mb6'>附年费会员福利请购</view>
+                <view class='prod_name f11'>产品名称：微博会员</view>
+              </view>
+            </view>
+            <!-- 价格部分 -->
+            <view class='shopMsg_right pa'>
+              <view class='newPrice f12 fow black'>￥900</view>
+              <view class='oldPrice f10 '>￥10</view>
+              <view class='prod_num f12'>x10</view>
+              <view class='goods_status_note'>退款完成</view>
+            </view>
+          </view>
+        </block>
+        <view 
+          class='shopMsg frc pr' 
+        >
+          <scroll-view class='image-view' scroll-x>
+            <!-- 商品图片 -->
+            <view 
+              wx:for="{{[1,1,1,1,1,1]}}" 
+              wx:for-item="goodsItem" 
+              wx:key="{{index}}"
+              class='goodImg' 
+            >
+            <image 
+              src="https://static.oschina.net/uploads/user/1757/3514189_200.jpg?t=1496236790000"></image>
+            </view>
+          </scroll-view>
+        </view>
+        
+        <!-- 商品价格 -->
+        <view class="shopPrice f12">
+          共9件商品 合计：
+          <text class="shopPriceNum f14 fow">￥9000</text>
+        </view>
+        <!-- 商品支付选项 -->
+        <view class="shopPlay f12 frc" wx:if="{{item.order_status != 6 && item.order_status != 7}}">
+          <!-- 交易关闭-->
+          <view bindtap="delOrder" class="fukuan" data-id="{{item.id}}">删除订单</view>
+          <!-- 等待买家付款 -->
+          <block>
+            <button 
+              class="lxsj f12" 
+              open-type='contact'>联系商家</button>
+            <view 
+              bindtap="showModal" 
+            >取消订单</view>
+            <view 
+              bindtap="goPay" 
+              class="fukuan" 
+              style="margin-right:28rpx">付款</view>
+          </block>
+        </view>
+      </view>
+    </block>
+
+    <view class="page-loading" wx:if="{{showMoreOrder==2}}">已经到底啦</view>
+    <!-- 猜你喜欢数据 -->
+    <template is="nullOrder" hidden="{{showLoading}}"></template>
+    <view>
+      <view class="page-loading">已经到底啦</view>
+    </view>
+  </scroll-view>
+</view>
+
+<view wx:if='{{false}}'>
+  <!--取消订单弹框  -->
+  <view class="mask" bindtap="hideModal"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="toast_cont pr">
+    <view class="modalBox">
+      <view class="modalTitle">取消原因</view>
+      <view class="formData">
+        <view bindtap="isCancel" data-cancel_reason="我不想买了">我不想买了</view>
+        <view bindtap="isCancel" data-cancel_reason="信息填写错误，重新拍">信息填写错误，重新拍</view>
+        <view bindtap="isCancel" data-cancel_reason="卖家缺货">卖家缺货</view>
+        <view bindtap="isCancel" data-cancel_reason="同城见面交易">同城见面交易</view>
+        <view bindtap="isCancel" data-cancel_reason="其他原因">其他原因</view>
+        <button class="cancelBtn pa f14" bindtap="hideModal">取消</button>
+      </view>
+    </view>
+  </view>
+</view>

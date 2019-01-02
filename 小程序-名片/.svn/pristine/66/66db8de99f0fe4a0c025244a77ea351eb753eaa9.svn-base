@@ -1,0 +1,101 @@
+<import src="../../template/template.wxml"/>
+
+<view class='addressGroupHead'>
+  <view class='groupList'>
+    <template is="imageGroupList" data='{{list:groupContactList}}'/>
+    <view class='addressGroupName'>
+      <view class='groupName_name' bindtap='editGroupName'>
+        {{groupInfo.groupName}}
+         <image src='../../../static/images/ed.png' mode='widthFix' style='width:28rpx;'></image> 
+      </view>
+      <text class='groupName_detail'>已有{{groupContactListData.totalCount?groupContactListData.totalCount:0}}张群名片成员</text>
+      <text class='groupName_intro'>此通讯录仅本群成员可见</text>
+    </view>
+  </view>
+  <view class='addressGroupTips'>微信群专属通讯录，快速汇集群成员名片</view>
+</view>
+<view class='addressGroupBody'>
+  <input placeholder='搜索联系人' class='addressGroupBodyInput'></input>
+  <!-- <view class='addressGroupMyCard' bindtap='toMyCard'>
+    <text class='addressGroupMyCardText'>我的名片</text>
+    <template is="aboutMeCardTemplate"/>
+  </view> -->
+  <scroll-view class='addressGroupOtherCard' scroll-y='{{true}}' bindscrolltolower='scrolltolower'>
+    <!-- <text class='addressGroupOtherCardTips'>其他群成员名片 (2)</text> -->
+      <block wx:if='{{groupContactList.length > 0}}'>
+        <template 
+          is="aboutMeCardTemplateWithRight" 
+          data='{{groupContactList,globalImage,editState}}'
+        />
+      </block>
+      <block wx:else>
+        <image src='../../../static/images/address.png' mode='widthFix'></image>
+      </block>
+  </scroll-view>
+</view>
+
+<view class='footer'>
+  <block wx:if='{{editState}}'>
+    <view class='addressGroupFooterLeft' bindtap='editCancel'>
+      <text>取消</text>
+    </view>
+    <view class='addressGroupFooterLeft' bindtap='deleteCertain'>
+      <text>删除已选</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class='addressGroupFooterLeft' bindtap='quit_out'>
+      <image mode='widthFix' src='../../../static/images/quit.png'></image>
+      <text>解散群组</text>
+    </view>
+    <view wx:if='{{groupContactList.length}}' class='addressGroupFooterLeft' bindtap='exitGroupFun'>
+      <image mode='widthFix' src='../../../static/images/quit.png'></image>
+      <text>编辑</text>
+    </view>
+  </block>
+  <view class='addressGroupFooterRight'><button bindtap='addContactToGroup'>将联系人拉进群组</button></view>
+</view>
+
+<view class='modalFix' wx:if='{{modalVisible}}'>
+  <view>
+    <view class='modalBox'>
+      <view class='modalHead'>
+        添加联系人到群组
+        <text bindtap='closeModal'>X</text>
+      </view>
+      <view class='modalScroll'>
+        <scroll-view 
+          scroll-y='{{true}}' 
+          style="height: 800rpx;" 
+          class='scrollLeft' 
+          bindscrolltolower='scrolltolowerContact'
+        >
+          <view>
+            <checkbox-group bindchange="checkboxChange" class='checkboxGroup'>
+              <block wx:for='{{groupContactListContact}}' wx:key='index'>
+                <label class="checkbox">
+                  <checkbox value="{{item.contactId}}"/>
+                  <view class='contact'>
+                    <text>{{item.contactName}}</text>
+                    <text>{{item.companyPosition ? item.companyPosition : ""}}</text>
+                  </view>
+                </label>
+              </block>
+            </checkbox-group>
+          </view>
+        </scroll-view>
+      </view>
+      <view class='.actionButton'>
+        <text class='cancel' bindtap='closeModal'>取消</text>
+        <text class='certain' bindtap='certain'>确定</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<block wx:if="{{showModal}}">
+  <template 
+    is='modalCreate' 
+    data='{{value:groupInfo.groupName,title:"编辑群组通讯录",placeholder:"请输入群通讯录名称"}}'
+  />
+</block>

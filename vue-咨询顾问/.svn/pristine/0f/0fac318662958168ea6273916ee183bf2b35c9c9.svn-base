@@ -1,0 +1,173 @@
+<template>
+  <div>
+    <Head-Top head-title='搜索顾问' go-back='true'></Head-Top>
+    <div class="search-div">
+      <mt-field placeholder="搜索" v-model="searchName" class="input" @change='change'></mt-field>
+    </div>
+    <Search-List :list='list'></Search-List>
+    <span class="loadMore-class" @click='loadMoreFunction'>{{loadMoreText}}</span>
+  </div>
+  </div>  
+</div>
+    
+</template>
+
+<script>
+  import { mapState,mapMutations,mapGetters  } from 'vuex'
+  import { loadMore } from '../../../../config/mixin'
+  import HeadTop from '@/components/header/head'
+  import SearchList from '@/components/searchList'
+  import { consultantSearch } from '@/service/getData'
+
+  export default {
+    name:"SearchAdviser",
+    data () {
+      return {
+        loadMoreText: '点击加载更多',
+        pageNo: 1,
+        pageLoading: true,
+        list: [],
+        searchName:'',
+      }
+    },
+    components: {
+      HeadTop,
+      SearchList
+    },
+    mounted (){
+      this.loadMoreFunction()
+    },
+    mixins: [loadMore],
+    methods:{
+      ...mapMutations(['SET_LOADING']),
+      handleScroll () {
+        //scrollTop为滚动条在Y轴上的滚动距离。
+        //clientHeight为内容可视区域的高度。
+        //scrollHeight为内容可视区域的高度加上溢出（滚动）的距离。
+        if(this.$el.scrollTop+this.$el.offsetHeight>this.$el.scrollHeight){
+            console.log(1)
+        } else {
+          console.log(2)
+        }
+      },
+
+      change (e) {
+        this.loadMoreText = '点击加载更多'
+        this.pageNo = 1
+        this.pageLoading = true
+        this.list = []
+        this.loadMoreFunction()
+      },
+
+      async loadMoreFunction () {
+        const that = this
+        if (this.pageLoading) {
+          that.SET_LOADING(true)
+          await consultantSearch({name: this.searchName}).then(res => {
+            if (that.pageNo == res.pageCount) {
+              that.loadMoreText = '加载完毕'
+              that.pageLoading = false
+            }
+            if (res.data && res.data.length) {
+              that.list = res.data.concat(this.list)
+            } else {
+              that.loadMoreText = '查询不到顾问'
+              that.pageLoading = false
+            }
+            this.pageNo = this.pageNo + 1
+            that.SET_LOADING(false)
+          })
+        }
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .search-div {
+    background-color: #3190e8;
+    padding: .2rem .5rem .3rem;
+    position: fixed;
+    top: 1.2rem;
+    width: 100%;
+    .input {
+      min-height: .9rem;
+      border-radius: 4px;
+    }
+    i {
+      position: absolute;
+      top: .4rem;
+      left: .7rem;
+      z-index:99;
+    }
+  }
+  .module-adviser-list.ceiling {
+    margin-top: 1.6rem;
+    width: 100%;
+    height: calc(100% - 2rem);
+    z-index:-1;
+    .adviser-item {
+      height: 2.8rem;
+      background: #fff;
+      padding: .4rem 0;
+      margin: .2rem;
+      border-radius: .2rem;
+      .head {
+        float: left;
+        width: 2rem;
+        height: 2rem;
+        margin: 0 .4rem;
+        border-radius: 100%;
+        overflow: hidden;
+        border: 1px solid #f1f1f1;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .info {
+        float: left;
+        font-size: .43rem;
+        .name-area {
+          .name {
+            font-weight: 600;
+            color: #333;
+          }
+          .area {
+            font-size: .38rem;
+            color: #b0b0b0;
+            margin-left: .3rem;
+          }
+        }
+        .job {
+          color: #666;
+          font-size: .4rem;
+          margin: .05rem 0;
+        }
+        .label-area {
+          padding: .1rem 0;
+          overflow: hidden;
+          .label {
+            color: #0076ff;
+            background: #f2f8ff;
+            border: 1px solid #0076ff;
+            padding: .03rem .15rem;
+            border-radius: .1rem;
+            font-size: .15rem;
+            display: inline-block;
+            margin-bottom: .4rem;
+            margin-right: .2rem;
+          }
+        }
+      }
+    }
+  }
+  .loadMore-class{
+    display: block;
+    font-size: .4rem;
+    color: gray;
+    line-height: 1rem;
+    text-align: center;
+  }
+</style>
+

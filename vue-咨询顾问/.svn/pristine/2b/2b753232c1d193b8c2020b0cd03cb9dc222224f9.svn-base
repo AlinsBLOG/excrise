@@ -1,0 +1,31 @@
+import Vue from 'vue'
+import router from './router'
+import Vuex from 'vuex'
+import store from './store'
+// import Navigation from 'vue-navigation' 
+// Vue.use(Navigation, {router, store})
+
+//引入UI组件
+import { 
+	Field,
+	Button,
+	Spinner,
+	Swipe,
+	SwipeItem,
+} from 'mint-ui'
+
+import 'mint-ui/lib/style.css'
+
+
+Vue.component(Field.name, Field)
+Vue.component(Button.name, Button)
+Vue.component(Spinner.name, Spinner)
+Vue.component(Swipe.name, Swipe)
+Vue.component(SwipeItem.name, SwipeItem)
+
+
+/* eslint-disable no-new */
+new Vue({
+  router,
+  store,
+}).$mount('#app')

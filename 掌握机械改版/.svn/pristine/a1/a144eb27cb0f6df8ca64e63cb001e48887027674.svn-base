@@ -1,0 +1,263 @@
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<scroll-view class="body" scroll-y="{{isScroll}}" wx:if="{{!showLoading}}">
+  <!-- 绑定手机号弹窗 -->
+  <view class="tieForm pf" wx:if="{{isTieUp}}">
+    <view class="mask" bindtap="goback"></view>
+    <form class="pa bgf" action="">
+      <image class="pa back" bindtap="goback" src="/images/icons/me/close.png"></image>
+      <text class="f14">绑定手机号</text>
+      <view class="inputCase">
+        <text class="db fl f12 pl25">手机号</text>
+        <input class="fl f12 pl25" bindinput="inputPhoneNum" placeholder="请输入手机号码" type="number" maxlength="11" auto-focus name="phone" />
+      </view>
+      <view class="inputCase code">
+        <text class="db fl f12 pl25">验证码</text>
+        <input class="fl f12 pl25" maxlength="6" bindinput="inputCodeNum" type="number" placeholder="短信验证码" name="addCode" />
+        <button disabled='{{disabled}}' class="tc fl f10 pa white" catchtap="formSubmit">{{time}}</button>
+      </view>
+      <button class="subbtn submit pa tc f14 white" type="primary" catchtap="verify">确认</button>
+    </form>
+  </view>
+  <!-- 商品轮播图 -->
+  <view class="goodsImg bgf pr">
+    <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange="bannerChange">
+      <block wx:for="{{goodsData.img_imgs}}" wx:key="{{index}}">
+        <swiper-item class="banner">
+          <image src="{{item}}" catchtap="preSwiperImg" data-index="{{index}}" data-text="{{item}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <view class="dot {{bannerIndex==index?'bannerAct':''}}" wx:for="{{goodsData.img_imgs}}" wx:key="{{index}}"></view>
+    </view>
+  </view>
+  <!-- 商品信息 -->
+  <view class="goodsData pr bgf mb10"  >
+    <view class="ml10 mt10 nowPrice f22 orange">
+        ￥{{goodsData.nowprice}} 
+        <text class="f14 gray" wx:if="{{goodsData.retail_price && goodsData.retail_price != goodsData.nowprice}}">零售价 <text class="f14 gray oldPrice">￥{{goodsData.retail_price}}</text></text>
+    </view>
+    <view class="mb60">
+      <!-- 优惠XX元 -->
+      <view class="ml10 mt10 fl f10 goods_label fow" wx:if="{{goodsData.disparity != 0}}" wx:key="{{index}}">省{{goodsData.disparity}}元</view>
+      <!-- 商品标签 -->
+      <view class="ml10 mt10 fl f10 goods_label" wx:for="{{goodsData.goods_label}}" wx:key="{{index}}">{{item}}</view>
+    </view>
+    <view class="title  f16">
+      <view wx:for="{{goodsData.company_label}}" wx:key="{{index}}" style='display:inline'>
+        <text class='f12  company_label'>{{item}} </text>
+      </view>
+       <text> {{goodsData.title}}</text>
+    </view>
+    <view class='goodsData_info'>
+        <!-- 标题下面的城市及浏览人数 -->
+         <view class="place f10">
+      <image class="" src="/images/icons/details/location.png"></image> {{goodsData.city}}</view>
+    <view class="visitors f10">
+      <image class="" src="/images/icons/details/attention_favor.png"></image> {{goodsData.c_browse}}人浏览</view>
+      <!-- 标题下面的城市及浏览人数 -->
+    </view>
+    <view class="collect f10 pa {{isCollect?'orange':''}}" catchtap="collect">
+      <image class="pa" src="/images/icons/details/{{isCollect?'collected':'collect'}}.png"></image> 收藏</view>
+  </view>
+  <!-- 电话客服 -->
+  <view class="telService f14" catchtap="openTelService">
+    <view class='phone_num'>
+              <text class="db" style="width:160rpx"
+>电话客服</text>
+            <view class="time db " style='margin-right:10rpx'>周一到周日 9:00-18:00
+    </view>
+    </view>
+     <image  src="/images/icons/goods/right.png"></image>
+  </view>
+  <!--  实力说明-->
+    <view class="telService f14 mb10" catchtap="openExplain">
+    <view class='phone_num'>
+              <text class=" db"  style="width:160rpx">服务</text>
+            <view class="time db " style='margin-right:10rpx'>一手货源  · 实力商家 · 100% 实拍</view>
+    </view>
+     <image  src="/images/icons/goods/right.png"></image>
+  </view>
+  <!-- 实力说明 -->
+  <view class="mask pf" wx:if="{{telService}}" catchtap="close"></view>
+  <view class="tel_view bgf pf" wx:if="{{telService}}">
+    <view class="tel_top pr">电话客服
+      <image class="db pa" src="/images/icons/details/close.png" catchtap="close"></image>
+    </view>
+    <view class="tel_title f12">供应商客服</view>
+    <view class="tel_text pr">
+      <image mode="widthFix" class="db pa" src="/images/icons/details/tel.png"></image>
+      <view class="pa tel_text_top f12">{{goodsData.goods_info[0].name}}</view>
+      <view class="pa tel_text_left f10 gray">{{goodsData.goods_info[0].time}}</view>
+      <view class="pa tel_text_right f14" catchlongpress="copyVal" data-text="{{goodsData.goods_info[0].val}}" catchtap="{{goodsData.goods_info[0].name == '电话咨询'?'phoneCall':''}}">{{goodsData.goods_info[0].val}}</view>
+    </view>
+    <view class="tel_text pr">
+      <image mode="widthFix" class="db pa" src="/images/icons/details/mail.png"></image>
+      <view class="pa tel_text_top f12">{{goodsData.goods_info[2].name}}</view>
+      <view class="pa tel_text_left f10 gray">{{goodsData.goods_info[2].time}}</view>
+      <view class="pa tel_text_right f14" catchlongpress="copyVal" data-text="{{goodsData.goods_info[2].val}}" catchtap="{{goodsData.goods_info[2].name == '电话咨询'?'phoneCall':''}}">{{goodsData.goods_info[2].val}}</view>
+    </view>
+    <view class="tel_title f12">掌窝客服</view>
+    <view class="tel_text pr">
+      <image mode="widthFix" class="db pa" src="/images/icons/details/tel.png"></image>
+      <view class="pa tel_text_top f12">{{goodsData.kf_info[0].name}}</view>
+      <view class="pa tel_text_left f10 gray">{{goodsData.kf_info[0].time}}</view>
+      <view class="pa tel_text_right f14" catchlongpress="copyVal" data-text="{{goodsData.kf_info[0].val}}" catchtap="{{goodsData.kf_info[0].name == '电话咨询'?'phoneCall':''}}">{{goodsData.kf_info[0].val}}</view>
+    </view>
+  </view>
+  <!-- 实力说明 -->
+  <!-- <view class="explain" catchtap="openExplain">
+    <view class="fl tc f10 pr">
+      <image class="db pa" src="/images/icons/details/maijia.png"></image>
+    </view>
+    <view class="fl tc f10 pr">
+      <image class="db pa" src="/images/icons/details/huoyuan.png"></image>
+    </view>
+    <view class="fl tc f10 pr">
+      <image class="db pa" src="/images/icons/details/zhengpin.png"></image>
+    </view>
+    <view class="fl tc f10 pr">
+      <image class="db pa" src="/images/icons/details/shipai.png"></image>
+    </view>
+  </view> -->
+  <view class="mask pf" wx:if="{{explain}}" catchtap="close"></view>
+  <view class="explain_view bgf pf" wx:if="{{explain}}">
+    <view class="explain_top pr">掌窝服务
+      <image class="db pa" src="/images/icons/details/close.png" catchtap="close"></image>
+    </view>
+    <view class="explain_title">实力卖家</view>
+    <view class="explain_text">掌窝精挑行业内口碑优良、实力商家入驻</view>
+    <view class="explain_title">一手货源</view>
+    <view class="explain_text">入驻商多为品牌总代理或一手代理商，减少中间渠道加价</view>
+    <view class="explain_title">100%实拍</view>
+    <view class="explain_text">全部产品均由掌窝摄影团队实品拍摄</view>
+  </view>
+  <!-- 产品参数 -->
+  <view class="goodsParam bgf mb20 ">
+    <view class="goodsParam_title">产品参数</view>
+    <view class="goodsParam_list fl" wx:for="{{goodsData.parameter}}" wx:key="{{item.txt}}}">
+      <view class="goodsParam_key f14 fl">{{item.txt}}</view>
+      <view class="goodsParam_value f16 fl fow">{{item.val}}</view>
+    </view>
+    <view class="clearfix"></view>
+  </view>
+  <!-- 用户评价 -->
+  <view class="bgf mb20">
+    <view class="telService" catchtap="goEva">
+      <text class="f15 db pa" style="font-weight:900;">用户评价{{evaData.goods_count > 0 ?    evaData.goods_count > 999 ? '(999+)' :'(' +    evaData.goods_count + ')' : ''}}</text>
+      <view class="time f14 db pa">综合评分{{scoure}}
+        <image class="pa ptc" src="/images/icons/goods/right.png"></image>
+      </view>
+    </view>
+    <!-- 总标签 -->
+    <view class="choose_label" wx:if="{{evaData.list.length>0}}">
+      <view class="keyword f10 dib textoh gray" wx:for="{{evaData.label_count}}" wx:key="{{index}}" data-index="{{index}}">
+        {{item.name}}({{item.count}})
+      </view>
+    </view>
+    <view class="eva_list pr" wx:for="{{evaData.list}}" wx:for-index="listItem" wx:key="{{listItem}}">
+      <!-- 星级 -->
+      <view class="goods_stars pr">
+        <view class="eva_name f14 fl">{{listItem.nickname}}</view>
+        <view class="stars_box fl">
+          <image wx:if="{{item.scoure >= 1}}" class="stars_img pr fl" src="/images/icons/me/evaluate/good.png"></image>
+          <image wx:if="{{item.scoure >= 2}}" class="stars_img pr fl" src="/images/icons/me/evaluate/good.png"></image>
+          <image wx:if="{{item.scoure >= 3}}" class="stars_img pr fl" src="/images/icons/me/evaluate/good.png"></image>
+          <image wx:if="{{item.scoure >= 4}}" class="stars_img pr fl" src="/images/icons/me/evaluate/good.png"></image>
+          <image wx:if="{{item.scoure >= 5}}" class="stars_img pr fl" src="/images/icons/me/evaluate/good.png"></image>
+        </view>
+      </view>
+      <!-- 标签 -->
+      <view class="choosed_label">
+        <view class="keyword f10 dib textoh gray" wx:for="{{item.label}}" wx:key="{{index}}" data-index="{{index}}">
+          {{item.name}}
+        </view>
+      </view>
+      <!-- 评论文字 -->
+      <view class="eva_text f13">{{item.content}}</view>
+      <!-- 评论图片 -->
+      <view class="photo_box mb20 clearfloat" wx:if="{{item.img.length>0}}" >
+        <view class="camera pr" wx:for="{{item.img}}" wx:key="{{index}}" catchtap="preEvaImg" data-text="{{item}}" data-index="{{listItem}}" >
+          <view class="camera oh">
+            <image mode="aspectFill" class="photo_img" src="{{item}}"></image>
+          </view>
+        </view>
+      </view>
+      <!-- 评论时间 -->
+      <view class="eva_date pa f10 gray">{{item.add_time}}</view>
+      <!-- 点赞 -->
+      <view class="zan pa f10 gray  {{item.eid == 0 ? '' : 'orange'}}" catchtap="dianZan" data-id="{{item.id}}">
+        <image class="zan_img" src="/images/icons/details/{{item.eid == 0 ? 'zan' : 'zan1'}}.png"></image>
+        {{item.like_num}}
+      </view>
+    </view>
+  </view>
+  <!-- 商家信息 -->
+  <view class="supply_company bb pr bgf" catchtap="goCompany">
+    <image class="company_logo db fl pa" src="{{companyData.c_img_logo}}"></image>
+    <view class="company_nav pa">
+      <view class="supply_title f13 black">{{companyData.title}}</view>
+      <view class="f11 textoh black">在售商品{{companyData.goods_count}}件</view>
+    </view>
+    <view class="goshop f12 db pa orange tc">
+      进入店铺
+    </view>
+  </view>
+  <scroll-view class="supply_goods mb20 bgf" scroll-x>
+    <view class="pl25 df">
+      <view class="supply_goodsbox" wx:for="{{companyData.goods}}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+        <view class="supply_goodsimage">
+          <image src="{{item.img_show}}"></image>
+        </view>
+        <view class="supply_goodsname f12 mt10 textoh2 fow">{{item.title}}</view>
+        <view class="tc f12 orange mt10 fow">￥{{item.nowprice}}</view>
+        <view class="tc f12 gray oldPrice fow" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</view>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 产品图片 -->
+  <view class="mb20">
+    <image class="fl" mode="widthFix" wx:for="{{ moreData.detail }}" wx:key="{{index}}" src="{{item}}" style="width:100%;" catchtap="preImg" data-text="{{item}}"></image>
+    <view class="clearfix"></view>
+  </view>
+  <!-- 大家都在看 -->
+
+  <!-- 分享 -->
+  <button class="share pf" catchtap="" open-type='share'>
+    <image class="db pa" src="/images/icons/me/share.png"></image>
+    <text class="f10 db pa tc">分享</text>
+  </button>
+  <!-- 找客服  catchtap="goMessage"-->
+  <button class="service pf" open-type='contact' session-from="weapp" send-message-title="{{ goodsData.title }}" send-message-path="{{'/pages/index/details/details?id='+goodsData.id+'&goods_id='+goodsData.goods_id}}" send-message-img="{{goodsData.img_imgs[0]}}"
+    show-message-card="true">
+    <image class="db pa" src="/images/icons/details/service.png"></image>
+    <text class="f10 db pa tc" >找客服</text>
+  </button>
+  <!-- 更新 -->
+  <!-- 利用云信im -->
+    <!-- <button class="service pf" bindtap='goContact' data-title="{{goodsData.title}}" data-price="{{goodsData.nowprice}} " data-img="{{goodsData.img_imgs[0]}}"> 
+    <image class="db pa" src="/images/icons/details/service.png"></image>
+    <text class="f10 db pa tc" >找客服</text>
+  </button> -->
+  <view class="service_green pf" animation="{{animation}}">
+    <image class="db pa" src="/images/icons/details/green.png"></image>
+    <text class="f13 db pa tc">欢迎光临，有问题记得来问我哦</text>
+  </view>
+  <view class="nothing"></view>
+  <!-- 底部按钮 -->
+  <view class="footer pf">
+    <view class="fl tc f10 shop pr" catchtap="goCompany">
+      <image class="db pa" src="/images/icons/details/shop.png"></image>
+      小店
+    </view>
+    <view class="fl tc f10 goodsCar pr" catchtap="goGoodsCar">
+      <image class="db pa" src="/images/icons/details/shop_cat.png"></image>
+      购物车
+      <view class="badge pa tc" wx:if="{{badge > 0}}">{{badge}}</view>
+    </view>
+    <view class="fl tc f14 goCar" catchtap="addGoodsCat">加入购物车</view>
+    <view class="fl tc f14 buy" catchtap="buyBuyBuy">立即购买</view>
+  </view>
+  <!-- canvas图片 -->
+  <canvas canvas-id="myCanvas" style="border: 1px solid;" />
+</scroll-view>

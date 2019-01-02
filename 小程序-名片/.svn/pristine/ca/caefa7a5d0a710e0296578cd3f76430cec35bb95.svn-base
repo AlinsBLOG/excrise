@@ -1,0 +1,23 @@
+<import src='../template/template.wxml' />
+<!-- <view class='loginTips' wx:if='{{!user.userId}}' bindtap='toLogin'>
+  请<text>登录账户</text>,确保已存名片永不丢失。
+</view>   -->
+<!-- 
+ <view class='moveFix' bindtap='toIndexPage'>
+  <template is='move' data='{{type:"",name:"进入首页"}}' />
+</view> 
+-->
+<view class='searchBox'>
+  <input 
+    placeholder='搜索公司 / 联系人'
+    bindconfirm='confirm'
+    class='search'></input>
+</view>
+
+<scroll-view scroll-y="true" bindscrolltolower="searchScrollLower" class='mrt30'>
+  <template wx:if='{{cardFolder.length}}' is='cardList' data='{{cardFolder,globalImage}}'></template>  
+  <view wx:else class='noList'>
+    <image src='../../static/images/noList.png' mode='widthFix'></image>
+  </view>
+  <view wx:if='{{!request}}' class='loadOver'>加载完毕</view>
+</scroll-view>

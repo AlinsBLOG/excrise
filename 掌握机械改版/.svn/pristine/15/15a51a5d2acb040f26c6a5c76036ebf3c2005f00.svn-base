@@ -1,0 +1,153 @@
+<import src="../../../template/nullOrder/nullOrder.wxml" />
+<!-- <import src="../../../template/order/order.wxml" /> -->
+<!-- 我的订单tab导航栏 -->
+<view class="orderTab frc pf fow">
+    <view bindtap="swithNav" wx:for="{{navTab}}" wx:key="{{index}}" data-current="{{index}}" class="tab {{currentTab == index ? 'active' : ''}}">{{item}}</view>
+    <view class='line pa' style="width: {{sliderWidth}}px;transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+</view>
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<swiper class='tab-content' bindchange='swithTab' duration='500' current='{{currentTab}}' style="height:calc(100%);" hidden="{{showLoading}}">
+    <!-- 全部订单 -->
+    <swiper-item wx:for="{{orderList}}" wx:for-item='orderItem' wx:key='{{index}}'>
+        <scroll-view scroll-y="true" bindscrolltolower='getList'>
+            <block wx:if="{{orderItem.length!=0}}">
+                <block wx:for="{{orderItem}}" wx:key='{{index}}'>
+                    <view class="orderMsg f12">
+                        <!-- 卖家店铺 -->
+                        <!-- 多订单 -->
+                        <view class='storeMsg frc f12' wx:if="{{item.much == 1}}">
+                            <view class='frc'>
+                                <image class='storeAvatar' src="{{item.img_logo}}"></image>
+                                <view class='storeName'>{{item.title}}</view>
+                            </view>
+                            <view class="playSataus fow " wx:if="{{item.order_status==0}}">交易关闭</view>
+                            <view class="playSataus fow " wx:if="{{item.order_status==1}}">等待买家付款</view>
+                            <view class="playSataus fow" wx:if="{{item.order_status==2}}">买家已付款</view>
+                            <view class="playSataus fow" wx:if="{{item.order_status==3}}">卖家已发货</view>
+                            <view class="playSataus fow" wx:if="{{item.order_status==4||item.order_status==5}}">交易完成</view>
+                        </view>
+                        <!-- 单订单 -->
+                        <navigator wx:if="{{item.much == 0}}" url='/pages/index/company/company?id={{item.company_id}}'>
+                            <!-- 商铺 -->
+                            <view class='storeMsg frc f12'>
+                                <view class='frc'>
+                                    <image class='storeAvatar' src="{{item.img_logo}}"></image>
+                                    <view class='storeName'>{{item.title}}</view>
+                                    <image class='goStore' src="/images/icons/me/myOrder/more.png"></image>
+                                </view>
+                                <view class="playSataus fow " wx:if="{{item.order_status==0}}">交易关闭</view>
+                                <view class="playSataus  fow" wx:if="{{item.order_status==1}}">等待买家付款</view>
+                                <view class="playSataus  fow" wx:if="{{item.order_status==2}}">买家已付款</view>
+                                <view class="playSataus fow " wx:if="{{item.order_status==3}}">卖家已发货</view>
+                                <view class="playSataus fow" wx:if="{{item.order_status==4||item.order_status==5}}">交易完成</view>
+
+
+                            </view>
+                        </navigator>
+                        <!-- 商品信息 -->
+                        <block wx:for="{{item.goods}}" wx:for-item="goodsItem" wx:key="{{index}}">
+                            <view class='shopMsg frc mb4 pr' bindtap='goOrderDetail' data-parentid="{{item.parentid}}" data-id="{{item.id}}" data-order_status="{{item.order_status}}" data-much="{{item.much}}">
+                                <view class='shopMsg_left frc'>
+                                    <!-- 商品图片 -->
+                                    <image class='goodImg' src="{{goodsItem.goods_img}}"></image>
+                                    <!-- 商品描述 -->
+                                    <view class='goodDsc mb10'>
+                                        <view class='prod_title f14 fow mb6'>{{goodsItem.goods_name}}</view>
+                                        <view class='prod_name f11'>产品名称：{{goodsItem.model_name}}</view>
+                                    </view>
+                                </view>
+                                <!-- 价格部分 -->
+                                <view class='shopMsg_right pa'>
+                                    <view class='newPrice f12 fow black'>￥{{goodsItem.price}}</view>
+                                    <!-- <view class='oldPrice f10 '>￥{{goodsItem.oldprice}}</view> -->
+                                    <view class='prod_num f12'>x{{goodsItem.goods_num}}</view>
+                                    <view class='goods_status_note'>{{goodsItem.goods_status_note}}</view>
+                                    <!-- 1 退款中
+                                    5 退款成功 -->
+                                </view>
+                            </view>
+                        </block>
+                        <!-- 商品价格 -->
+                        <view class="shopPrice f12">
+                            共{{item.goods_num}}件商品 合计：
+                            <text class="shopPriceNum f14 fow">￥{{item.total_money}}</text>
+                        </view>
+                        <!-- 商品支付选项 -->
+                        <view class="shopPlay f12 frc" wx:if="{{item.order_status != 6 && item.order_status != 7}}">
+                            <!-- 交易关闭 0-->
+                            <block wx:if="{{item.order_status==0}}">
+                                <view bindtap="delOrder" class="fukuan" data-id="{{item.id}}">删除订单</view>
+                            </block>
+                            <!-- 等待买家付款 1 -->
+                            <block wx:if="{{item.order_status==1}}">
+                                <button class="lxsj f12" open-type='contact' wx:if="{{item.much !=1}}">联系商家</button>
+                                <view bindtap="showModal" data-parentid="{{item.parentid}}" data-id="{{item.id}}" data-much="{{item.much}}" data-order_status="{{item.order_status}}">取消订单</view>
+                                <view bindtap="goPay" class="fukuan" data-parentid="{{item.parentid}}" style="margin-right:28rpx">付款</view>
+                            </block>
+                            <!-- 买家已付款 -->
+                            <block wx:if="{{item.order_status==2}}">
+                                <button class="lxsj f12" style="margin-right:28rpx" open-type='contact'>联系商家</button>
+                            </block>
+                            <!-- 卖家已发货 -->
+                            <block wx:if="{{item.order_status==3}}">
+                                <view bindtap="gologistics" class="lxsj f12" data-id="{{item.id}}">查看物流</view>
+                                <view bindtap="confirmReceipt" class="fukuan" data-id="{{item.id}}" data-index="{{index}}" data-order_status="{{item.order_status}}" data-much="{{item.much}}" style="margin-right:28rpx">确认收货</view>
+                            </block>
+                            <!--交易完成-评论  -->
+                            <block wx:if="{{item.order_status==4}}">
+                                <view bindtap="gologistics" class="lxsj f12" data-id="{{item.id}}">查看物流</view>
+                                <view bindtap="toComment" class="fukuan" data-id="{{item.id}}" style="margin-right:28rpx">评价</view>
+                            </block>
+                            <!--交易完成-查看评论  -->
+                            <block wx:if="{{item.order_status==5}}">
+                                <view bindtap="viewCommit" class="lxsj f12" data-id="{{item.id}}">查看评价</view>
+                                <view bindtap="gologistics" class="lxsj f12 mr28" data-id="{{item.id}}" style="margin-right:28rpx">查看物流</view>
+                            </block>
+                        </view>
+                    </view>
+                </block>
+                <!-- 订单加载更多 -->
+                <view>
+                    <!-- <view class="page-loading" catchtap="getMoreOrderList" wx:if="{{showMoreOrder==0}}">点击或上拉加载更多</view>  -->
+                    <view class="page-loading" wx:if="{{showMoreOrder==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMoreOrder==2}}">已经到底啦</view>
+                </view>
+            </block>
+            <block wx:else>
+                <!-- 猜你喜欢数据 -->
+                <template is="nullOrder" data="{{likeList}}" hidden="{{showLoading}}"></template>
+                <!-- 加载更多 -->
+                <view>
+                    <view class="page-loading" catchtap="getLikeList" wx:if="{{showMore4==0}}">点击或上拉加载更多</view>
+                    <view class="page-loading" wx:if="{{showMore4==1}}">
+                        <image src="/images/loading.gif"></image>
+                        玩命加载中...
+                    </view>
+                    <view class="page-loading" wx:if="{{showMore4==2}}">已经到底啦</view>
+                </view>
+            </block>
+        </scroll-view>
+    </swiper-item>
+</swiper>
+<!-- 取消订单 -->
+<view hidden="{{!isComfirmCancel}}">
+    <!--取消订单弹框  -->
+    <view class="mask" bindtap="hideModal" wx:if="{{maskStatus}}"></view>
+    <!--弹出框  -->
+    <view animation="{{animationData}}" class="toast_cont pr" wx:if="{{showModalStatus}}">
+        <view class="modalBox">
+            <view class="modalTitle">取消原因</view>
+            <view class="formData">
+                <view bindtap="isCancel" data-cancel_reason="我不想买了">我不想买了</view>
+                <view bindtap="isCancel" data-cancel_reason="信息填写错误，重新拍">信息填写错误，重新拍</view>
+                <view bindtap="isCancel" data-cancel_reason="卖家缺货">卖家缺货</view>
+                <view bindtap="isCancel" data-cancel_reason="同城见面交易">同城见面交易</view>
+                <view bindtap="isCancel" data-cancel_reason="其他原因">其他原因</view>
+                <button class="cancelBtn pa f14" bindtap="hideModal">取消</button>
+            </view>
+        </view>
+    </view>
+</view>

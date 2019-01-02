@@ -1,0 +1,9 @@
+<import src="../template/template.wxml"/>
+<template is="card" data='{{myCardList,...userInfo,selfCard}}'/>
+<view class='footer'>
+  <text class='createCard' bindtap='deleteCard'>删除名片</text>
+  <text class='saveCard' bindtap='saveCard'>存入通讯录</text>
+</view>
+<view class='moveFix'>
+  <template is='move' data='{{type:"share",name:"转发"}}' />
+</view>

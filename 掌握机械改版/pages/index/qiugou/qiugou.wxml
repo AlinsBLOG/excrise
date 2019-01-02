@@ -1,0 +1,36 @@
+<!--pages/index/qiugou/qiugou.wxml-->
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<scroll-view scroll-y="true" style="height:100%" hidden="{{showLoading}}" bindscrolltolower="getTrade">
+  <!-- <image src='/images/icons/index/qiugou/banner.jpg' class='banner mb20'></image> -->
+  <image src='{{imgurl}}' class='banner mb10'></image>
+  
+  <view class='infoItem pr mb10' wx:for="{{tradeList}}" wx:key="{{index}}" bindlongtap="copy" data-title="{{item.title}}" data-content="{{item.content}}">
+    <view class='infoName pr'>{{item.content}}
+    </view>
+    <view class='infoAddr'>
+      <text class='fl'>{{item.province}}·{{item.city}}</text>
+      <text class='fr'>{{item.createtime}}</text>
+    </view>
+    <block wx:if="{{item.status==0}}">
+      <view class='sj_icon pa qg_xunjia'></view>
+      <view class='cont pa'>询价中</view>
+    </block>
+    <block wx:if="{{item.status==1}}">
+      <view class='sj_icon pa qg_finish'></view>
+      <view class='cont pa' >已交易</view>
+    </block>
+
+  </view>
+  <!-- 加载更多的 -->
+  <view>
+    <view class="page-loading" catchtap="getTrade" wx:if="{{showMore4==0}}">点击或上拉加载更多</view>
+    <view class="page-loading" wx:if="{{showMore4==1}}">
+      <image src="/images/loading.gif"></image>
+      玩命加载中...
+    </view>
+    <view class="page-loading" wx:if="{{showMore4==2}}">已经到底啦</view>
+  </view>
+</scroll-view>
+<view hidden="{{showLoading}}" class='pfbtn pf'>
+  <button class='nowBuy pa' open-type='contact'>马上求购</button>
+</view>

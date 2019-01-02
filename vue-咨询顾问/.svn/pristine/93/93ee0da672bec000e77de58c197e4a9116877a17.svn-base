@@ -1,0 +1,147 @@
+<template>
+  <div class="Home">
+    <Head-Top :head-title="title" go-back='true'></Head-Top>
+    <div class="login">
+      <a data-v-21cb8243="" class="mint-cell mint-field">
+        <div class="mint-cell-wrapper">
+          <div class="mint-cell-title">
+            <span class="mint-cell-text">上传头像</span>
+          </div>
+          <div style="position: relative;padding: .2rem;width: 100%;">
+            <label
+              v-bind:style="{backgroundImage:'url(' + (bean.avatarImg ? bean.avatarImg : defaultAvatarImg) + ')'}"
+              for="file" 
+              class="file"
+              >
+              <input type="file" name="file" id="file" hidden @change='uploadAvatar'>
+            </label>
+          </div>
+        </div>
+      </a>
+      <mt-field label="姓名" placeholder="姓名" type="text" v-model="bean.name"></mt-field>
+      <mt-field label="职业" placeholder="职业" type="text" v-model="bean.profession"></mt-field>
+      <mt-field label="说明" placeholder="说明" type="textarea" rows='3' v-model="bean.summary"></mt-field>
+      <mt-field label="备注" placeholder="备注" type="textarea" rows='3' v-model="bean.remark"></mt-field>
+      <mt-button type="primary" size="large" class="login-btn" @click.native="submit">{{action}}</mt-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations, mapGetters  } from 'vuex'
+import { validatePhone, validateEmail  } from '../../../config/mUtils'
+import  { Toast } from "mint-ui"
+import HeadTop from '@/components/header/head'
+import HomeFooter from '@/pages/footer'
+import { umeResumeSave, umeResumeUpdate, consultantSearch } from '@/service/getData'
+import { upload1, upload2 } from '../../../config/upload'
+
+export default {
+  name: "Register",
+  data () {
+    return{
+      title: '申请成为顾问',
+      action: '申请',
+      bean: {
+        avatarImg: null,
+        name: '',
+        profession: '',
+        remark: '',
+        summary: '',
+        tenant_id: 1,
+        userId: ''
+      }
+    }
+  },
+  components: {
+    HomeFooter,
+    HeadTop
+  },
+  mounted: function () {
+    this.getInfo()
+  },
+  computed: {
+    ...mapState(['defaultAvatarImg', 'userInfo'])
+  },
+  methods:{
+    ...mapMutations(['SET_LOADING']),
+
+    uploadAvatar () {
+      const that = this
+      that.SET_LOADING(true)
+      let input = document.querySelector('#file')
+      let file = input.files[0]
+      upload1(file).then(res => {
+        upload2(res, file).then(() => {
+          that.bean.avatarImg = res.data.resourceUrl
+          that.SET_LOADING(false)
+        })
+      })
+    },
+
+    async getInfo () {
+      const that = this
+      if (this.userInfo && this.userInfo.id) {
+        that.SET_LOADING(true)
+        that.title = '修改顾问信息'
+        that.action = '确认修改'
+        await consultantSearch({uid: this.userInfo.id}).then(res => {
+          if (res && res.data.length) {
+            that.bean = res.data[0]
+          }
+          that.SET_LOADING(false)
+        })
+      }
+    },
+
+    async submit (e) {
+      const that = this
+      this.bean.userId = this.userInfo.id
+      if (!this.bean.name || !this.bean.profession) {
+        Toast('姓名或职业不能为空')
+        return
+      }
+      that.SET_LOADING(true)
+      if (this.userInfo && this.userInfo.id) {
+         await umeResumeUpdate(this.bean).then(res => {
+          if (res.success) {
+            Toast('修改成功')
+          }
+        })
+      } else {
+         await umeResumeSave(this.bean).then(res => {
+          if (res.success) {
+            Toast('申请成功')
+          }
+        })
+      }
+      that.SET_LOADING(false)
+     
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .login {
+    margin-top: .1rem;
+    .login-btn {
+      position: fixed;
+      bottom: .2rem;
+      width: 95%;
+      left: 2.5%;
+    }
+  }
+  .file {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    float: right;
+    margin-right: .2rem;
+  }
+</style>
+

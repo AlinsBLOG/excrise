@@ -1,0 +1,181 @@
+/**app.wxss**/
+page{
+  background-color: #f4f4f4;
+}
+
+.container {
+  box-sizing: border-box;
+  font-family: PingFangSC-Light,helvetica,'Heiti SC';
+} 
+
+view,image,text,navigator{
+  box-sizing: border-box;
+  padding:0;
+  margin:0;
+
+}
+
+view,text{
+  font-family: PingFangSC-Light,helvetica,'Heiti SC';
+  font-size: 29rpx;
+  color: #333;
+}
+
+/*隐藏滚动条*/
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/*before*/
+.verticalMiddle:before{
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 100%;
+}
+
+.floatRight{
+  float: right;
+}
+
+.redPack:before{
+  content: "";
+  display: inline-block;
+  width: 17.5px;
+  height: 12px;
+  margin-right: 4px;
+  background-repeat: no-repeat;
+  background-size: 131px 69px;
+  background-image: url('../../static/images/sprit.png');
+  background-position: -91px -18px;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 10rpx;
+}
+
+.ico-bao{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/ico-bao.png");
+}
+
+.ico-invoice{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/ico-invoice.png");
+}
+
+.ico-baoRed{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/baoRed.png");
+}
+
+.ico-starFill,.ico-star,.ico-zan{
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 20rpx;
+  height: 20rpx;
+  background-size: contain;
+  margin-right: 2.6rpx;
+}
+
+.ico-starFill{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/starFill.png");
+}
+
+.ico-star{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/star.png");
+}
+
+.ico-zan{
+  background-image: url("https://ecsp-dev.obs.myhwclouds.com/res/ecsp-wxxcx-pic/zan.png");
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.copyRight{
+  padding: 12px 0;
+  padding-bottom: 50px;
+  height: 100px;
+}
+.copyRight view{
+  color: #adb6b3;
+  text-align: center;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+/*服务*/
+.hot{
+   background-color: #fff; 
+  /* box-shadow: 0 1px 1px 0 #e2e2e2; */
+  margin-bottom: 16rpx;
+}
+
+.hot>view,
+.hot>navigator{
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.hot>navigator:not(:first-child){
+  padding: 32rpx;
+  position: relative;
+}
+
+.hot-service{
+  padding: 20rpx 0 20rpx 16rpx;
+  border-left: 4px solid #1cbcb4;
+  position: relative;
+  font-size: 28rpx;
+  line-height: 32rpx;
+}
+
+.hot-service .more{
+  float: right;
+  color: #1cbcb4;
+  margin-right: 10px;
+  font-size: 24rpx;
+}
+
+.hot .info{
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  line-height: 32rpx;
+}
+
+.hot .details{
+  position: relative;
+  padding-top: 52rpx;
+}
+
+.hot .details .left{
+  color: #ef6512;
+  font-size: 30rpx;
+}
+
+.hot .details .redPack{
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 24rpx;
+}
+
+.hot .details .right{
+  float: right;
+}
+
+.hot .details .right text{
+  color: #878787;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 12px;
+  font-size: 24rpx;
+}
+
+.nothing{
+  color:lightgray;
+  text-align:center;
+}
+
+@import './pages/template/cascade.wxss';

@@ -1,0 +1,64 @@
+<template>
+  <div id="bottom">
+    <ul class="bottom-ul"> 
+      <router-link  to="/index" tag="li">
+        <i class="iconfont icon-shouye_xuanzhong" style="color:#179dfe" v-if="active ==='index'"></i>
+        <i class="iconfont icon-shouye2" v-else></i>
+        <span>首页</span>
+      </router-link>
+
+      <router-link to="/adviser" tag="li">
+        <i class="iconfont icon-dongtaixuanzhong" style="color:#179dfe" v-if="active ==='adviser'"></i>
+        <i class="iconfont icon-dongtai" v-else></i>
+        <span>顾问</span>
+      </router-link>
+
+       <router-link to="/profile" tag="li">
+        <i class="iconfont icon-wode-" style="color:#179dfe" v-if="active ==='profile'"></i>
+        <i class="iconfont icon-wode"  v-else></i>
+        <span>我的</span>
+      </router-link>
+    </ul>
+  </div>
+</template>
+
+<script>
+  export default {
+    data(){
+      return {
+        active:'home',
+      }
+    },
+    mounted(){
+      this.active = this.$route.path.slice(1);
+    }
+  }
+</script>
+
+<style lang="stylus" scoped>
+  #bottom
+    width: 100%;
+    background: yellow;
+    position: fixed;
+    bottom: 0;
+    color: #666
+    background white
+    .bottom-ul
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 1.3rem;
+      box-shadow: 0 -0.02667rem 0.05333rem rgba(0,0,0,.1)
+      li
+        width 33.33%
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align center
+        span
+          font-size .3rem
+        i 
+          font-size .55rem
+      .router-link:hover,.router-link-active
+        color: #25b5fe;
+</style>

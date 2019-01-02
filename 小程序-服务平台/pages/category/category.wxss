@@ -1,0 +1,136 @@
+.container{
+    background: #f9f9f9;
+}
+.cate-nav{
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 1000;
+}
+
+.cate-nav-body{
+    height: 84rpx;
+    white-space: nowrap;   
+    background: #fff;
+    border-top: 1px solid rgba(0,0,0,.15);
+    overflow: hidden;
+}
+
+.cate-nav .item{
+    display: inline-block;
+    height: 84rpx;
+    min-width: 130rpx;
+    padding: 0 15rpx;
+}
+
+.cate-nav .item .name{
+    display: block;
+    height: 84rpx;
+    padding: 0 20rpx;
+    line-height: 84rpx;
+    color: #333;
+    font-size: 30rpx;
+    width: auto;
+}
+
+.cate-nav .item.active .name{
+    color: #de373e;
+    border-bottom: 2px solid #de373e;
+}
+
+.cate-item .h {
+  position: relative;
+  margin-top: 94rpx;
+  margin-bottom: 1rpx;
+  background: #fff;
+  padding: 38rpx 30rpx;
+}
+
+.cate-item .h::before{
+  content: "";
+  display: inline-block;
+  width: 5rpx;
+  height: 28rpx;
+  margin-right: 14rpx;
+  background: #de373e;
+  vertical-align: middle;
+}
+
+.cate-item .h .txt{
+  font-size: 26rpx;
+}
+
+
+.hot{
+  margin-bottom: 0;
+}
+
+.hot>view{
+  border: none;
+}
+
+.hot>navigator{
+  padding: 32rpx;
+  position: relative;
+  border: none;
+}
+
+.hot .details .right text{
+  padding:0 2px;
+}
+
+.hot .details .right text.serciceBusiness{
+  background: #fffbea;
+  color: #ba9c6d;
+}
+
+.hot .details .right text.level{
+  background: #f9bc01;
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 2px;
+  font-size: 22rpx;
+}
+
+.ico-baoRed{
+  display: inline-block;
+  width: 26rpx;
+  height: 28rpx;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.hot .details .left {
+  color: #878787;
+  font-size: 24rpx;
+}
+
+.hot .details .absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hot .details .absolute .actPrice{
+  font-size: 28rpx;
+  color: #de373e;
+}
+
+.hot .details .absolute .sumPrice{
+  color: #878787;
+  font-size: 24rpx;
+  margin: 0 25rpx 0 15rpx;
+  text-decoration: line-through;
+}
+
+.hot .details .absolute .pack{
+  font-size: 18rpx;
+  color: #de373e;
+  border: 1px solid #de373e;
+  padding: 0 12rpx;
+}
+
+.copyRight{
+  height: auto;
+  padding-bottom: 25rpx;
+}

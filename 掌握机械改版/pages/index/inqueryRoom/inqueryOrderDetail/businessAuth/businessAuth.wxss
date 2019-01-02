@@ -1,0 +1,44 @@
+/* pages/index/inqueryRoom/inqueryOrderDetail/businessAuth/businessAuth.wxss */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.dec{
+    margin:28rpx 0 10rpx 0 ;
+    color:#F05B29;
+}
+.condition{
+    font-size:24px;
+    font-weight: 600;
+    color:#333333;
+    margin-bottom:94rpx;
+}
+.cond_btn{
+    font-size:16px;
+    text-align: center;
+    line-height: 80rpx;
+    width:500rpx;
+    height:80rpx;
+    border-radius:42rpx;
+    border:1px solid #D9D9D9;
+}
+.phone {
+  left: 50%;
+  bottom: 92rpx;
+  transform: translateX(-50%);
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #323232;
+}
+.time {
+  font-size: 24rpx;
+  color: #646464;
+  left: 50%;
+  bottom: 50rpx;
+  transform: translateX(-50%);
+  font-weight: 600;
+  min-width: 400rpx;
+}
+

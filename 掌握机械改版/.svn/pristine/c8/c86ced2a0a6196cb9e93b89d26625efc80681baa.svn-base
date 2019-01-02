@@ -1,0 +1,59 @@
+<scroll-view style='100%' scroll-y="true">
+  <view class="portrait pr" catchtap="login">
+    <view class="portrait_img">
+      <image src="{{avatarImg}}"></image>
+    </view>
+    <view class='portrait_img_right'>
+      <view 
+        class=".white username f14" 
+        wx:if='{{registerInfo.providerName}}'>{{registerInfo.providerName}}</view>
+      <view class=".white usertext f14">{{nickName}}</view>
+    </view>
+  </view>
+
+  <!-- 报价商家 ---- 求购系统状态栏 -->
+  <view class="myorder mb20">
+    <view class="orderStatus frc f10" style='height:162rpx'>
+      <view class='fcc pr' bindtap='goMyInquiry' data-type="2">
+        <image class="mb20 inquiryIcon" src="/images/inquiry/my/form@2x.png"></image>
+        <text class='fow f14 fw'>我的报价单</text>
+      </view>
+      <view class="fcc pr" bindtap='goMyInquiry' data-type="1">
+        <image class="mb20 inquiryIcon" src="/images/inquiry/my/calendar@2x.png"></image>
+        <text class='fow f14 fw'>我的询价单</text>
+      </view>
+    </view>
+  </view>
+  <!-- 报价商家 ---- 求购系统状态栏 -->
+
+  <!-- 求购系统-员工管理 authen_id为0就没有员工管理，否则有) -->
+  <view class="list favorBox frc mb20" bindtap="toEmplManage">
+    <view class='frc'>
+      <image 
+        class="listIcon" 
+        src="/images/inquiry/my/friend@2x.png"></image>
+      <text class="f14 fow">员工管理</text>
+    </view>
+    <view class='frc'>
+      <text class='f12' style='color:#999;margin-right:20rpx;'>添加或删除员工子账号</text>
+      <image class='more' src="/images/icons/me/right.png"></image>
+    </view>
+  </view>
+  
+  <!-- 电话客服 -->
+  <view class="list favorBox frc">
+    <view class='frc'>
+      <text class='iconfont icon-phone favorIcon f20'></text>
+      <text class="f14 fow">电话客服：{{servicePhone || '020-82037895'}}</text>
+    </view>
+    <image class='more' src="/images/icons/me/right.png"></image>
+  </view>
+  <!-- 分享 -->
+  <!-- <button class="share pf" open-type='share'>
+    <image class="db pa" src="/images/icons/me/share.png"></image>
+    <text class="f10 db pa">分享</text>
+  </button> -->
+  <view class='closeBtn' wx:if='{{userInfo}}'>
+    <view bindtap='close'>退出登陆</view>
+  </view>
+</scroll-view>

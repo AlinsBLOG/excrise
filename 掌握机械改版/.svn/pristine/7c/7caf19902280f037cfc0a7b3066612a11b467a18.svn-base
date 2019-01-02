@@ -1,0 +1,54 @@
+page {
+  background: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.box {
+  padding: 0 20rpx;
+  background: #fff;
+  margin-bottom: 1px;
+}
+.imgBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  background: #fff;
+  padding: 20rpx 40rpx;
+  margin: 8rpx 0;
+}
+.imgBox image{
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.register {
+  font-size: 14px;
+  width: 100%;
+  height: 76rpx;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.inp {
+  flex: 1;
+}
+
+.dec {
+  padding-left: 10rpx;
+  margin-right: 30rpx;
+}
+
+.comfirmBtn {
+  width: 90%;
+  margin: 0 auto;
+  height: 70rpx;
+  background: #f05b29;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  line-height: 70rpx;
+  font-size: 14px;
+  margin-top: 40rpx;
+}

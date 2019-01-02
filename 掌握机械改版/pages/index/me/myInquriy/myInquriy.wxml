@@ -1,0 +1,52 @@
+<wxs src = "../../../../utils/wxs.wxs" module = "wxs" />
+<loading hidden="{{showLoading}}">正在加载</loading>
+<!-- 我的订单tab导航栏 -->
+<scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" scroll-with-animation="{{true}}">
+  <view 
+    class="tab-item {{currentTab==index?'active':''}}" 
+    data-current="{{index}}" 
+    bindtap="swichNav" 
+    wx:for="{{navTab}}" 
+    wx:key="{{index}}" 
+    data-state='{{item.state}}'
+  >{{item.name}}</view>
+</scroll-view>
+<scroll-view scroll-y bindscrolltolower="loadMore" style='padding-top:80rpx'>
+  <view 
+    class='mb20' 
+    wx:for="{{inqueryList}}" 
+    wx:key="{{index}}" 
+    bindtap='goInqueryDetail' 
+    data-id="{{item.id}}"
+    data-type='{{type}}'
+  >
+    <view class='inqueryItem'>
+      <view class='inquery_num'>询价单号：{{item.reqNo}}</view>
+      <!-- 询价单状态值 -->
+      <view class='inquery_status {{wxs.filName(item.state)}}'>
+        {{stateList[item.state]}}
+      </view>
+      <!-- 询价单状态值结束 -->
+
+    </view>
+    <view class='inquery_root frc'>
+      <image lazy-load="{{true}}" src='{{item.prodModelImage}}' class='inquery_img'></image>
+      <view>
+          <view class='title'>{{item.title}}</view>
+          <view class='info' style='padding:16rpx 0'>机型：{{item.prodModelName}}</view>
+          <view class='info'>询价时间：{{item.createTime}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 如果数据为空的时候显示的内容 -->
+  <view class='nullCont fcc pr' wx:if="{{inqueryList.length == 0}}">
+    <view class='whereAddr pa fcc'>
+      <image mode="scaleToFill" src='/images/icons/me/null.png'></image>
+      <view class='f15 mb10 noOrderMsg'>你还没有相关的订单</view>
+    </view>
+  </view>
+  <!-- 是否加载完毕 -->
+  <view>
+    <view class="page-loading" wx-if='{{!loadMore}}'>已经到底啦</view>
+  </view>
+</scroll-view>

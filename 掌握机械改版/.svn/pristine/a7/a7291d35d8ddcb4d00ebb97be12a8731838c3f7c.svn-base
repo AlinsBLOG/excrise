@@ -1,0 +1,545 @@
+page {
+  background: #eee;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding-bottom: 78rpx;
+}
+
+.pl28 {
+  padding-left: 28rpx;
+}
+
+.Authentication {
+  height: 60rpx;
+  color: #fff;
+  background: #ff9b79;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28rpx;
+}
+
+.notificationIcon {
+  width: 20rpx;
+  height: 20rpx;
+  /* background:#fff; */
+  margin-right: 20rpx;
+}
+
+/* 询价状态 */
+
+.inquery_cont {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  margin: 1px 0 0;
+  padding: 16rpx;
+}
+.inquery_cont .imgLogo {
+  width: 150rpx;
+  height: 150rpx;
+}
+.inquery_cont .detailsE {
+  flex: 1;
+}
+
+.inquery_name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.inquery_item {
+  line-height: 50rpx;
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+}
+
+.inquery_title {
+  margin-right: 30rpx;
+}
+
+.inquiry_sn {
+  color: #999;
+}
+
+.inquery_status {
+  font-size: 15px;
+  color: #f05b29;
+}
+
+.inquery_cont .inquery_item:last-child {
+  /* color:red; */
+  border-bottom: none;
+}
+
+/* 买家需求信息 */
+
+.buyerDemand {
+  /* padding-left:28rpx; */
+}
+
+.buyerDemand .title {
+  height: 68rpx;
+  line-height: 68rpx;
+  color: #999;
+  font-size: 14px;
+}
+
+/* 需求信息 */
+
+/* 询价大厅入口 */
+
+.inquery_root {
+  padding: 0 20rpx;
+  width: 100%;
+  height: 170rpx;
+  background: #fff;
+}
+
+.inquery_img {
+  width: 130rpx;
+  height: 120rpx;
+  margin-right: 34rpx;
+}
+
+.inquery_root .shopTitle {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.inquery_root .info {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 适用机型 */
+
+.applicableModel {
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-left: 28rpx;
+  font-weight: 600;
+  background: #fff;
+  margin: 1px 0;
+}
+
+.applicableModel .typeTitle {
+  font-size: 13px;
+  margin-right: 54rpx;
+}
+
+.applicableModel .typeName {
+  font-size: 15px;
+}
+
+/* 图片展示 */
+
+.photoView {
+  padding: 20rpx 0 20rpx 20rpx;
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.photoView image {
+  width: 130rpx;
+  height: 130rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 配件信息表格 */
+
+.tabelHead {
+  width:100%;
+  min-height:78rpx; 
+  /* background:#F05B29; */
+  background:rgba(255,237,225,1);
+  box-shadow:0px 1px 0px 0px rgba(245,245,245,1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0 28rpx;
+  color:#F05B29;
+  box-sizing: border-box;
+  font-size:14px;
+}
+
+.tabelHead .name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* 序号 */
+
+.searialNum {
+  width: 34rpx;
+  height: 34rpx;
+  /* background: #fff; */
+  border: 1px solid #f05b29;
+  font-weight: 800;
+  color: #f05b29;
+  display: inline-block;
+  text-align: center;
+  line-height: 34rpx;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-right: 16rpx;
+}
+
+.tableRemarks {
+  font-weight: 600;
+  font-size: 14px;
+  color: #666;
+  padding: 20rpx 28rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+/* ==== */
+
+.inp_price {
+  /* width:53px; */
+  width: 160rpx;
+  height: 24px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 2px;
+  border: 1px solid rgba(230, 230, 230, 1);
+  margin-right: 10rpx;
+}
+
+/* 表格代码   */
+
+.table {
+  border: 1px solid #dadada;
+  border-right: 0;
+  border-bottom: 0;
+  width: 100%;
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.th, .td {
+  display: flex;
+  justify-content: center;
+  word-break: break-all;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  box-sizing: border-box;
+  font-weight: 800;
+  background-color: #fff;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* .th1,.th2,.td1,.td2{
+  width: 40%;
+  box-sizing: border-box;
+} */
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 2;
+}
+
+.flex3 {
+  flex: 3;
+}
+
+/* 底部按钮 */
+
+/* 保存 */
+
+.savaBox {
+  background: #fff;
+  width: 100%;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+}
+
+.sava {
+  background: #f05b29;
+  border-radius: 2px;
+  width: 694rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0.14px;
+  margin-top: 20rpx;
+}
+
+.close {
+  background: #999;
+  border-radius: 2px;
+  width: 694rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0.14px;
+  margin-top: 20rpx;  
+}
+
+.noprice {
+  /* background: #f4f4f4; */
+  display: inline-block;
+  width:160rpx;
+  height:48rpx;
+  line-height: 48rpx;
+  border-radius:2px;
+  margin-right:10rpx;
+}
+
+/* 报价公司 */
+
+.quotationCompany {
+  height: 144rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 0 28rpx;
+  margin-top: 20rpx;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.quotationCompany .comp_logo {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.compCont{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.phoneInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:42px;
+    height:42px;
+    background:rgba(235,244,255,1);
+    border-radius:2px;
+}
+.quotationCompany .comp_logo{
+    width:110rpx;
+    height:110rpx;
+    border-radius:8rpx;
+    margin-right:20rpx;
+}
+
+.comp_name {
+  margin-bottom: 10rpx;
+}
+
+.label {
+  font-size:28rpx;
+  font-weight:600;
+  margin-right:20rpx;
+  color:#999999;
+}
+
+.merchant {
+  background: #fff;
+}
+
+/* 商家报价 */
+
+.merchantquotation {
+  display: flex;
+  justify-content: space-between;
+  background: #f5f5f5;
+  align-items: center;
+  line-height: 92rpx;
+  height: 92rpx;
+  margin: 0 28rpx;
+  color: #f05b29;
+  font-size: 14px;
+  padding: 0 20rpx;
+}
+
+.wraper {
+  background:#fff;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   box-sizing: border-box;
+   padding-bottom:30rpx;
+}
+
+.innerWraper {
+  padding:20rpx 10rpx 0 10rpx;
+  overflow: hidden;
+  width: 90%;
+  background: #e6e6e6;
+}
+
+.Fold {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f05b29;
+  font-weight: 600;
+  font-size: 14px;
+  padding-top: 10rpx;
+  padding-bottom: 30rpx;
+}
+
+.Fold image {
+  padding-left: 12rpx;
+}
+
+.footer {
+  width: 93%;
+  /* padding:0 28rpx; */
+  background: #fff;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74rpx;
+  margin-top: 20rpx;
+  border-top: 1px solid #dadada;
+}
+
+.footer image {
+  padding-right: 10rpx;
+}
+
+/* .wrap_footer{
+    padding-bottom:30rpx;
+} */
+
+/* 底部栏 */
+
+.pf_footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 84rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 28rpx;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.time {
+  width: 30rpx;
+  height: 30rpx;
+  padding-right: 18rpx;
+}
+
+.submit {
+  width: 204rpx;
+  height: 84rpx;
+  background: rgba(180, 180, 180, 1);
+  text-align: center;
+  line-height: 84rpx;
+  color: #fff;
+}
+
+.havaOffer {
+  background: linear-gradient(90deg, rgba(251, 154, 0, 1) 0%, rgba(249, 82, 0, 1) 100%);
+}
+
+.status {
+  width: 118rpx;
+  height: 60rpx;
+  background: rgba(6, 183, 59, 1);
+  text-align: center;
+  line-height: 60rpx;
+  color: #fff;
+  transform: rotate(-25deg);
+}
+
+.loading {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.examine {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 376rpx;
+  background: #fff;
+  margin-top: 20rpx;
+}
+
+.examine .text {
+  /* width: 388rpx; */
+  font-weight: 600;
+  font-size: 30rpx;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.selected {
+  background: #e6e6e6 !important;
+}
+
+.last_table {
+  margin-bottom: 84rpx;
+}
+
+.sucess_wrap {
+  margin-bottom: 160rpx;
+}
+
+.fail_wrap {
+  margin-bottom: 100rpx;
+}
+
+.checkBtn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.is_ourself {
+  background: #fff;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 500;
+  padding: 80rpx 0;
+}
+
+.viewBoxChild {
+  padding: 0 20rpx 10rpx;
+  background: #fff;
+  box-sizing: border-box;
+}

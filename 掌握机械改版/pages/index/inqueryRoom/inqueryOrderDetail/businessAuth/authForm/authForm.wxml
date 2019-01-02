@@ -1,0 +1,144 @@
+<!-- <v-pickerCity show='{{show}}' bind:certain='certain'></v-pickerCity> -->
+
+<v-model 
+  show='{{showVModal}}'
+  imgSrc=''
+  titleText='请填写完整信息'
+  contentText='{{erTips}}'
+  cancelBtn='{{false}}'
+  certainBtnText='确认'
+  bind:certain='cancel'
+></v-model>
+
+<scroll-view scroll-y>
+  <form bindsubmit="formValidate">
+    <view class='formBox mb20'>
+      <view class='inputItem'>
+        <text class='inp_title'>公司名称</text>
+        <input 
+          placeholder='{{name_placeholder}}'
+          value='{{company}}'
+          name="company"></input>
+      </view>
+      <view class='inputItem pr'>
+        <text class='inp_title'>所在地区</text>
+        <picker 
+          mode="region" 
+          bindchange="bindRegionChange" 
+          value="{{region}}">
+          <input 
+            disabled 
+            wx:if="{{!isPicker}}"  
+            placeholder='{{area_placeholder}}'></input>
+          <input 
+            disabled 
+            wx:else 
+            value="{{region[0]}} {{region[1]}} {{region[2]}}" 
+            placeholder='{{area_placeholder}}'></input>
+          </picker>
+          <view 
+            class='location pa frc' 
+            bindtap="chooseLocation">
+              <image 
+                src='/images/icons/me/addrManage/newAddr/map.png' 
+                class='mapIcon'></image>
+              <text>定位</text>
+            </view>
+         <!-- <input
+          wx:if='{{region.length>0}}'
+          disabled
+          bindtap='chooseLocation'
+          value="{{region[0].label}} {{region[1].label}} {{region[2].label}}"></input>
+        <input
+          wx:else
+          disabled
+          bindtap='chooseLocation'
+          placeholder='{{area_placeholder}}'></input> -->
+      </view>
+      <view class='inputItem'>
+        <text class='inp_title'>详细地址</text>
+        <input 
+          placeholder='{{detail_placeholder}}' 
+          name="address" 
+          value='{{address}}'></input>
+      </view>
+      <view class='inputItem'>
+        <text class='inp_title'>联系人</text>
+        <input 
+          placeholder='请输入联系人姓名' 
+          value='{{linkMan}}'
+          name="linkMan"></input>
+      </view>
+      <view class='inputItem' style='border-bottom:none'>
+        <text class='inp_title'>联系电话</text>
+        <input 
+          placeholder='请输入联系电话' 
+          name="mobile" 
+          maxlength='11' 
+          type='number' 
+          value="{{mobile}}"></input>
+      </view>
+      <!-- 新增加 -->
+    </view>
+
+    <!-- 图片上传 -->
+    <view class='uploadGroup'>
+      <view class='frc' wx:if='{{identity == 2}}'>
+        <text class='inp_title'>营业执照或名片</text>
+        <!-- 图片回显 -->
+        <view 
+          class='uploadImg' 
+          hidden="{{upload_yingyeImg.length != 1}}" 
+          style='position:relative;margin-right:20rpx'>
+          <image mode="aspectFill" src='{{upload_yingyeImg[0]}}'></image>
+          <image 
+            class="del_img pa" 
+            src="/images/inquiry/delete@2x.png" 
+            bindtap='del_upload_yingyeImg'></image>
+        </view>
+        <!-- 图片回显 -->
+        <view 
+          class='uploadImg' 
+          catchtap='upload_yingye' 
+          hidden="{{upload_yingyeImg.length == 1}}">
+          <image 
+            class='camera' 
+            src='/images/icons/me/evaluate/camera.png'></image>
+          <view>添加照片</view>
+        </view>
+      </view>
+
+      <view class='frc' data-imgtype="2">
+        <text class='inp_title'>公司照片</text>
+        <!-- 图片回显 -->
+        <view 
+          class='uploadImg' 
+          wx:if="{{logoImages.length >0 }}" 
+          style='position:relative;margin-right:20rpx' 
+          wx:for="{{logoImages}}" 
+          wx:key="{{index}}">
+          <image mode="aspectFill" src='{{item}}'></image>
+          <image 
+            class="del_img pa" 
+            src="/images/inquiry/delete@2x.png" 
+            bindtap='del_comp_img' 
+            data-index="{{index}}"></image>
+
+        </view>
+        <!-- 图片回显 -->
+        <view 
+          class='uploadImg' 
+          bindtap='upload_comp' 
+          wx:if="{{logoImages.length <3 }}">
+          <image 
+            class='camera' 
+            src='/images/icons/me/evaluate/camera.png'></image>
+          <view>添加照片</view>
+        </view>
+      </view>
+    </view>
+    <view class='savaBox'>
+      <button class='sava' form-type="submit">提交申请</button>
+    </view>
+  </form>
+</scroll-view>

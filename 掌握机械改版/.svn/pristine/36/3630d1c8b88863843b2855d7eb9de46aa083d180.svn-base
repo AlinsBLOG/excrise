@@ -1,0 +1,80 @@
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<!--pages/index/class/class.wxml-->
+<!-- 机型 -->
+<view class="container bb pr" wx:if="{{!showLoading}}">
+	<!-- 机型（机型（一级机型）） -->
+	<scroll-view class="model_scroll" scroll-y scroll-into-view="{{toView}}" scroll-with-animation="{{true}}">
+		<!-- 历史访问机型 -->
+		<view wx:if="{{historyStr}}" style="background-color: #f3f3f3;">
+			<view class="model_title">历史访问机型</view>
+			<view class="keyword black f12 dib bgf"  wx:for="{{historyArr}}" wx:key="{{index}}" catchtap="getLastId" id="{{item.hisId}}" data-text="{{item.hisWord}}">
+            	{{item.hisWord}}
+        	</view>
+		</view>
+		<!-- 热门品牌 -->
+		<view class="model_title" id="hot">热门品牌</view>
+		<view class="model_hot oh">
+			<view class="hot_item fl {{ index == 0 || index == 5 ? '' : 'hot_border1' }}" wx:for="{{modelHot}}" wx:key="{{index}}" catchtap="getSecondList" id="{{item.id}}" data-text="{{item}}">
+				<view class="hot_img">
+					<image src="{{item.img}}"></image>
+				</view>
+				<view class="tc f12 fow">{{item.name}}</view>
+			</view>
+		</view>
+		<!-- 快速检索 -->
+		<view class="model_title" id="not">*</view>
+		<view class="model_item oh">
+			<view class="model_text fl f12"  catchtap="getLastId" id=" " data-text="不限品牌">不限品牌</view>
+		</view>
+		<block wx:for="{{modelAll}}" wx:key="{{index}}" catchtap="getSecondList" id="{{item.id}}"
+			data-text="{{item}}">
+			<view class="model_title" id="{{item.letter}}" >{{item.letter}}</view>
+			<view class="model_item oh" wx:for="{{item.list}}" wx:key="{{index}}" catchtap="getSecondList"  id="{{item.id}}" data-text="{{item}}">
+				<view class="model_img fl">
+					<image src="{{item.img}}"></image>
+				</view>
+				<view class="model_text fr f12 fow">{{item.name}}</view>
+			</view>
+		</block>
+	</scroll-view>
+	<!-- 筛选框（机型（二级机型）） -->
+	<view class="model_second pa " wx:if="{{getSecond}}">
+		<view class="mask pa" bindtap="close2"></view>
+		<scroll-view class="secondClass pa bgf" scroll-y>
+			<view class="second_title f14 pr">
+				<image class="second_img pa" src="{{img}}"></image>
+				<view class="second_text pa">{{bigSeries}}</view>
+			</view>
+			<!-- 全部 -->
+			<view class="model_title" id="not">*</view>
+				<view class="model_item oh">
+					<view class="model_text fl f14" catchtap="getLastId" id="{{secondId}}" data-text="{{bigSeries}}">不限机型</view>
+				</view>
+			<view class="model_title" id="not"></view>
+            <view wx:for="{{ secondList.all }}"  wx:key="{{index}}" class="ulLis bgf f14 tl fow" catchtap="getLastList" id="{{item.id}}" data-text="{{item.name}}">
+                {{item.name}}
+            </view>
+        </scroll-view>
+	</view>
+	<!-- 筛选框（机型（三级机型）） -->
+	<view class="model_second pa " wx:if="{{getLast}}">
+		<view class="mask pa" bindtap="close3"></view>
+		<scroll-view class="secondClass pa bgf" scroll-y>
+			<!-- 全部 -->
+			<view class="model_item oh">
+				<view class="model_text fl f14" catchtap="getLastId" id="{{lastId}}" data-text="{{series}}">不限</view>
+			</view>
+			<view class="model_title" id="not">{{series}}</view>
+            <view wx:for="{{ lastList.all }}"  wx:key="{{index}}" class="ulLis bgf f14 tl fow" catchtap="getLastId" id="{{item.id}}" data-text="{{item.name}}">
+                {{item.name}}
+            </view>
+        </scroll-view>
+	</view>
+	<!-- 右侧字母滚动条 -->
+	<view class="sidebar bgf pa" wx:if="{{!getSecond}}" >
+		<view class="sidebar_nav pa">
+			<view class="orange f12 tc pb12" catchtouchstart="choiceWordindex" data-wordindex="*">*</view>
+			<view class="orange f12 tc pb12" wx:for="{{ modelAll }}" wx:key="{{index}}" catchtouchstart="choiceWordindex" data-wordindex="{{ item.letter }}">{{ item.letter }}</view>
+		</view>
+	</view>
+</view>

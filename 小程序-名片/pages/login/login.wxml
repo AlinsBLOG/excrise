@@ -1,0 +1,65 @@
+<view wx:if='{{loginType}}'>
+  <view class='loginHeadTips'>已有名片全能王账户登录</view>
+  <view>
+    <view class='createRows'>
+      <view class='row'>
+        <text>账户</text>
+        <input 
+          name='account'
+          data-name='account'
+          bindinput='inputChange'
+          placeholder='邮箱/手机号' 
+          placeholder-class="phcolor"></input>
+      </view>
+    </view>
+    <view class='createRows'>
+      <view class='row'>
+        <text>密码</text>
+        <input 
+          name='password'
+          type='password'
+          data-name='password'
+          bindinput='inputChange'
+          placeholder='输入密码' 
+          placeholder-class="phcolor"></input>
+      </view>
+    </view>
+  </view>
+  <view class='createCertain'>
+    <button bindtap='loginCertain'>确定</button>
+    <text bindtap='loginTypeAction'>验证码快速登录</text>
+  </view>
+</view>
+<view wx:else>
+  <view class='loginHeadTips'>验证手机完成登录</view>
+  <view>
+    <view class='createRows'>
+      <view class='row'>
+        <text>手机号码</text>
+        <input 
+          name='mobile'
+          data-name='mobile'
+          bindinput='inputChange'
+          placeholder='填写手机号码' 
+          placeholder-class="phcolor"></input>
+      </view>
+    </view>
+    <view class='createRows'>
+      <view class='row validCode'>
+        <text>验证码</text>
+        <input 
+          name='code'
+          data-name='code'
+          bindinput='inputChange'
+          placeholder='输入验证码' 
+          placeholder-class="phcolor"></input>
+        <button wx:if='{{!selected}}' bindtap='tapGetCode'>验证</button>
+        <button wx:else>{{second}}s</button>
+      </view>
+    </view>
+  </view>
+  <view class='createCertain'>
+    <button bindtap='loginCertain'>确定</button>
+    <!-- <text bindtap='loginTypeAction'>账号密码登录</text> -->
+  </view>
+</view>

@@ -1,0 +1,108 @@
+<template>
+  <div class="Home">
+    <Head-Top head-title='申请成为顾问' go-back='true'></Head-Top>
+    <div class="login">
+      <a data-v-21cb8243="" class="mint-cell mint-field">
+        <div class="mint-cell-wrapper">
+          <div class="mint-cell-title">
+            <span class="mint-cell-text">上传头像</span>
+          </div>
+          <div style="position: relative;padding: .2rem;width: 100%;">
+            <label
+              v-bind:style="{backgroundImage:'url(' + (data.avatarImg ? data.avatarImg : defaultAvatarImg) + ')'}"
+              for="file" 
+              class="file"
+              >
+              <input type="file" name="file" id="file" hidden @change='uploadAvatar'>
+            </label>
+          </div>
+        </div>
+      </a>
+      <mt-field label="姓名" placeholder="姓名" type="text" v-model="data.name"></mt-field>
+      <mt-field label="说明" placeholder="说明" type="textarea" rows='3' v-model="data.summary"></mt-field>
+      <mt-field label="备注" placeholder="备注" type="textarea" rows='3' v-model="data.remark"></mt-field>
+      <mt-button type="primary" size="large" class="login-btn" @click.native="submit">申请</mt-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations, mapGetters  } from 'vuex'
+import { validatePhone, validateEmail  } from '../../../config/mUtils'
+import  { Toast } from "mint-ui"
+import HeadTop from '@/components/header/head'
+import HomeFooter from '@/pages/footer'
+import { umeResumeSave } from '@/service/getData'
+import { upload1, upload2 } from '../../../config/upload'
+
+export default {
+  name: "Register",
+  data () {
+    return{
+      data: {
+        avatarImg: null,
+        name: '',
+        remark: '',
+        summary: '',
+      }
+    }
+  },
+  components: {
+    HomeFooter,
+    HeadTop
+  },
+  mounted: function () {
+
+  },
+  computed: {
+    ...mapState(['defaultAvatarImg'])
+  },
+  methods:{
+    ...mapMutations(['SET_LOADING']),
+
+    uploadAvatar () {
+      const that = this
+      that.SET_LOADING(true)
+      let input = document.querySelector('#file')
+      let file = input.files[0]
+      upload1(file).then(res => {
+        upload2(res, file).then(() => {
+          that.data.avatarImg = res.data.resourceUrl
+          that.SET_LOADING(false)
+        })
+      })
+    },
+
+    async submit (e) {
+      const that = this
+      await umeResumeSave(this.data).then(res => {
+        console.log(res)
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .login {
+    margin-top: .1rem;
+    .login-btn {
+      position: fixed;
+      bottom: .2rem;
+      width: 95%;
+      left: 2.5%;
+    }
+  }
+  .file {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    float: right;
+    margin-right: .2rem;
+  }
+</style>
+

@@ -1,0 +1,34 @@
+<!-- pages/index/me/addrManage/addrManage.wxml -->
+<!--地址详情  -->
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<scroll-view scroll-y="true">
+<view class="mt20" wx:if="{{isAddr}}" hidden="{{showLoading}}">
+  <view class='addrDetail pr mb20 bgf' wx:for="{{addrDetail}}" wx:key="{{item.id}}" catchtap="goBuyNow" data-text="{{item}}">
+    <!--详情  -->
+    <view class='detail'>
+      <text class='name'>{{item.income_people}}</text>
+      <text>{{item.username}}</text>
+      <text wx:if="{{item.type == 1}}" class="moren tc">默认</text>
+      <view class='addrMsg'>{{item.province_name}}{{item.city_name}}{{item.county_name}}{{item.details}}</view>
+    </view>
+    <view class="detail_edit pa" catchtap='goEditAddr' data-id="{{item.id}}">
+      <!-- <image class="pa" src=""></image> -->
+            <text class="iconfont icon-edit editIcon pa"></text>
+    </view>
+    <image class="detail_img pa" src="/images/icons/car/color.png"></image>
+  </view>
+  <view class='btn_mask pr'>
+    <button class='newAddr' bindtap='goNewAddr'>添加新地址</button>
+  </view>
+</view>
+</scroll-view>
+<!-- 地址为空 -->
+<view wx:if="{{!isAddr}}" hidden="{{showLoading}}">
+  <view class='fcc'>
+    <view class='whereAddr fcc'>
+      <image></image>
+      <text>收货地址在哪里？</text>
+    </view>
+    <button class='newAddr' bindtap="goNewAddr">添加新地址</button>
+  </view>
+</view>

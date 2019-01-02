@@ -1,0 +1,61 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import App from '../App'
+import Index from '@/pages/index'
+import Adviser from '@/pages/adviser'
+import SearchAdviser from '@/pages/adviser/search'
+import Profile from '@/pages/profile'
+import Login from '@/pages/login'
+import Register from '@/pages/register'
+import ApplyAdviser from '@/pages/applyAdviser'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    { 
+    	path: '/', 
+    	component: App,
+    	children: [
+			{ 
+		    	path: '',
+            	redirect: '/index'
+		    },
+		    { 
+		    	path: 'index', 
+		    	component: Index 
+		    },
+		    { 
+		    	path: 'adviser', 
+		    	component: Adviser,
+		    },  
+		    { 
+		    	
+	    		path: 'adviser/search', 
+    			component: SearchAdviser,
+			    	
+		    }, 
+		    { 
+		    	path: 'profile', 
+		    	component: Profile 
+		    },
+		    { 
+		    	path: 'login', 
+		    	component: Login 
+		    },
+		    { 
+		    	path: 'register', 
+		    	component: Register 
+		    },
+		    { 
+		    	path: 'applyAdviser', 
+		    	component: ApplyAdviser 
+		    },
+    	]
+    }
+  ],
+  //路由切换页面始终回到最顶部
+  // scrollBehavior(to, from, savedPosition) {
+  //   return { x: 0, y: 0 }
+  // }
+})

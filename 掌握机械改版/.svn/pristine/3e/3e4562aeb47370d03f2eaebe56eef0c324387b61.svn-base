@@ -1,0 +1,6 @@
+<view class='container'>
+  <view class='condition'>您的公司性质是？</view>
+  <view class='cond_btn' style='margin-bottom:26rpx' data-title="1" bindtap='goAuth'>修理厂</view>
+  <view class='cond_btn' bindtap="goAuth" data-title="2">配件商</view>
+  <view class='phone pa' bindtap='callPhone'>客服电话：4008322818</view>
+</view>
