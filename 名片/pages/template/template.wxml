@@ -1,0 +1,362 @@
+<wxs src="./common.wxs" module="common" />
+<template name="card">
+  <view class='cardContainer'>
+    <view class='head'>
+      <swiper bindchange='swiperScrollChange' current='{{currentIndex}}'>
+        <swiper-item 
+          wx:for='{{myCardList}}' 
+          wx:key='index'
+        >
+          <view class='headBox clearfix'>
+            <text class='index'>{{index+1 + '/' +myCardList.length}}{{item.isDefault == 1?'默认':''}}</text>
+            <view 
+              class='rows'
+              data-cardId='{{item.id}}'
+              bindtouchstart='bindTouchStart'
+              bindtouchend='bindTouchEnd'
+              bindlongpress='chooseAction'
+              bindtap='myCardDetail'>
+              <view class='left'>
+                <image 
+                  mode='widthFix' 
+                  src='{{item.cardPhoto ? item.cardPhoto : "https://img.zcool.cn/community/01460b57e4a6fa0000012e7ed75e83.png@1280w_1l_2o_100sh.webp"}}'>
+                </image>
+              </view>
+              <view class='right'>
+                <text class='name'>{{item.userName ? item.userName : realName}}</text>
+                <text class='introduction'>{{item.cmpPosition ? item.cmpPosition : '职位信息未填写'}}</text>
+                <text class='introduction'>{{item.cmpName ? item.cmpName : '公司信息未填写'}}</text>
+              </view>
+            </view>
+            <view class='rows contact' data-phone='{{item.mobile}}' catchtap='makePhoneCall'>
+              <image mode='widthFix' src='../../static/images/phone.png'></image>
+              <text>{{item.mobile ? item.mobile : '赞无联系方式'}}</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/email.png'></image>
+              <text class='email'>{{item.email ? item.email : '暂无邮箱地址'}}</text>
+            </view>
+            <view class='rows contact' catchtap='makeLocation'>
+              <image mode='widthFix' src='../../static/images/location.png'></image>
+              <text>{{item.cmpAddress ? item.cmpAddress : '暂无详细地址'}}</text>
+            </view>
+            <view 
+              class='editView' 
+              wx:if='{{selfCard}}'
+              bindtap='editCard' 
+              data-cardId='{{item.id}}'
+              data-userId='{{item.userId}}'
+            ><image src='../../static/images/edit.png'></image></view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+</template>
+
+<template name='groupListLess6'>
+  <navigator url='/pages/center/addressGroup/addressGroup?id={{id}}' class='groupList'>
+    <view class='imageGroup'>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+    </view>
+    <text class='groupName'>{{groupName}}</text>
+  </navigator>
+</template>
+
+<template name='imageGroupList'>
+  <view class='imageGroup {{list && list.length<=4 ? "imageGroup4" : "imageGroup9"}}'>
+    <block wx:if='{{list.length}}'>
+      <block wx:for='{{list}}' wx:key='index' wx:if='{{index<9}}'>
+        <image mode='widthFix' src='{{item.cardPhoto}}'></image>
+      </block>
+    </block>
+    <block wx:else>
+      <image mode='widthFix' src='../../../static/images/nopeople.jpg'></image>
+    </block>
+  </view>
+</template>
+
+<template name='groupListLess9'>
+  <navigator url='/pages/center/addressGroup/addressGroup?id={{id}}' class='groupList groupList9'>
+    <view class='imageGroup'>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+      <image mode='widthFix' src='../../../static/images/pig.jpg'></image>
+    </view>
+    <text class='groupName'>{{groupName}}</text>
+  </navigator>
+</template>
+
+
+<template name="changeCard">
+  <view class='cardContainer'>
+    <view class='head' style='height:640rpx;'>
+      <swiper bindchange='swiperScrollChange'>
+        <swiper-item 
+          wx:for='{{myCardList}}' 
+          wx:key='index'
+        >
+          <view class='headBox clearfix changeCardHeadBox'>
+            <text class='index'>{{index+1 + '/' +myCardList.length}}</text>
+            <view 
+              class='rows'
+              data-cardId='{{item.id}}'
+            >
+              <view class='left'>
+                <image 
+                  mode='widthFix' 
+                  src='{{item.cardPhoto ? item.cardPhoto : globalImage}}'>
+                </image>
+              </view>
+              <view class='right' style='width:340rpx;'>
+                <text class='name'>{{item.userName ? item.userName : realName}}</text>
+                <text class='introduction'>{{item.cmpPosition ? item.cmpPosition : '职位信息未填写'}}</text>
+                <text class='introduction'>{{item.cmpName ? item.cmpName : '公司信息未填写'}}</text>
+              </view>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/phone.png' style='height:auto'></image>
+              <text>{{item.mobile ? item.mobile : '赞无联系方式'}}</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/email.png' style='height:auto'></image>
+              <text class='email'>{{item.email ? item.email : '暂无邮箱地址'}}</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/location.png' style='height:auto'></image>
+              <text>{{item.cmpAddress ? item.cmpAddress : '暂无详细地址'}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+      <view class='actionButton'>
+        <text class='cancel' bindtap='closeModal'>取消</text>
+        <text class='' bindtap='certain'>确定</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name="browseCard">
+  <view class='cardContainer'>
+    <view class='head'>
+      <view class='headBox clearfix'>
+        <view 
+          class='rows'
+          data-cardId='{{id}}'
+        >
+          <view class='left'>
+            <image 
+              mode='widthFix' 
+              src='{{cardPhoto ? cardPhoto : globalImage}}'>
+            </image>
+          </view>
+          <view class='right'>
+            <text class='name'>{{userName ? userName : mobile}}</text>
+            <text class='introduction'>{{cmpPosition ? cmpPosition : '职位信息未填写'}}</text>
+            <text class='introduction'>{{item.cmpName ? item.cmpName : '公司信息未填写'}}</text>
+          </view>
+        </view>
+
+        <!-- 1是自己，2是联系人，3是非联系人 -->
+        <block wx:if='{{cardType == 1}}'>
+          <view class='rows contact'>
+            <image mode='widthFix' src='../../static/images/phone.png'></image>
+            <text>{{mobile ? mobile : '赞无联系方式'}}</text>
+          </view>
+          <view class='rows contact'>
+            <image mode='widthFix' src='../../static/images/email.png'></image>
+            <text class='email'>{{email ? email : '暂无邮箱地址'}}</text>
+          </view>
+          <view class='rows contact'>
+            <image mode='widthFix' src='../../static/images/location.png'></image>
+            <text>{{cmpAddress ? cmpAddress : '暂无详细地址'}}</text>
+          </view>
+        </block>
+        <block wx:else='{{cardType == 2}}'>
+          <block wx:if='{{!infoVisible}}'>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/phone.png'></image>
+              <text>信息未公开</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/email.png'></image>
+              <text class='email'>信息未公开</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/location.png'></image>
+              <text>信息未公开</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class='rows contact' data-phone='{{mobile}}' catchtap='makePhoneCall'>
+              <image mode='widthFix' src='../../static/images/phone.png'></image>
+              <text>{{mobile ? mobile : '赞无联系方式'}}</text>
+            </view>
+            <view class='rows contact'>
+              <image mode='widthFix' src='../../static/images/email.png'></image>
+              <text class='email'>{{email ? email : '暂无邮箱地址'}}</text>
+            </view>
+            <view class='rows contact' catchtap='makeLocation'>
+              <image mode='widthFix' src='../../static/images/location.png'></image>
+              <text>{{cmpAddress ? cmpAddress : '暂无详细地址'}}</text>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name='move'>
+  <button open-type="{{type}}" class='zhuanfa'><image mode='widthFix' src='../../static/images/move.png'></image><text>{{name}}</text></button>
+</template>
+
+<template name='cardList'>
+  <navigator 
+    class='cardListRows clearfix' 
+    url='/pages/index/index?cardId={{item.contactId}}' 
+    wx:for='{{cardFolder}}'
+    wx:key='index'
+    >
+    <view class='left'><image mode='widthFix' src='{{item.cardPhoto ? item.cardPhoto : globalImage}}'></image></view>
+    <view class='right'>
+      <text class='name'>{{item.contactName}}</text>
+      <text class='introduction'>{{item.companyName ? item.companyName : '公司信息不存在'}}</text>
+    </view>
+    <text class='time'>{{common.slice(item.addDate)}}</text>
+  </navigator>
+</template>
+
+<template name='draftList'>
+  <navigator 
+    class='cardListRows clearfix' 
+    url='/pages/index/index?cardId={{item.contactId}}' 
+    wx:for='{{cardFolder}}'
+    wx:key='index'
+    >
+    <view class='left'><image mode='widthFix' src='{{item.cardPhoto ? item.cardPhoto : globalImage}}'></image></view>
+    <view class='right'>
+      <text class='name'>{{item.contactName}}</text>
+      <text class='introduction'>{{item.companyName ? item.companyName : '公司信息不存在'}}</text>
+    </view>
+     <text class='time'>{{common.slice(item.addDate)}}</text> 
+    <view class='applyAction'>
+      <text class='unaccept'>待处理</text>
+    </view>
+  </navigator>
+</template>
+
+<template name='applyList'>
+  <navigator 
+    class='cardListRows clearfix' 
+    url='/pages/index/index?cardId={{item.cardId}}' 
+    wx:for='{{cardFolder}}'
+    wx:key='index'
+    >
+    <view class='left'><image mode='widthFix' src='{{item.cardPhoto ? item.cardPhoto : globalImage}}'></image></view>
+    <view class='right'>
+      <text class='name'>{{item.userName}}</text>
+      <text class='introduction'>{{item.companyName ? item.companyName : '公司信息不存在'}}</text>
+    </view>
+    <text class='time'>{{common.slice(item.addDate)}}</text>
+    <view class='applyAction'>
+      <text class='accept' data-applyId='{{item.id}}' data-type='accept' catchtap='applyAct'>同意</text>
+      <text class='unaccept' data-applyId='{{item.id}}' data-type='unaccept' catchtap='applyAct'>拒绝</text>
+    </view>
+  </navigator>
+</template>
+
+<template name='aboutMeCardTemplate'>
+  <view class='aboutMeCardTemplate'>
+    <view class='aboutMeCardTemplateImage'>
+      <image mode='widthFix' src='https://ecsp-dev.obs.myhwclouds.com/res/wxgzh_qr.jpg'></image>
+    </view>
+    <view class='aboutMeCardTemplateInfo'>
+      <text class='aboutMeCardTemplateInfoName'>全宝蓝</text>
+      <text>全站</text>
+      <text>火星技术有限公司</text>
+    </view>
+  </view>
+</template>
+
+<template name='aboutMeCardTemplateWithRight'>
+  <checkbox-group bindchange="deletecheckbox">
+    <label
+      class="checkbox checkboxLabel"
+      wx:for='{{groupContactList}}' 
+      wx:key='index' 
+    >
+      <view class='aboutMeCardTemplate' data-id='{{editState ? "": item.contactId}}' bindtap='toContactCard'>
+        <view class='aboutMeCardTemplateImage'>
+          <image mode='widthFix' src='{{item.cardPhoto?item.cardPhoto:globalImage}}'></image>
+        </view>
+        <view class='aboutMeCardTemplateInfo'>
+          <text class='aboutMeCardTemplateInfoName'>{{item.contactName?item.contactName:''}}</text>
+          <text>{{item.companyPosition?item.companyPosition:''}}</text>
+          <text>{{item.companyName?item.companyName:''}}</text>
+        </view>
+        <checkbox wx:if='{{editState}}' value="{{item.id}}" checked="{{item.checked}}"/>
+        <image wx:else class='rightImage' mode='widthFix' src='../../../static/images/right.png'></image> 
+      </view>
+    </label>
+  </checkbox-group>
+</template>
+
+<template name='hot'>
+  <navigator class='aboutMeCardTemplate' url='/pages/index/index?cardId={{id?id:4}}'>
+    <view class='aboutMeCardTemplateImage'>
+      <image mode='widthFix' src='{{cardPhoto?cardPhoto:globalImage}}'></image>
+    </view>
+    <view class='aboutMeCardTemplateInfo'>
+      <text class='aboutMeCardTemplateInfoName'>{{userName?userName:mobile}}</text>
+      <text>{{cmpPosition?cmpPosition:''}}</text>
+    </view>
+    <image class='rightImage' mode='widthFix' src='../../../static/images/right.png'></image>
+  </navigator>
+</template>
+
+<template name='modalCreate'>
+  <view class="modal-mask" bindtap="onCancel" catchtouchmove="preventTouchMove"></view>
+    <view class="modal-dialog">
+      <view class="modal-title">{{title}}</view>
+      <view class="modal-content">
+        <view class="modal-input">
+          <input 
+            placeholder-class="input-holder" 
+            type="number" 
+            maxlength="10" 
+            bindinput="inputChange" 
+            class="input"
+            value='{{value?value:""}}'
+            placeholder="{{placeholder?placeholder:'请输入'}}"></input>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+        <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+      </view>
+  </view>
+</template>
+
+<template name='headAvageList'>
+  <view class='headAvage' wx:if='{{list.length}}'>
+    <block wx:for='{{list}}' wx:key='index'>
+      <block wx:if='{{index<3}}'>
+        <view 
+          class='headImageItem' 
+          style='width:{{size?size:60}}rpx;height:{{size?size:60}}rpx;background-image:url({{item.cardPhoto}})'
+          >
+        </view>
+      </block>
+    </block>
+  </view>
+</template>

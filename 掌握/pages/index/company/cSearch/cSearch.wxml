@@ -1,0 +1,73 @@
+<!--pages/index/search/search.wxml-->
+<!-- 搜索框 -->
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<scroll-view scroll-y="{{isScroll}}" hidden="{{showLoading}}"bindscrolltolower="getMoreGoodsList">
+    <form>
+    <view class="search pf .bgf">
+        <input type="text" name="key" class="f12 tl" bindinput="checkSearch" placeholder="请输入商品关键词" confirm-type="search" value="{{serchinput}}" bindconfirm="cSearch" />
+        <image class="db pa" src="/images/icons/index/search.png"></image>
+        <image catchtap="emptyStr" class="empty db pa" src="/images/icons/search/empty.png" wx-if="{{serchinput.length > 0}}"></image>
+        <!-- <view class="button f14 pa tc" bindtap="goback" wx:if="{{isback}}">
+            取消
+        </view> -->
+        <view class="button f14 pa tc ss" bindtap="cSearch" >
+            搜索
+        </view>
+    </view>
+</form>
+<view class="nothing .bgf"></view>
+<!-- 搜索结果 -->
+<view>
+    <!-- 搜索结果为无 -->
+    <view class="searchNull pr" wx:if="{{cGoodsData.length == 0}}">
+        <image class="db pa" src="/images/icons/search/serachnull.png"></image>
+        <text class="gray pa f12 tc">抱歉，您要的配件还未上架</text>
+        <view class="searchNull_button pr" catchtap="goMessage">
+            <image class="db pa" src="/images/icons/search/button.png"></image>
+            <text class="white pa f16 tc">联系掌窝咨询</text>
+        </view>
+    </view>
+    <!-- 排序 -->
+<!-- <view class="options bgf flex-row pr {{fix?'pf a':''}}"  style="z-index:5;">
+    <view class="select {{selectValue == 1 ? 'orange' : ''}}" catchtap="select1">人气</view>
+    <view class="select {{selectValue == 2 ? 'orange' : ''}}" catchtap="select2">销量</view>
+    <view class="select {{selectValue == 3 ? 'orange' : ''}}" catchtap="select3">新品</view>
+    <view class="select pr {{selectValue > 3 ? 'orange' : ''}}" catchtap="select45">
+        价格
+        <view class="sort desc {{selectValue == 4 ? 'desc_active' : ''}}"></view>
+        <view class="sort asc {{selectValue == 5 ? 'asc_active' : ''}}"></view>
+    </view>
+</view> -->
+
+    <!-- 格子布局 -->
+<view class="waterfal oh pb6"  wx:if="{{cGoodsData.length != 0}}"  >
+    <view class="waterfall_box">
+        <view class="waterfall_goods pr" wx:for="{{ cGoodsData }}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+            <view class="waterfall_img">
+                <image src="{{item.img_show}}"></image>
+            </view>
+            <view class="ml10 mt10 f14 textoh2 p15" style="height:76rpx;"><text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.title}}</view>
+            <view class="rec_goodstip p15">
+                <!-- 优惠XX元 -->
+                <text class="rec_goods_label f10" wx:if="{{item.disparity != 0}}" wx:key="{{index}}">优惠{{item.disparity}}元</text>
+                <!-- 商品标签 -->
+                <text class="rec_goods_label f10" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+            </view>
+            <view class="ml10 mt10 orange f16 p14">
+                ￥{{item.nowprice}}
+                <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.retail_price}}</text>
+            </view>
+            <view class="rec_company f10 gray pl10 pr"><view class="textoh" style="width:70%;">{{item.company_title}}</view><view class="pa" style="right:20rpx;bottom:0;">{{item.s_city}}</view></view>
+        </view>
+    </view>
+</view >
+<view wx:if="{{cGoodsData.length != 0}}" >
+    <view class="page-loading" wx-if="{{showMore1}}">
+        <image src="/images/loading.gif" ></image>
+        玩命加载中...
+    </view>
+    <view class="page-loading" wx-if="{{showMore2}}" >已经到底啦</view>
+</view>
+</view>
+
+</scroll-view >

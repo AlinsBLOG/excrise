@@ -1,0 +1,78 @@
+page{
+  background: #F3F3F3;
+}
+
+.loginHeadTips{
+  color: #949494;
+  font-size: 32rpx;
+  line-height: 3;
+  padding-left: 40rpx;
+}
+
+.phcolor{
+  color: #B9B9B9;
+}
+
+.createRows{
+  padding: 0 40rpx;
+  background: #fff;
+}
+
+.createRows .row{
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+}
+
+.createRows:not(:last-child) .row{
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.createRows text{
+  color: #000;
+  font-size: 34rpx;
+  /* margin-right: 140rpx; */
+  flex: 10;
+  position: relative;
+}
+
+.createRows input{
+  font-size: 32rpx;
+  position: relative;
+  flex: 22;
+}
+
+.createCertain{
+  padding: 80rpx 60rpx 60rpx;
+}
+
+.createCertain button{
+  background: #1da9ff;
+  border-radius: 50rpx;
+  color: #fff;
+}
+
+.createCertain text{
+  display: block;
+  color: #29ADFF;
+  font-size: 34rpx;
+  margin-top: 40rpx;
+}
+
+.validCode{
+  position: relative;
+}
+
+.validCode button{
+  position: absolute;
+  right: 0;
+  top: 24rpx;
+  border: 1px solid #1da9ff;
+  color: #1da9ff;
+  background-color: #fff;
+  padding: 16rpx 38rpx; 
+  border-radius: 4px;
+  font-size: 30rpx;
+  line-height: 1;
+  z-index: 10;
+}

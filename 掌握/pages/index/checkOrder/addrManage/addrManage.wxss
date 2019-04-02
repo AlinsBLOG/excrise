@@ -1,0 +1,116 @@
+/* pages/index/me/addrManage/addrManage.wxss */
+/*地址详情  */
+page{
+  width:100%;
+  height:100%;
+  background:#f5f5f5;
+  margin-top: 2rpx;
+}
+.addrDetail{
+  width: 96%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 6rpx;
+  box-sizing: border-box;
+}
+.addrDetail .detail{
+  min-height:130rpx;
+  padding:18rpx 0 20rpx 28rpx;
+  box-sizing: border-box;
+  font-size:13px;
+  color:#333333;
+  letter-spacing:-0.1px;
+
+}
+.addrDetail .detail .name{
+  margin-right:30rpx;
+}
+.addrDetail .detail .addrMsg{
+ margin-top:18rpx;
+ width: 86%;
+}
+.addrDetail .addrEdit{
+    justify-content: space-between; 
+    padding:0 20rpx 0 28rpx; 
+    height:76rpx;
+    font-size:22rpx;
+    color:#333333;
+    letter-spacing:-0.08px;
+}
+.detail_img{
+  width: 100%;
+  height: 10rpx;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.detail_edit{
+  width: 100rpx;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.moren{
+  margin-left: 20rpx;
+  width: 60rpx;
+  height: 34rpx;
+  color: #fff;
+  background-color: #fd5f2a;
+}
+/*编辑  */
+.addrEdit .edit{
+  margin-right:46rpx;
+}
+ .addrEdit image{
+  width: 26rpx;
+  height:26rpx;
+  background: red;
+  margin-right:8rpx;
+} 
+.editIcon{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+/* 新建地址按钮 */
+ .newAddr{
+  background:#f05b29;
+  border-radius:4px;
+  width:692rpx;
+  height:80rpx;
+  position: fixed;
+  transform: translateX(-50%);
+  left:50%;  
+  bottom:20rpx; 
+  font-size:15px;
+  color:#ffffff;
+  z-index:3000;
+  box-sizing: border-box;
+} 
+/*收货地址为空页面  */
+
+/* 收获地址在哪里的盒子 */
+.whereAddr{
+  position: absolute;
+  top:282rpx;
+  left:50%;
+  transform: translateX(-50%);
+  font-size:14px;
+  color:#999999;
+}
+/* 没有收货地址的图片提示 */
+.whereAddr image{
+  width:135px;
+  height:126px;
+  background: red;
+  margin-bottom:32rpx;
+}
+ .btn_mask{
+  background:#fff;
+  width:100%;
+  height:120rpx;
+  position: fixed;
+  bottom:0;
+} 
+
+

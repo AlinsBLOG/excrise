@@ -1,0 +1,78 @@
+.loginTips{
+  background: #FFF6E1;
+  font-size: 28rpx;
+  padding-left: 20rpx;
+  line-height: 2;
+  color: #D2A67F;
+}
+
+.loginTips text{
+  color: #21BBF5;
+}
+
+.searchBox{
+  padding: 10rpx 20rpx;
+}
+
+.search{
+  display: inline-block;
+  width: 100%;
+  background: #fff;
+  border-radius:20px;
+  font-size: 28rpx;
+  padding-left: 24rpx;
+}
+
+.zhuanfa{
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.zhuanfa text{
+  bottom:30rpx;
+  margin-left:-41rpx;
+}
+
+.zhuanfa image{
+  top:25rpx;
+}
+
+.noList image{
+  width: 100%;
+}
+
+.cardListRows{
+  margin-bottom: 1px;
+}
+
+.cardListRows .right .name{
+  line-height: 2;
+}
+
+.cardListRows .right .introduction{
+  margin-top: 0;
+}
+
+.applyAction{
+  position: absolute;
+  bottom: 10rpx;
+  right: 30rpx;
+  font-size: 24rpx;
+}
+
+.applyAction text{
+  display: inline-block;
+  border-radius: 8rpx;
+  padding: 8rpx 12rpx;
+  z-index: 999;
+}
+
+.accept{
+  background: red;
+  color: #fff;
+  margin-right: 4rpx;
+}
+
+.unaccept{
+  background: lightgray;
+}

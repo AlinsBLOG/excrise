@@ -1,5 +1,0 @@
-<import src='../template/template.wxml' />
-<template wx:if='{{cardFolder.length}}' is='applyList' data='{{cardFolder,globalImage}}'></template>  
-<view wx:else class='noList'>
-  <image src='../../static/images/noList.png' mode='widthFix'></image>
-</view>

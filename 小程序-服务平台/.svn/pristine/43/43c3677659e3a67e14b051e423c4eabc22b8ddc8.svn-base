@@ -1,9 +1,0 @@
-<import src="../template/cascade.wxml"/>
-
-<view bindtap="dianji">点击</view>
-<view>
-　　<text>省：{{jieguo.sheng}}</text>
-　　<text>市：{{jieguo.shi}}</text>
-　　<text>区：{{jieguo.qu}}</text>
-</view>
-<template is="cascade" data="{{animationData:animationData,sheng:sheng,shi:shi,qu:qu}}"/>

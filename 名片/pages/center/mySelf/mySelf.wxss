@@ -1,0 +1,42 @@
+.createHead .right .name{
+  border-bottom: none;
+  line-height: 2;
+  padding: 0;
+}
+
+.createHead .right .phone{
+  line-height: 2;
+  padding: 0;
+}
+
+.changeAccount{
+  background: #fff;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 3;
+}
+
+.creatBu{
+  font-size: 34rpx;
+  color: #1D9CE8;
+}
+
+.mySelfMore{
+  background: #fff;
+  margin-bottom: 20rpx;
+  padding: 0 36rpx;
+}
+
+.mySelfMore .item{
+  border-bottom: 1px solid #EEEEEE;
+  line-height: 3;
+  vertical-align: middle;
+  font-size: 34rpx;
+}
+
+.mySelfMore image{
+  width: 34rpx;
+  display: inline-block;
+  margin-right: 16rpx;
+  vertical-align: middle;
+}

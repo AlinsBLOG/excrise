@@ -1,0 +1,167 @@
+<scroll-view 
+  class="body" 
+  scroll-y 
+  bindscrolltolower="getGoodsList" 
+  bindscrolltoupper="returnTop"
+  bindscroll="scrollView"
+>
+  <!-- 搜索结果 -->
+  <view 
+    class="mask2 pf a" 
+    wx:if="{{!filValue==0}}" 
+    catchtap="closeMask"></view>
+
+  <!-- 分类 categoryList -->
+  <view 
+    class="mask category-flex pf {{fix?'b':'d'}}" 
+    wx:if="{{filValue == 2}}" 
+    catchtap="closeMask">
+    <scroll-view 
+      class="goodsType bgf" 
+      scroll-y>
+      <view 
+        wx:for="{{ categoryList }}" 
+        wx:key="{{index}}" 
+        class="ulLis bgf f12 tl fow {{categoryFirstIndex==index?'orange':''}}" 
+        catchtap="getNextType"
+        data-item='{{item}}'
+        data-name="categoryFirstIndex"
+        data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+    <scroll-view 
+      class="nextType bgf"
+      wx:if='{{categoryList[categoryFirstIndex].childCatList.length>0}}'
+      scroll-y>
+      <view 
+        wx:for="{{ categoryList[categoryFirstIndex].childCatList }}" 
+        wx:key="{{index}}" 
+        class="ulLis bgf f12 tl fow {{categorySecondIndex==index?'orange':''}}" 
+        catchtap="getNextType" 
+        data-item='{{item}}'
+        data-name="categorySecondIndex"
+        data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+    <scroll-view 
+      class="nextType bgf"
+      wx:if='{{categoryList[categoryFirstIndex].childCatList[categorySecondIndex].childCatList.length>0}}'
+      scroll-y>
+      <view 
+        wx:for="{{ categoryList[categoryFirstIndex].childCatList[categorySecondIndex].childCatList }}" 
+        wx:key="{{index}}" 
+        class="ulLis bgf f12 tl fow {{categoryThirdIndex==index?'orange':''}}" 
+        catchtap="getNextType" 
+        data-item='{{item}}'
+        data-name="categoryThirdIndex"
+        data-index="{{index}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 产品类型 productlist -->
+  <view 
+    class="mask pf {{fix?'b':'d'}}" 
+    wx:if="{{filValue == 3}}" 
+    catchtap="closeMask">
+    <view 
+      wx:for="{{ productList }}" 
+      wx:key="{{index}}" 
+      class="ulLis bgf f12 tl fow {{origin==index?'orange':''}}" 
+      bindtap="changeOrigin" 
+      data-item="{{item}}"
+      data-index="{{index}}"
+      >
+      {{item.name}}
+    </view>
+  </view>
+  <!-- 默认列表布局 -->
+  <view class="scroll bgf" wx:if="{{style}}">
+    <view 
+      class="rec_goodsbox bb oh" 
+      wx:for="{{ moreList }}" 
+      wx:key="{{index}}" 
+      data-item="{{item}}" 
+      catchtap="goDetails">
+      <image class="rec_image db" src="{{item.images}}"></image>
+      <view class="rec_goodsinfo" style="z-index:0">
+        <view class="rec_goodsname textoh2 f30 mb10 fow">
+          {{item.name}}
+        </view>
+        <view class='rec_goodstip'></view>
+        <view class="rec_goodsprice price orange fow">
+          ￥{{item.price || 0}}
+        </view>
+        <view class="rec_company f10 gray mt10 pr">{{item.providerName}}
+          <text class="pa" style="right:0;">{{item.s_city}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 格子布局 -->
+  <view class="waterfal oh" wx:else>
+    <view class="waterfall_box">
+      <view 
+        class="waterfall_goods pr" 
+        wx:for="{{ moreList }}" 
+        wx:key="{{index}}" 
+        data-item="{{item}}" 
+        catchtap="goDetails">
+        <view class="waterfall_img">
+          <image src="{{item.images}}"></image>
+        </view>
+        <view class="rec_goodsname mt10 f30 fow textoh2 p15">
+         {{item.name}}
+        </view>
+        <view class="rec_goodstip p15">
+          <!-- 商品标签 -->
+          <text 
+            class="rec_goods_label f10 fow" 
+            wx:for="{{item.goods_label}}" 
+            wx:key="{{index}}">{{item}}</text>
+        </view>
+        <view class="ml10 mt10 orange f16 p14 fow" style="width:100%;">
+          ￥{{item.price}}
+        </view>
+        <view class="rec_company f10 gray pl10 pr">
+          <view class="textoh" style="width:70%;">{{item.providerName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="pf_view pf" style="top: {{fix?'-160rpx':'0rpx'}};">
+    <!-- 搜索框-->
+    <v-search bindconfirm='confirm' value='{{serchinput}}'></v-search>
+    <view class="options bgf flex-row pr">
+      <view 
+        class="select {{selectValue == 1 ? 'orange' : ''}}" 
+        catchtap="select1">人气</view>
+      <view 
+        class="select pr {{selectValue > 3 ? 'orange' : ''}}" 
+        catchtap="select45">
+        价格
+        <view class="sort desc {{selectValue == 4 ? 'desc_active' : ''}}"></view>
+        <view class="sort asc {{selectValue == 5 ? 'asc_active' : ''}}"></view>
+      </view>
+    </view>
+    <view class="options bgf pr">
+      <view 
+        class="filtrate fl f12 {{filValue == 2 ? 'orange' : ''}}" 
+        data-value='2'
+        catchtap="filtrate">{{filValue == 2 ? '产品类型 ▲' : categoryName+' ▼'}}</view>
+      <view 
+        class="filtrate fl f12 {{filValue == 3 ? 'orange' : ''}}"
+        data-value='3'
+        catchtap="filtrate">{{filValue == 3 ? '产品类型 ▲' : originName+' ▼' }}</view>
+      <view class="filtrate_img pa">
+        <image 
+          class="db pa" 
+          src="/images/icons/search/{{style?'ge':'list'}}.png" 
+          catchtap="changeStyle"></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>

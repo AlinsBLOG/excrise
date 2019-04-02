@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 搜索模块  -->
+  <!-- <view class="search">
+    <navigator url="/pages/search/search" class="input">
+      <image class="icon"></image>
+      <text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
+    </navigator>
+  </view> -->
+
+  <view class="catalog">
+    <!-- 分类左侧栏目  -->
+    <scroll-view class="nav" scroll-y="{{true}}">
+      <view 
+        class="item {{ currentCategory.id == item.id ? 'active' : ''}}" 
+        wx:for="{{serviceList}}"  
+        data-id="{{item.id}}"
+        bindtap="switchCate" 
+        wx:key="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </scroll-view>
+
+    <!-- 分类右侧栏目  -->
+    <scroll-view class="cate" scroll-y="{{true}}">
+        <block
+           wx:for="{{categoryList.children}}" 
+           wx:key="{{item.id}}"
+        >
+          <view class="hd">
+            <text class="txt">{{item.name}}</text>
+          </view>
+          <view class="bd">
+            <navigator 
+              wx:for="{{item.children}}" 
+              wx:for-index="subIndex" 
+              wx:for-item="subItem"
+              url="/pages/brandDetail/brandDetail?id={{subItem.id}}" 
+              class="item" 
+              wx:key="{{subItem.id}}">
+                <text class="txt">{{subItem.name}}</text>
+                <view class="content">
+                  不可描述的文字不可描述的文字不可描述的文字不可描述的文字不可描述的文字
+                </view>
+            </navigator>
+          </view> 
+        </block>
+    </scroll-view>
+  </view>
+</view>

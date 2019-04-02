@@ -1,7 +1,0 @@
-{
-    "navigationBarTitleText": "询价单详情",
-    "usingComponents":{
-      "v-modal":"/components/modal/index",
-      "v-city":"/components/area/index"
-    }
-}

@@ -1,3 +1,0 @@
-<!--pages/webView/webView.wxml-->
-<!-- 外部链接 -->
-<web-view src="{{webUrl}}"></web-view>

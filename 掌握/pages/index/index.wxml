@@ -1,0 +1,169 @@
+<wxs src="../../utils/wxs.wxs" module="wxs" />
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<!-- 绑定手机号弹窗
+<v-loginModel 
+  time='{{time}}'
+  bind:getCode='getCode'
+  bind:verify='verify'
+  isTieUp='{{isTieUp}}'
+>
+</v-loginModel> -->
+
+<form>
+  <view class="search pf bgf " style='display:flex;'>
+    <!-- 搜索列表 -->
+    <view style='flex:1' bindtap="toSearch">
+      <input type="text" name="key" class="f12 tc" style='height:54rpx' bindinput="inputSearch" placeholder="搜索产品名称、品牌、机型" disabled />
+      <image class="db pa searchIcon" src="/images/icons/index/search.png"></image>
+    </view>
+  </view>
+</form>
+
+<scroll-view class="container" scroll-y="{{isScroll}}" bindscrolltolower="getLikeList">
+  <!-- 轮播图 -->
+  <view class="swiper bgf">
+    <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange="bannerChange">
+      <block wx:for="{{bannerUrl}}" wx:key="{{index}}">
+        <swiper-item class="banner">
+          <image mode='aspectFill' src="{{item.image}}" lazy-load="{{true}}" class="slide-image" id="{{item.id}}" data-text="{{item.name}}" data-index="{{index}}" catchtap="goTo" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <view class="dot {{bannerIndex==index?'bannerAct':''}}" wx:for="{{bannerUrl}}" wx:key="{{index}}"></view>
+    </view>
+  </view>
+
+  <!-- 818促销活动 -->
+  <!-- url_type等于0不跳，1商品详情，2商家店铺，3外链，url为参数或者链接 根据不同类型跳转到不同的页面-->
+  <view class='promotion' style='margin-bottom:10rpx' bindtap="goPromotion" wx-if="{{ promotion.img}}">
+    <image lazy-load="{{true}}" src='{{promotion.img}}' style='width:100%;height:240rpx;display:block'></image>
+  </view>
+  <!-- 818促销活动结束-->
+
+  <!-- 产品分类 -->
+  <view class="prod_class mb20 bgf">
+    <view class="prod_item" wx:for="{{goodstype}}" wx:key="{{index}}" catchtap="changeType" id="{{item.id}}" data-text="{{item.name}}">
+      <image lazy-load="{{true}}" class="prod_image db m" src="{{item.icon}}"></image>
+      <view class="prod_label m f12 tc">{{item.name}}</view>
+    </view>
+  </view>
+  <!-- 每周特选 -->
+  <view class="refinement bb mb20 bgf">
+    <view class="ref_title tc f16">每周特选</view>
+    <view class="ref_box">
+      <view class="ref_l fl">
+        <view class="ref_lt" catchtap="goTo" id="{{refImg[0].url}}" data-text="{{refImg[0].goto}}">
+          <image lazy-load="{{true}}" src="{{refImg[0].image}}"></image>
+        </view>
+        <view class="ref_lb" catchtap="goTo" id="{{refImg[1].url}}" data-text="{{refImg[1].goto}}">
+          <image lazy-load="{{true}}" src="{{refImg[1].image}}"></image>
+        </view>
+      </view>
+      <view class="ref_r fr" catchtap="goTo" id="{{refImg[2].url}}" data-text="{{refImg[2].goto}}">
+        <image lazy-load="{{true}}" src="{{refImg[2].image}}"></image>
+      </view>
+    </view>
+  </view>
+  <!-- 人气推荐 -->
+  <view class="rec_title tc f16 pr bgf" catchtap="toPopularity">人气推荐
+    <image lazy-load="{{true}}" class="pa" src="/images/icons/index/rec-right.png"></image>
+  </view>
+  <view class="mb20 bgf">
+    <view class="rec_goodsbox bb oh" wx:for="{{recGoods}}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+      <image lazy-load="{{true}}" class="rec_image db fl" src="{{wxs.splitToArr(item.images)[0]}}"></image>
+      <view class="rec_goodsinfo fl pr">
+        <view class="rec_goodsname textoh2 f14 mt10">
+          <text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.name}}</view>
+        <view class="rec_goodstip">
+          <!-- 优惠XX元 -->
+          <!-- <text class="rec_goods_label f10" wx:if="false" wx:key="{{index}}">省{{item.disparity}}元</text> -->
+          <!-- 商品标签 -->
+          <text class="rec_goods_label f10" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text>
+        </view>
+        <view class="rec_goodsprice price" style='font-weight:600' wx:if="{{isTied == false || identity == 0}}">登录验证可见</view>
+        <view class="rec_goodsprice price" style='font-weight:600'>￥{{item.price}}
+          <text class="f12 gray oldPrice" style='font-weight:600'>￥{{item.price}}</text>
+        </view>
+        <view class="rec_company f10 gray mt10">{{item.providerName}}
+          <text class="pa" style="right:0;">广州市</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 产品分类 -->
+  <view class="prod_class mb20 bgf">
+    <view class="prod_item" wx:for="{{goodsmodel}}" wx:key="{{index}}" catchtap="getLastId" id="{{item.id}}" data-text="{{item.name}}">
+      <image lazy-load="{{true}}" class="prod_image db m" src="{{item.image}}"></image>
+      <view class="prod_label m f12 tc">{{item.title}}</view>
+    </view>
+  </view>
+  <!-- 品牌代理商直供 -->
+  <view class="rec_title tc f16 pr bgf" catchtap="toSupply">品牌代理商直供
+    <image lazy-load="{{true}}" class="pa supply_img" src="/images/icons/index/rec-right.png"></image>
+  </view>
+  <view class="supply_box bb bgf">
+    <view class="supply_goods df fl" wx:for="{{supplyImg}}" wx:key="{{index}}" catchtap="goCompany" data-text="{{item.title}}">
+      <image lazy-load="{{true}}" src="{{item.image}}"></image>
+    </view>
+  </view>
+  <!-- 专题 -->
+  <view class="rec_title tc f16 pr bgf" catchtap="toSpecial">专题
+    <image lazy-load="{{true}}" class="pa special_img" src="/images/icons/index/rec-right.png"></image>
+  </view>
+  <view class="special mb20 bgf">
+    <scroll-view class="special_scroll" scroll-x>
+      <view class="pl25">
+        <view class="special_box" wx:for="{{specialImg}}" wx:key="{{index}}" catchtap="goTo" data-text="{{item.goto}}">
+          <view class="special_banner">
+            <image lazy-load="{{true}}" src="{{item.image}}"></image>
+          </view>
+          <view class="mt10 f14 special_title">{{wxs.splitToArr(item.title)[0]}}</view>
+          <view class="mt10 f10 gray">{{wxs.splitToArr(item.title)[1]}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 猜你喜欢 -->
+  <view class="rec_title tc f16 pr bgf">- 猜你喜欢 -</view>
+  <view class="waterfal oh pb6">
+    <view class="waterfall_box">
+      <view class="waterfall_goods pr" wx:for="{{ likeList }}" wx:key="{{index}}" data-text="{{item}}" catchtap="goDetails">
+        <view class="waterfall_img">
+          <image lazy-load="{{true}}" src="{{wxs.splitToArr(item.images)[0]}}"></image>
+        </view>
+        <view class="ml10 mt10 f14 textoh2 p15" style="height:76rpx;">
+          <text class="rec_company_label white f10" wx:for="{{item.company_label}}" wx:key="{{index}}">{{item}}</text> {{item.name}}</view>
+        <view class="rec_goodstip p15">
+          <!-- 优惠XX元 -->
+          <!-- <text class="rec_goods_label f10" wx:if="{{item.disparity != 0 && isTied == true && identity !=0}}" wx:key="{{index}}">省{{item.disparity}}元</text> -->
+          <!-- 商品标签 -->
+          <!-- <text class="rec_goods_label f10" wx:for="{{item.goods_label}}" wx:key="{{index}}">{{item}}</text> -->
+        </view>
+        <!-- 非登录并且没有验证的 -->
+        <!-- <view class="ml10 mt10 orange f16 p14" style="font-weight:600" wx:if="{{isTied == false || identity == 0}}">
+          登录验证可见
+        </view> -->
+
+        <view class="ml10 mt10 orange f16 p14" style="font-weight:600" wx:if="{{isTied == true && identity != 0}}">
+          ￥{{item.price}}
+          <text class="f12 gray oldPrice" wx:if="{{item.retail_price && item.retail_price != item.nowprice}}">￥{{item.price}}</text>
+        </view>
+
+      </view>
+    </view>
+  </view>
+  <view class="page-loading" wx:if="{{showMore}}">
+    已经到底啦
+  </view>
+</scroll-view>
+<!-- 回到顶部 -->
+<view class="returnTop bgf pf" hidden="{{!showReturn}}" catchtap="returnTop">
+  <image class="return_img db" src="/images/icons/index/top.png"></image>
+  <view class="tc f8">顶部</view>
+</view>
+<!-- 分享 -->
+<button class="share pf" open-type='share' wx:if="{{!showLoading}}">
+  <image class="db pa" src="/images/icons/me/share.png"></image>
+  <text class="f10 db pa">分享</text>
+</button>

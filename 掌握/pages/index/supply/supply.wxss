@@ -1,0 +1,45 @@
+/* pages/index/supply/supply.wxss */
+page{background-color: #eee;}
+.supply_box{
+	width: 100%;
+}
+.supply_banner{
+	width: 100%;
+	height: 325rpx;
+}
+.supply_company{
+	width: 100%;
+	height: 120rpx;
+	padding: 30rpx 30rpx 0;
+}
+.supply_goods{
+	width: 100%;
+	height: 325rpx;
+	white-space: nowrap;
+}
+.supply_goodsbox{
+	width: 180rpx;
+	height: 325rpx;
+	display: inline-block;
+	margin-right: 30rpx;
+}
+.supply_goodsimage{
+	width: 180rpx;
+	height: 180rpx;
+}
+.supply_goodsname {
+	height: 60rpx;
+	white-space: pre-wrap;
+  }
+.supply_title{
+font-weight: 500;
+}
+.triangle{
+	transform:rotate(45deg);
+	background:#ffffff;
+	width:14px;
+	height:14px;
+	top:-5px;
+	left:10%;
+
+}

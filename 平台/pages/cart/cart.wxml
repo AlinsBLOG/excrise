@@ -1,0 +1,51 @@
+<view class="container cartContainer">
+    <view class="no-cart" wx:if="{{cartGoods.length<=0}}">
+        <view class="c">
+            <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png"></image>
+            <text>去添加点什么吧</text>
+        </view>
+    </view>
+    <view class="cart-view" wx:if="{{cartGoods.length>0}}" wx:for="{{cartGoods}}" wx:key="{{index}}">
+        <view class="list">
+            <view class="group-item">
+                <view class="header">
+                    <view class="promotion">
+                        <text class="tag">服务商</text>
+                        <text class="txt">{{item.providerFullName}}</text>
+                    </view>
+                </view>
+                <view class="goods">
+                    <view class="item {{isEditCart?'edit':''}}" wx:for="{{item.items}}" wx:for-index="subIndex" wx:for-item="subItem" wx:key="{{subItem.itemId}}">
+                        <view bindtap="checkedItem" class="checkbox {{subItem.checked?'checked':''}}" data-parent-index="{{index}}" data-sub-index="{{subIndex}}"></view>
+                        <view class="cart-goods">
+                            <image class="img" src="{{subItem.list_pic_url}}"></image>
+                            <view class="info">
+                                <view class="t">
+                                    <text class="name">{{subItem.prodName}}</text>
+                                    <text class="num">x{{subItem.quantity}}</text>
+                                </view>
+                                <view class="attr">{{isEditCart?'已选择:':''}}{{subItem.durationName}} ({{subItem.countyCode}})</view>
+                                <view class="b">
+                                    <text class="price">￥{{text.formatPrice(subItem.orderPrice)}}</text>
+                                    <view class="selnum">
+                                        <view bindtap="cutNumber" class="cut" data-item-index="{{subIndex}}" data-item-item="{{subItem}}" data-item-parent-index="{{index}}">-</view>
+                                        <input class="number" disabled="true" type="number" value="{{subItem.quantity}}"></input>
+                                        <view bindtap="addNumber" class="add" data-item-index="{{subIndex}}" data-item-item="{{subItem}}" data-item-parent-index="{{index}}">+</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cart-bottom">
+            <view bindtap="checkedAll" class="checkbox {{checkedAllStatus?'checked':''}}">全选({{cartTotal.checkedGoodsCount}})</view>
+            <view class="total">{{!isEditCart?'￥'+text.formatPrice(cartTotal.checkedGoodsAmount):''}}</view>
+            <view bindtap="editCart" class="delete">{{!isEditCart?'编辑':'完成'}}</view>
+            <view bindtap="deleteCart" class="checkout" wx:if="{{isEditCart}}">删除所选</view>
+            <view bindtap="checkoutOrder" class="checkout" wx:if="{{!isEditCart}}">下单</view>
+        </view>
+    </view>
+</view>
+<wxs module="text" src="../template/common.wxs" />

@@ -1,0 +1,139 @@
+/* pages/index/me/myOrder/myOrder/checkWuLiu.wxss */
+
+/* 头部 */
+
+page {
+  background: #fafafa;
+  height: 100%;
+}
+
+.wuliu_title {
+  width: 100%;
+  height: 51px;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.wl_copy {
+  top: 44rpx;
+  right: 28rpx;
+  width: 108rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  border: 2rpx solid #c8c8c8;
+  border-radius: 1px;
+  text-align: center;
+}
+
+.wlgs_cont_box {
+  width: 100%;
+}
+
+.wuliu_icon {
+  width: 38rpx;
+  height: 32rpx;
+  background: red;
+  margin: 0 38rpx 0 30rpx;
+}
+
+.wl_name {
+  color: #999;
+  margin-right:16rpx;
+}
+
+.wlgs {
+  height: 64rpx;
+  /* line-height: 64rpx; */
+  /* align-content: space-between; *//* justify-content: flex-start; */
+}
+
+.wl_box {
+  /* height: 100%; */
+  color: #999;
+  line-height: 34rpx;
+  background: #fff;
+}
+
+/* 
+.wl_left{
+  width:100rpx;
+  height:100%;
+  left:0;
+  top:0;
+} */
+
+.wl_msg {
+  margin: 20rpx  10rpx 0 40rpx;
+  padding-left: 58rpx;
+  height: 100%;
+  width: 100%;
+  border-left: 2rpx solid #ccc;
+}
+
+.wl_addr {
+  padding: 18rpx 16rpx 0 0;
+  box-sizing: border-box;
+}
+
+.wl_time {
+  margin-top: 5rpx;
+}
+
+.wulu_item {
+  border-bottom: 2rpx solid #eee;
+  padding: 20rpx 0 18rpx 0;
+  box-sizing: border-box;
+}
+
+.wl_msg .first_item {
+  padding-top: 0;
+}
+
+.wulu_icon {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+  top: 20rpx;
+  left: -58rpx;
+  transform:translate(-50% ,50%);
+
+}
+
+.active_icon {
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #25ae5f;
+  box-shadow: 0 0 10px #005822;
+}
+.first_active_icon{
+  top:-10rpx;
+}
+
+.active {
+  color: #25ae5f;
+}
+
+.concatNum {
+  color: #4aa0f8;
+  /* display: inline; */
+  display: inline-block;
+}
+
+.wl_left view {
+  /* display: inline-block; */
+  height: 162rpx;
+  width: 0;
+  border-right: 2rpx solid #ccc;
+}
+.deliverIcon{
+  transform: rotateY(180deg);
+  margin-left: 30rpx;
+  margin-right: 38rpx;
+  font-size: 40rpx;
+  color:#666;
+  
+}
+.item_addr{
+    word-break:break-all;
+}

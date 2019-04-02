@@ -1,0 +1,29 @@
+<!--pages/index/me/addrManage/editAddr/editAddr-->
+<loading hidden="{{!showLoading}}">正在加载</loading>
+<form bindsubmit="formValidate" hidden="{{showLoading}}">
+  <view class='editForm'>
+    <input value="{{addrDetail.income_people}}" name="income_people"></input>
+    <input value="{{addrDetail.phone}}" type="number" maxlength='11' name="phone"></input>
+    <view class='pr'>
+      <!-- <input disable value="{{addrDetail.province_name}} {{addrDetail.city_name}} {{addrDetail.county_name}}"></input> -->
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+        <input disabled wx:if="{{!isPicker}}" placeholder='省份、城市、区县' value="{{region[0]}} {{region[1]}} {{region[2]}}"></input>
+        <input disabled wx:else value="{{region[0]}} {{region[1]}} {{region[2]}}" placeholder='省份、城市、区县'></input>
+      </picker>
+      <view class='location pa frc' bindtap="chooseLocation">
+        <image src='../../../../../images/icons/me/addrManage/newAddr/map.png' class='mapIcon'></image>
+        <text>定位</text>
+      </view>
+    </view>
+    <input placeholder="详细地址、如接到、楼牌号等" value='{{name || addrDetail.details}}' name="details"></input>
+    <view class='defaultAddr frc'>
+      <label data-type="{{addrDetail.type}}" bindtap="setDefault">
+        <checkbox checked='{{addrDetail.type==1?true:false}}' value="{{addrDetail.type}}"></checkbox>
+        <text class='{{addrDetail.type==1?"df_active":""}}'>设为默认地址</text>
+      </label>
+    </view>
+  </view>
+  <view class='savaBox'>
+    <button class='sava' form-type="submit">保存</button>
+  </view>
+</form>

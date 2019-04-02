@@ -1,0 +1,2 @@
+<!--pages/index/dowload/dowload.wxml-->
+ <web-view src="https://m.palmar.cn/index/index/index.html"></web-view> 

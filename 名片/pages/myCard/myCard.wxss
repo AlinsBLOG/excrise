@@ -1,0 +1,82 @@
+page{
+  background: #F3F3F3;
+}
+
+.description{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140rpx 0 0;
+  background: #fff;
+}
+
+.description>view{
+  flex: 1;
+  line-height: 2.5;
+}
+
+.description image{
+  width: 30rpx;
+  vertical-align: middle;
+}
+
+.description text{
+  color: #62C4FF;
+  font-size: 28rpx;
+  margin-left: 8rpx;
+  vertical-align: middle;
+}
+
+.description .cancelZan{
+  color: #999999;
+}
+
+.myCardSendCard{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  padding: 30rpx;
+}
+
+.myCardSendCard text{
+  width: 23%;
+  text-align: center;
+  border: 1px solid #1D9CE8;
+  padding: 18rpx 0;
+  border-radius: 120rpx;
+  font-size: 26rpx;
+}
+
+.myCardSendCard .cut{
+  color: #1D9CE8;
+}
+
+.myCardSendCard .send{
+  color: #fff;
+  background: #1D9CE8;
+}
+
+.fourNeed{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  padding: 40rpx 0 20rpx;
+  margin: 20rpx 0;
+}
+
+.fourNeed image{
+  width: 45rpx;
+  height: 45rpx;
+  display: inline-block;
+}
+
+.fourNeed text{
+  display: block;
+  font-size: 28rpx;
+  color: #97A0AB;
+  margin-top: 20rpx;
+}

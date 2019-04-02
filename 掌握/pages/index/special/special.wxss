@@ -1,0 +1,10 @@
+/* pages/index/special/special.wxss */
+page{background-color: #eee;}
+.special_box{
+	width: 750rpx;
+}
+.special_image{
+	width: 750rpx;
+	height: 375rpx;
+}
+.p30{padding: 30rpx;}

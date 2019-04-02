@@ -1,0 +1,175 @@
+/* pages/index/checkOrder/checkOrder.wxss */
+page{background-color: #eee;height: 100%;}
+.wx-switch-input{width:80rpx !important;height:50rpx !important;}
+.wx-switch-input::before{width:80rpx !important;height: 50rpx !important;}
+.wx-switch-input::after{width: 44rpx !important;height: 44rpx !important;}
+/* 收货人信息 */
+.consignee{
+    width: 96%;
+    min-height: 190rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6rpx;
+    padding: 0 14rpx 14rpx 14rpx;
+    box-sizing: border-box;
+}
+.consignee_title{
+    font-weight: 900;
+    padding-top: 28rpx;
+}
+.consignee_name,
+.consignee_place{
+    width: 90%;
+    padding-top: 10rpx;
+}
+.consignee_right{
+    width: 14rpx;
+    height: 22rpx;
+    top: 50%;
+    right: 20rpx;
+    transform: translateY(-50%);
+}
+.consignee_img{
+    width: 100%;
+    height: 10rpx;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 商品订单 */
+.car_lists{
+    width: 96%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6rpx;
+}
+.car_com{
+    width: 100%;
+    height: 80rpx;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.car_com_title{
+    height: 80rpx;
+    line-height: 80rpx;
+    left: 72rpx;
+}
+.car_com_img{
+    width: 36rpx;
+    height: 36rpx;
+    top: 50%;
+    left: 14rpx;
+    transform: translateY(-50%);
+    background-color: yellowgreen;
+    border-radius: 50%;
+}
+.car_goods{
+    width: 100%;
+    height: 170rpx;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+}
+.recGoods{
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 20rpx 30rpx 0 154rpx;
+    left: 0;
+    transition:left 0.2s ease-in-out;
+}
+.car_goods_img{
+    width: 130rpx;
+    height: 130rpx;
+    top: 50%;
+    left: 14rpx;
+    transform: translateY(-50%);
+    background-color: yellowgreen;
+}
+.car_goods_text{
+    padding-top: 12rpx;
+}
+.car_goods_price{
+    padding-top: 16rpx;
+}
+.car_goods_count{
+    width: 146rpx;
+    height: 46rpx;
+    right: 26rpx;
+    bottom: 16rpx;
+}
+.count_num{
+    width: 54rpx;
+    height: 46rpx;
+    line-height: 46rpx;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.count_down,
+.count_up{
+    width: 44rpx;
+    height: 44rpx;
+    line-height: 44rpx;
+    border: 1px solid #eee;
+}
+.transport,
+.goods_num,
+.buyer_message,
+.all_money{
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    padding: 0 30rpx 0 14rpx;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+}
+.buyer_message input{
+    width: 88%;
+    height: 80rpx;
+    line-height: 80rpx;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+/* 出货单 */
+.goods_order{
+    width: 96%;
+    height: 88rpx;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.goods_order_text{
+    width: 100%;
+    height: 88rpx;
+    line-height: 88rpx;
+    padding: 0 14rpx;
+    border-radius: 6rpx;
+    font-weight: 900;
+    box-sizing: border-box;
+}
+.goods_order switch{
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20rpx;
+}
+/* 微信支付 */
+.pay{
+    width: 100%;
+    height: 180rpx;
+    bottom: 0;
+    left: 0;
+}
+.pay_money{
+    top: 20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 900
+}
+.pay button{
+    width: 694rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    bottom: 20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4dba4b;
+}

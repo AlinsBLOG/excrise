@@ -1,0 +1,76 @@
+<view class="container">
+ 
+
+  <view wx:if="{{type == 'logout'}}">
+    <view class="profile-info" bindtap="goLogin">
+      <image class="avatar" src="{{avatarImg}}"></image>
+      <view class="info">
+        <text class="level">{{name}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="profile-info">
+      <image class="avatar" src="{{avatarImg}}"></image>
+      <view class="info">
+        <text class="level">{{name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="user-menu">
+    <!-- <view class="item">
+      <navigator url="/pages/ucenter/order/order" class="a">
+        <text class="txt">我的订单</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/ucenter/coupon/coupon" class="a">
+        <text class="txt">优惠券</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/ucenter/collect/collect" class="a">
+        <text class="txt">我的收藏</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/ucenter/footprint/footprint" class="a">
+        <text class="txt">我的足迹</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="../address/address" class="a">
+        <text class="txt">地址管理</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="url" class="a">
+        <text class="txt">账号安全</text>
+      </navigator>
+    </view>
+    <view class="item item-bottom">
+      <navigator url="/pages/ucenter/feedback/feedback" class="a">
+        <text class="txt">意见反馈</text>
+      </navigator>
+    </view> -->
+
+    <view class='item right' bindtap='goToMyOrder' data-value='myorder'><text>我的订单</text></view>
+    <view class='item right' bindtap='goToMyOrder' data-value='myserve'><text>我的服务</text></view>
+    <view class='orderItem'>
+      <view><text>1</text><text>待付款</text></view>
+      <view><text>1</text><text>待交付</text></view>
+      <view><text>1</text><text>待验收</text></view>
+      <view><text>1</text><text>待评价</text></view>
+    </view>
+    <view class='item right createItem'><text>我的创业红包</text><text class='price'>$0</text></view>
+
+    <view class='item'><text>平台客服QQ</text><text>65464646fd</text></view>
+    <view class='item'><text>平台客服邮箱</text><text>65464646fd</text></view>
+    <view class='item'><text>平台微信公众号</text><text>65464646fd</text></view>
+  </view>
+
+  <view wx:if="{{type == 'login'}}">
+    <view class="logout" bindtap="exitLogin">退出登录</view>
+  </view>
+</view>

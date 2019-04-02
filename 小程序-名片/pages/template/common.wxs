@@ -1,7 +1,0 @@
-var slice = function (value) {
-  return value.slice(0,10);
-}
-
-module.exports = {
-  slice: slice
-}
