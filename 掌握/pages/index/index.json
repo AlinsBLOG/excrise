@@ -1,7 +1,0 @@
-{
-    "enablePullDownRefresh": true,
-    "backgroundTextStyle": "dark",
-    "usingComponents": {
-      "v-loginModel": "/components/loginModel/index"
-    }
-}

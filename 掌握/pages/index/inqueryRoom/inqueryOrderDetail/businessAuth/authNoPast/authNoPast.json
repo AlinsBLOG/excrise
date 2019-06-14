@@ -1,7 +1,0 @@
-{
-    "navigationBarTitleText": "",
-    "disableScroll": true,
-    "usingComponents": {
-      "v-city": "/components/area/index"
-    }
-}
