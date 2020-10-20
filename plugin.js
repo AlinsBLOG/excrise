@@ -20,3 +20,5 @@ function cloneFunction(func) {
         return eval(funcString);
     }
 }
+
+// 注释
